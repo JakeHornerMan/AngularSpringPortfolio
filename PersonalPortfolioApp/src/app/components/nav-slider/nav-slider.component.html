@@ -1,0 +1,16 @@
+<div class="options">
+    <ng-container *ngFor="let interest of interestList">
+        <div class="option" appNavSlider style="background-image: url({{interest.imageUrl}});">
+            <div class="shadow"></div>
+            <div class="label">
+                <div class="icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="info">
+                    <div class="main">{{interest.title}}</div>
+                    <div class="sub">{{interest.description}}</div>
+                </div>    
+            </div>
+        </div>
+    </ng-container>
+</div>

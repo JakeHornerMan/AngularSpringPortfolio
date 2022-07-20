@@ -5,33 +5,36 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.jake.exception.InterestNotFoundException;
 import com.jake.models.Interest;
 import com.jake.repo.InterestRepo;
 
+@Service
 public class InterestService {
 	
 	@Autowired
-	private InterestRepo interestRepo;
+	private InterestRepo intererstRepo;
 	
 	public List<Interest> getAllInterests(){
-		return interestRepo.findAll(); 
+		return intererstRepo.findAll(); 
 	}
 	
 	public Interest addInterest(Interest interest) {
-		return interestRepo.save(interest);
+		return intererstRepo.save(interest);
 	}
 	
 	public Interest updateInterest(Interest interest) {
-		return interestRepo.save(interest);
+		return intererstRepo.save(interest);
 	}
 	
 	public void deleteInterest(int interestId) {
-		interestRepo.deleteInterestById(interestId);
+		intererstRepo.deleteInterestById(interestId);
 	}
 	
-//	public Interest findInterest(int interestId) {
-//		return interestRepo.findInterestById(interestId)
-//			.orElseThrow(() -> new EntityNotFoundException ("This Interest ID "+interestId+" was not found"));
-//	}
+	public Interest findInterest(int interestId) {
+		return intererstRepo.findInterestById(interestId)
+			.orElseThrow(() -> new InterestNotFoundException ("This Interest ID "+interestId+" was not found"));
+	}
 }

@@ -12,6 +12,6 @@ public interface InterestRepo extends JpaRepository<Interest, Integer>{
 
 	void deleteInterestById(int interestId);
 
-	Optional findInterestById(int interestId);
+	Optional<Interest> findInterestById(int interestId);
 
 }

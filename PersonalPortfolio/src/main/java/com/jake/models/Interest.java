@@ -13,8 +13,7 @@ public class Interest implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(nullable = false, updatable = false)
-	private int interestId;
+	private int id;
 	@Column(nullable = false)
 	private String title;
 	private String description;
@@ -22,20 +21,21 @@ public class Interest implements Serializable {
 	
 	public Interest() {}
 
-	public Interest(int interestId, String title, String description, String imageUrl) {
+	public Interest(int id, String title, String description, String imageUrl) {
 		super();
-		this.interestId = interestId;
+		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.imageUrl = imageUrl;
 	}
 
-	public int getInterestId() {
-		return interestId;
+	public int getid() {
+		return id;
 	}
 
-	public void setInterestId(int interestId) {
-		this.interestId = interestId;
+	public void setid(int id) {
+		this.id = id;
+		
 	}
 
 	public String getTitle() {
@@ -64,7 +64,7 @@ public class Interest implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Interest [interestId=" + interestId + ", title=" + title + ", description=" + description
+		return "Interest [id=" + id + ", title=" + title + ", description=" + description
 				+ ", imageUrl=" + imageUrl + "]";
 	}
 	
