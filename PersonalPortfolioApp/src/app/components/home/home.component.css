@@ -1,0 +1,88 @@
+@const CREAM_COLOR: #E4DFDA;
+@const BLUE_COLOR: #4357AD;
+@const RED_COLOR: #C33C54;
+@const GREEN_COLOR: #48A9A6;
+@const TAN_COLOR: #D4B483;
+
+.home{
+    border-radius: 10px;
+    background-color: #e0e0e0;
+    margin-top: 3rem;
+    margin-left: 8rem;
+    margin-right: 8rem;
+    margin-bottom: 3rem;
+}
+
+.top-home{
+    margin: 1rem;
+    /* height: 10px; */
+    width: 50%;
+}
+
+.profile-img{
+    /* margin: 0 auto; */
+    max-height: 400px;
+    min-height: 30px;
+    max-width:auto;
+    border-radius: 5px;
+    border: 3px solid #fff;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+   
+  li {
+    font: 200 20px/1.5 Helvetica;
+    /* border-bottom: 1px solid #ccc; */
+  }
+   
+  li:last-child {
+    border: none;
+  }
+   
+  li {
+    text-decoration: none;
+    color: #000;
+    display: block;
+   
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+  }
+   
+  li:hover {
+    font-size: 30px;
+    color: red;
+    /* background: #f6f6f6; */
+  }
+
+.icons{
+    max-width: 80px;
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 1100px){
+    .profile-img{
+        width: 100%;
+    }
+    .home{
+        margin-left: 3rem;
+        margin-right: 3rem; 
+    }
+}
+
+@media screen and (max-width: 640px){
+    .profile-img{
+        max-width: 40vw;
+        max-height: 35vw;
+        align-self: center;
+    }
+    .icons{
+        max-height: 10vw;
+    }
+}

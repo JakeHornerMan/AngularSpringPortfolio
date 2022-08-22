@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+@const CREAM_COLOR: #E4DFDA;
+@const BLUE_COLOR: #4357AD;
+@const RED_COLOR: #C33C54;
+@const GREEN_COLOR: #48A9A6;
+@const TAN_COLOR: #D4B483;
+
+html{
+    background-image: url(../src/assets/spikes.png);
+    /* background-color: #fff; */
+    /* width: 100vw; */
+}
+
+/* FONTS */
+/* @font-face {
+    font-family: "Oxygen";
+    src: local("Oxygen"), url(./assets/fonts/Oxygen/Oxygen-Regular.ttf) format("truetype");
+} */
+
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex-center-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex-center-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@keyframes hvr-pulse {
+    25% {
+      -webkit-transform: scale(1.05);
+      transform: scale(1.05);
+    }
+    75% {
+      -webkit-transform: scale(0.95);
+      transform: scale(0.95);
+    }
+  }
+  .hvr-pulse {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  }
+  .hvr-pulse:hover, .hvr-pulse:focus, .hvr-pulse:active {
+    -webkit-animation-name: hvr-pulse;
+    animation-name: hvr-pulse;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+  }
+
