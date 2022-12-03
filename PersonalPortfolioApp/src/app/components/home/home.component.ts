@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Interest } from 'src/app/models/interest';
+import { Interest } from 'src/app/models/models';
 import { InterestService } from 'src/app/services/interest.service';
 
 

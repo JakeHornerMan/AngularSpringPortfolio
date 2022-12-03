@@ -8,13 +8,15 @@ import { HomeComponent } from './components/home/home.component';
 import { InterestService } from './services/interest.service';
 import { NavSliderComponent } from './components/nav-slider/nav-slider.component';
 import { NavSliderDirective } from './directives/nav-slider.directive';
+import { ProjectContentComponent } from './components/project-content/project-content.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavSliderComponent,
-    NavSliderDirective
+    NavSliderDirective,
+    ProjectContentComponent
   ],
   imports: [
     BrowserModule,

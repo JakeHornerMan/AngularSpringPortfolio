@@ -1,8 +1,5 @@
 package com.jake.models;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,14 +15,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Interest implements Serializable {
+public class Content {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	@Column(nullable = false)
-	private String title;
-	private String description;
-	private String imageUrl;
+	private int contentId;
+	private int projectId;
+	private String contentTitle;
+	private String contentType;
+	private String contentUrl;
+	
 	
 }
