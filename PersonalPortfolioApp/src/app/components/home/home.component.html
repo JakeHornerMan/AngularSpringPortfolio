@@ -1,34 +1,44 @@
-<div class="home flex-center-column">
-    <div class="flex-row">
-        <div class="top-home left flex-center-row">
-            <img src="https://avatars.githubusercontent.com/u/23031662?s=400&u=55539af4c8035510f4ddee7d759bfe604627295c&v=4" class="profile-img">
-        </div>
-        <div class="top-home right" style="border-radius: 1rem;border:3px solid black; background-color: #464646; padding-left: 0.5rem;">
+<div class="flex-center-column">
+    <div class="home boxColor">
+        <div class="flex-col space-bottom">
             <h1>Jake Horner</h1>
             <ul class="gradient-list">
                 <li>Programmer</li>
-                <li>Game Deisgner</li>
+                <li>Game Designer</li>
                 <li>Software Engineer</li>
                 <li>Web Developer</li>
                 <li>Artist</li>
             </ul>
         </div>
+        <div class="socialIcons space-bottom">
+            <a href="https://www.linkedin.com/in/jake-horner-a9203212b/" class="hvr-float-shadow">
+                <img src="/assets/linkedin.png" id="social" class="hvr-pulse icons">
+            </a>
+            <a href="https://www.instagram.com/jakedafartist/" class="hvr-float-shadow">
+                <img src="/assets/instagram.png"id="social" class="hvr-pulse icons">
+            </a>
+            <a href="https://github.com/JakeHornerMan" class="hvr-float-shadow">
+                <img src="/assets/github.png" id="social" class="hvr-pulse icons">
+            </a>
+            <a href="https://play.google.com/store/apps/developer?id=Jake+Horner" class="hvr-float-shadow">
+                <img src="/assets/gplay.png" id="social" class="hvr-pulse icons">
+            </a>
+            <a href="https://www.artstation.com/jakehornerman" class="hvr-float-shadow">
+                <img src="/assets/artstation.png" id="social" class="hvr-pulse icons">
+            </a>
+        </div>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2>Bio</h2>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>I am Jake Horner a graduate of Computer Science at the National College of Ireland, where I specialized in Software development.</p>
+            <p>I have been working most with Java and Spring framework in the financial sector.</p>
+            <p> I have a great passion for creating software, websites, games, and artwork.</p>
+          </mat-expansion-panel>
     </div>
-    <div class="socialIcons">
-        <a href="https://www.linkedin.com/in/jake-horner-a9203212b/" class="hvr-float-shadow">
-            <img src="/assets/linkedin.png" id="social" class="hvr-pulse icons">
-        </a>
-        <a href="https://www.instagram.com/jakedafartist/" class="hvr-float-shadow">
-            <img src="/assets/instagram.png"id="social" class="hvr-pulse icons">
-        </a>
-        <a href="https://github.com/JakeHornerMan" class="hvr-float-shadow">
-            <img src="/assets/github.png" id="social" class="hvr-pulse icons">
-        </a>
-        <a href="https://play.google.com/store/apps/developer?id=Jake+Horner" class="hvr-float-shadow">
-            <img src="/assets/gplay.png" id="social" class="hvr-pulse icons">
-        </a>
-        <a href="https://www.artstation.com/jakehornerman" class="hvr-float-shadow">
-            <img src="/assets/artstation.png" id="social" class="hvr-pulse icons">
-        </a>
-    </div>
+
+    <app-project-content></app-project-content>
 </div>

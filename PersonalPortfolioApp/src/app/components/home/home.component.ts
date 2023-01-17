@@ -1,7 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Interest } from 'src/app/models/models';
+import { Interest, Project } from 'src/app/models/models';
 import { InterestService } from 'src/app/services/interest.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 
 @Component({
@@ -11,23 +12,34 @@ import { InterestService } from 'src/app/services/interest.service';
 })
 export class HomeComponent implements OnInit {
 
-interestList = new Array<Interest>();
+  interestList = new Array<Interest>();
+  projectList = new Array<Project>();
 
-  constructor(private interestService:InterestService) { 
+  constructor(private interestService:InterestService, private projectService:ProjectService) { 
 
   }
 
   ngOnInit(): void {
+    this.getInterests();
+    this.getProjects();
+  }
+
+  getInterests(){
     this.interestService.getAllInterests().subscribe((res: Interest[])=>{
       if(res){
         this.interestList = res;
         console.log(this.interestList[0].title);
       }
-    })
+    });
   }
 
-  getInterests(){
-    
+  getProjects(){
+    this.projectService.getAllProjects().subscribe((res: Project[])=>{
+      if(res){
+        this.projectList = res;
+        console.log(this.projectList);
+      }
+    });
   }
 
 }

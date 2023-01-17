@@ -5,9 +5,25 @@
 @const TAN_COLOR: #D4B483;
 
 html{
-    background-image: url(../src/assets/spikes.png);
-    /* background-color: #fff; */
+    /* background-image: url(../src/assets/spikes.png); */
+    background-color: #13131e;
     /* width: 100vw; */
+}
+
+.boxColor{
+  background-color: #202133;
+}
+
+.primaryColor{
+  color: #feaf41
+}
+
+.secondaryColor{
+  color: #e0472e
+}
+
+.thirdColor{
+  color: #4f36c2
 }
 
 /* FONTS */
@@ -15,6 +31,16 @@ html{
     font-family: "Oxygen";
     src: local("Oxygen"), url(./assets/fonts/Oxygen/Oxygen-Regular.ttf) format("truetype");
 } */
+
+.box{
+  background-color: #202133;
+  color: #feaf41;
+  margin-left: 8rem;
+  margin-right: 8rem;
+  margin-bottom: 2rem;
+  padding: 3rem;
+  border-radius: 1rem;
+}
 
 .left{
     float: left;
@@ -39,6 +65,44 @@ html{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.space-bottom{
+  margin-bottom: 2rem;
+}
+
+h1{
+  font-size: 3rem;
+}
+
+p{
+  color: #feaf41;
+  font-size: 1rem;
+}
+
+h1,h2,h3,h4,h5,h6{
+  color: #e0472e;
+}
+
+mat-expansion-panel {
+  background-color: #13131e;
+}
+
+mat-expansion-panel-header:hover {
+  background-color: #4f36c2;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #e0472e;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
 }
 
 @keyframes hvr-pulse {
@@ -69,3 +133,6 @@ html{
     animation-iteration-count: infinite;
   }
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

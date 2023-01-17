@@ -26,7 +26,7 @@ public class Project {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int projectId;
+	private int id;
 	private String projectName;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -35,5 +35,6 @@ public class Project {
 	private Date startDate;
 	private Date endDate;
 	private Interest interest;
+	private String cateorys;
 	
 }

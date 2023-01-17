@@ -25,5 +25,4 @@ public class Content {
 	private String contentType;
 	private String contentUrl;
 	
-	
 }

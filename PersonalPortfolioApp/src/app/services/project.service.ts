@@ -10,19 +10,19 @@ export class ProjectService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllInterests(): Observable<Project[]>{
-    return this.httpClient.get<Project[]>('http://localhost:8080/interests');
+  getAllProjects(): Observable<Project[]>{
+    return this.httpClient.get<Project[]>('http://localhost:8080/projects');
   }
 
-  getIntrest(id: number): Observable<Project[]>{
-    return this.httpClient.get<Project[]>('http://localhost:8080/interests/'+ id);
+  getProject(id: number): Observable<Project[]>{
+    return this.httpClient.get<Project[]>('http://localhost:8080/projects/'+ id);
   }
 
-  saveInterest(interest: Project): Observable<Project[]>{
-    return this.httpClient.get<Project[]>('http://localhost:8080/interests/save/'+ interest);
+  saveProject(interest: Project): Observable<Project[]>{
+    return this.httpClient.get<Project[]>('http://localhost:8080/projects/save/'+ interest);
   }
 
-  deleteInterest(id: number): Observable<Project[]>{
-    return this.httpClient.get<Project[]>('http://localhost:8080/interests/delete/'+ id);
+  deleteProject(id: number): Observable<Project[]>{
+    return this.httpClient.get<Project[]>('http://localhost:8080/projects/delete/'+ id);
   }
 }
