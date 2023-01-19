@@ -37,7 +37,7 @@ body{
 .options .option.active{
     flex-grow:10000;
     transform: scale(1);
-    max-width: 600px;
+    max-width: 420px;
     /* margin: 0 auto; */
     border-radius: 20px;
     background-size: auto 100%;
@@ -129,7 +129,7 @@ body{
 
 @media screen and (max-width: 718px){
     .options{
-        min-width: 520px;   
+        min-width: 420px;   
     }
     /* .options .option:nth-child(5){
         display:none;
@@ -141,7 +141,7 @@ body{
     }
     /* .options .option:nth-child(4){
         display:none;
-    } */
+    }  */
 }
 @media screen and (max-width: 558px){
     .options{
