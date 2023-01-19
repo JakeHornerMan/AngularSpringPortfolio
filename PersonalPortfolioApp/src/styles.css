@@ -27,10 +27,14 @@ html{
 }
 
 /* FONTS */
-/* @font-face {
-    font-family: "Oxygen";
-    src: local("Oxygen"), url(./assets/fonts/Oxygen/Oxygen-Regular.ttf) format("truetype");
-} */
+@font-face {
+    font-family: "Play";
+    src: url(assets/fonts/Oswald-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Kanit";
+  src: url(assets/fonts/Kanit-Regular.ttf) format("truetype");
+}
 
 .box{
   background-color: #202133;
@@ -72,7 +76,7 @@ html{
 }
 
 h1{
-  font-size: 3rem;
+  font-size: 3rem !important;
 }
 
 p{
@@ -82,19 +86,13 @@ p{
 
 h1,h2,h3,h4,h5,h6{
   color: #e0472e;
-}
-
-mat-expansion-panel {
-  background-color: #13131e;
-}
-
-mat-expansion-panel-header:hover {
-  background-color: #4f36c2;
+  font-family: Kanit !important;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
-  background-color: #e0472e;
+  background-color: #4f36c2;
+  cursor: default;
 }
 
 /* Style the collapsible content. Note: hidden by default */
@@ -103,6 +101,14 @@ mat-expansion-panel-header:hover {
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
+}
+
+.mat-typography h2{
+  margin: 0;
+}
+
+.mat-expansion-panel {
+  background-color: #13131e;
 }
 
 @keyframes hvr-pulse {

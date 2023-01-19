@@ -13,8 +13,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 			.antMatchers("/secure").authenticated()
-//			.antMatchers("/interests").permitAll()
-//			.antMatchers("/projects").permitAll()
+			.antMatchers("/interests/**").permitAll()
+			.antMatchers("/projects/**").permitAll()
 			.and()
 			.formLogin()
 			.and()
