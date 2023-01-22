@@ -6,18 +6,29 @@ export interface Interest {
 }
 
 export interface Project {
-    projectId: number;
+    id: number;
     projectName: string;
     contentList: Content[];
     startDate: Date;
     endDate: Date;
-    interest: Interest;
+    linkedInterests: string;
+    interestList: Interest[];
+    linkedTechnologys: string;
+    technologyList: Technology[];
 }
 
 export interface Content {
-    contentId: number;
+    id: number;
 	projectId: number;
-	contentTitle: String;
+	contentTitle: string;
+    contentParagraph: String;
 	contentType: String;
 	contentUrl: String;
+    position: number;
+}
+
+export interface Technology {
+    id: number;
+    techName: string;
+    techDescription: string;
 }

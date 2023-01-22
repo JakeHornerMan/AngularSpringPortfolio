@@ -26,7 +26,4 @@ public class Technology {
 	private String techName;
 	private String techDescription;
 	
-//	@Column(name="tech_id")
-//	private int techId;
-	
 }
