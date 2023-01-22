@@ -10,7 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.jake.service.InterestService;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,12 +35,15 @@ public class Project {
 	private int id;
 	private String projectName;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "contentId")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="project")
 	private List<Content> contentList;
 	private Date startDate;
 	private Date endDate;
-	private Interest interest;
+	
+	private String linkedInterests;
+	
 	private String cateorys;
+	
+	private String linkedTechnologys;
 	
 }

@@ -4,23 +4,6 @@
 @const GREEN_COLOR: #48A9A6;
 @const TAN_COLOR: #D4B483;
 
-
-.home{
-    border-radius: 1rem;
-    margin-top: 3rem;
-    margin-left: 8rem;
-    margin-right: 8rem;
-    margin-bottom: 3rem;
-    padding: 3rem;
-}
-
-.top-home{
-    margin: 1rem;
-    /* height: 10px; */
-    width: 50%;
-    border-radius: 1rem;
-}
-
 ul {
     list-style-type: none;
     margin: 0;
@@ -72,22 +55,7 @@ mat-expansion-panel-header:hover {
     background-color: #4f36c2;
 }
 
-@media screen and (max-width: 1100px){
-    .profile-img{
-        width: 100%;
-    }
-    .home{
-        margin-left: 3rem;
-        margin-right: 3rem; 
-    }
-}
-
 @media screen and (max-width: 640px){
-    .profile-img{
-        max-width: 40vw;
-        max-height: 35vw;
-        align-self: center;
-    }
     .icons{
         max-height: 10vw;
     }

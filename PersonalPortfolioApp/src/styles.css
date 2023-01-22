@@ -34,16 +34,22 @@ html{
 @font-face {
   font-family: "Kanit";
   src: url(assets/fonts/Kanit-Regular.ttf) format("truetype");
-}
+}  
 
 .box{
-  background-color: #202133;
-  color: #feaf41;
+  border-radius: 1rem;
+  margin-top: 3rem;
   margin-left: 8rem;
   margin-right: 8rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   padding: 3rem;
-  border-radius: 1rem;
+}
+
+@media screen and (max-width: 1100px){
+  .box{
+      margin-left: 3rem;
+      margin-right: 3rem; 
+  }
 }
 
 .left{
@@ -69,6 +75,7 @@ html{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .space-bottom{

@@ -28,4 +28,7 @@ public class Interest implements Serializable {
 	private String description;
 	private String imageUrl;
 	
+//	@Column(name="interest_id")
+//	private int interestId;
+	
 }

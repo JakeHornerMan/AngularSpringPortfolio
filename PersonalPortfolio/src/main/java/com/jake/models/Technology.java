@@ -2,6 +2,7 @@ package com.jake.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,5 +25,8 @@ public class Technology {
 	private int id;
 	private String techName;
 	private String techDescription;
+	
+//	@Column(name="tech_id")
+//	private int techId;
 	
 }
