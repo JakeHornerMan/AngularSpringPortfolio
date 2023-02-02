@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
     this.interestService.getAllInterests().subscribe((res: Interest[])=>{
       if(res){
         this.interestList = res;
-        console.log(this.interestList[0].title);
       }
     });
   }

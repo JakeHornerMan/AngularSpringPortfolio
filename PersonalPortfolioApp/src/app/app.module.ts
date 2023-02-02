@@ -11,6 +11,10 @@ import { NavSliderComponent } from './components/nav-slider/nav-slider.component
 import { NavSliderDirective } from './directives/nav-slider.directive';
 import { ProjectContentComponent } from './components/project-content/project-content.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ParagraphsComponent } from './components/contentTypes/paragraphs/paragraphs.component';
+import { VideosComponent } from './components/contentTypes/videos/videos.component';
+import { ImagesComponent } from './components/contentTypes/images/images.component';
+import { LinksComponent } from './components/contentTypes/links/links.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavSliderComponent,
     NavSliderDirective,
     ProjectContentComponent,
+    ParagraphsComponent,
+    VideosComponent,
+    ImagesComponent,
+    LinksComponent,
   ],
   imports: [
     BrowserModule,

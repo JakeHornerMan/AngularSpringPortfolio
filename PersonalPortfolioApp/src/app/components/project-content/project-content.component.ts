@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Project } from 'src/app/models/models';
+import { Content, Project } from 'src/app/models/models';
 
 @Component({
   selector: 'app-project-content',
@@ -9,10 +9,22 @@ import { Project } from 'src/app/models/models';
 export class ProjectContentComponent implements OnInit {
 
   @Input() project!: Project;
+  contentList = new Array<Content>();
 
-  constructor() { }
+  constructor() {
+    
+  }
 
   ngOnInit(): void {
+    this.contentList = this.project.contentList;
+    this.sortContent();
+  }
+
+  sortContent(){
+    this.contentList.sort((a, b) => {
+      return a.position - b.position;
+    });
+    this.contentList = this.project.contentList;
   }
 
 }

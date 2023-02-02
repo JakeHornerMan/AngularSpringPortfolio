@@ -1,0 +1,15 @@
+<div class="flex-row space-top" *ngIf="content.contentParagraph != null">
+    <div class="right-box images">
+        <img src="{{content.contentUrl}}">
+    </div>
+    <div class="left-box">
+        <h2>{{content.contentTitle}}</h2>
+        <ng-container *ngFor="let content of paragraphList">
+            <p>{{content}}</p>
+        </ng-container>
+    </div>
+</div>
+<div *ngIf="content.contentParagraph == null" class="space-top">
+    <img src="{{content.contentUrl}}">
+</div>
+

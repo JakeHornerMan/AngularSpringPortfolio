@@ -1,3 +1,33 @@
 <div class="box boxColor">
-    <h1>Base Box</h1>
+    <div class="flex-row space-bottom titleBox">
+        <h1>{{project.projectName}}</h1>
+        <div class="flex-center-column">
+            <label>{{project.startDate}}</label>
+            <label>-</label>
+            <label>{{project.endDate}}</label>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+
+    <ng-container *ngFor="let content of contentList">
+
+        <ng-container *ngIf="content.contentType == 'text'">
+            <app-paragraphs [content]="content"></app-paragraphs>
+        </ng-container>
+
+        <ng-container *ngIf="content.contentType == 'video'">
+            <app-videos [content]="content"></app-videos>
+        </ng-container>
+
+        <ng-container *ngIf="content.contentType == 'image'">
+            <app-images [content]="content"></app-images>
+        </ng-container>
+
+        <ng-container *ngIf="content.contentType == 'link'">
+            <app-links [content]="content"></app-links>
+        </ng-container>
+
+    </ng-container>
 <div>

@@ -1,11 +1,13 @@
 package com.jake.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,8 +33,12 @@ public class Content {
 	@JoinColumn(name="project_id")
 	private Project project;
 	private String contentTitle;
-	private String contentPragraph;
+	@Lob
+	@Column
+	private String contentParagraph;
 	private String contentType;
+	@Lob
+	@Column
 	private String contentUrl;
 	private int position;
 	

@@ -21,9 +21,9 @@ export interface Content {
     id: number;
 	projectId: number;
 	contentTitle: string;
-    contentParagraph: String;
-	contentType: String;
-	contentUrl: String;
+    contentParagraph: string;
+	contentType: string;
+	contentUrl: string;
     position: number;
 }
 

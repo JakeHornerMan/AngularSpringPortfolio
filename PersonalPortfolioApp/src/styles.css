@@ -39,10 +39,11 @@ html{
 .box{
   border-radius: 1rem;
   margin-top: 3rem;
-  margin-left: 8rem;
-  margin-right: 8rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
   margin-bottom: 3rem;
   padding: 3rem;
+  width: -webkit-fill-available;
 }
 
 @media screen and (max-width: 1100px){
@@ -52,17 +53,16 @@ html{
   }
 }
 
-.left{
-    float: left;
-}
-.right{
-    float: right;
+.images{
+  display: flex;
+  justify-content: center;
 }
 
 .flex-row{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .flex-center-row {
@@ -79,7 +79,11 @@ html{
 }
 
 .space-bottom{
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+
+.space-top{
+  margin-top: 1rem;
 }
 
 h1{
@@ -91,7 +95,7 @@ p{
   font-size: 1rem;
 }
 
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6,label{
   color: #e0472e;
   font-family: Kanit !important;
 }
@@ -112,6 +116,10 @@ h1,h2,h3,h4,h5,h6{
 
 .mat-typography h2{
   margin: 0;
+}
+
+.paragraphSpacing > *{
+  margin-bottom: 0.5rem;
 }
 
 .mat-expansion-panel {

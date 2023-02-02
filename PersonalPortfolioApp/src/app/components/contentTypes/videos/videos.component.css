@@ -1,0 +1,23 @@
+.right-box{
+    float: right;
+    width: 40%;
+    order: 3;
+}
+.left-box{
+    float: left;
+    width: 60%;
+    order: 2;
+}
+
+@media screen and (max-width: 990px){
+  .right-box{
+    width: 100%;
+    order: 1;
+  }
+  .left-box{
+    width: 100%;
+  }
+  .flex-row{
+    flex-direction: column !important;
+  }
+}

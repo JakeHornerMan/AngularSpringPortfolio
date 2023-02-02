@@ -1,0 +1,14 @@
+<div class="flex-row space-top" *ngIf="content.contentParagraph != null">
+    <div class="right-box images">
+        <iframe width="560" height="315" [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="left-box">
+        <h2>{{content.contentTitle}}</h2>
+        <ng-container *ngFor="let content of paragraphList">
+            <p>{{content}}</p>
+        </ng-container>
+    </div>
+</div>
+<div *ngIf="content.contentParagraph == null" class="space-top">
+    <iframe width="560" height="315" [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>

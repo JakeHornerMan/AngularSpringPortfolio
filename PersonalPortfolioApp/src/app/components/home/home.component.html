@@ -40,6 +40,9 @@
             <p> I have a great passion for creating software, websites, games, and artwork.</p>
         </mat-expansion-panel>
     </div>
-
-    <app-project-content></app-project-content>
+</div>
+<div class="flex-center-column">
+    <ng-container *ngFor="let project of projectList">
+        <app-project-content [project]="project"></app-project-content>
+    </ng-container>
 </div>
