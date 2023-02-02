@@ -21,3 +21,9 @@
     flex-direction: column !important;
   }
 }
+
+iframe{
+  max-height: inherit;
+  overflow: auto;
+  border-radius: 0.25rem;
+}

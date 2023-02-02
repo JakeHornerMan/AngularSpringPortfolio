@@ -2,13 +2,14 @@
     <div class="right-box images">
         <iframe width="560" height="315" [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
-    <div class="left-box">
+    <div class="left-box" style="margin-right:0.5rem">
         <h2>{{content.contentTitle}}</h2>
         <ng-container *ngFor="let content of paragraphList">
             <p>{{content}}</p>
         </ng-container>
     </div>
 </div>
-<div *ngIf="content.contentParagraph == null" class="space-top">
-    <iframe width="560" height="315" [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div *ngIf="content.contentParagraph == null" class="space-top flex-center-column">
+    <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
+    <iframe [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </div>

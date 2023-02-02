@@ -21,3 +21,19 @@
     flex-direction: column !important;
   }
 }
+
+img {  
+  max-height: inherit;
+  overflow: auto;
+  max-width: inherit;
+  border-radius: 0.25rem;
+}
+
+.solo-img-div{
+  max-height: 500px;
+}
+
+.solo-img{
+  height: max-content;
+  width: max-content;
+}

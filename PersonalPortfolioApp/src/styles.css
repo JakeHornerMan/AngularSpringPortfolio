@@ -10,6 +10,11 @@ html{
     /* width: 100vw; */
 }
 
+/* div {
+  border-style: solid;
+  border-color: coral;
+} */
+
 .boxColor{
   background-color: #202133;
 }
@@ -44,6 +49,16 @@ html{
   margin-bottom: 3rem;
   padding: 3rem;
   width: -webkit-fill-available;
+
+  box-shadow:
+	  inset #e0472e 0 0 0 5px,
+    inset #E55831 0 0 0 1px,
+    inset #EA6A34 0 0 0 10px,
+    inset #EF7B38 0 0 0 11px,
+    inset #F48C3B 0 0 0 16px,
+    inset #F99E3E 0 0 0 17px,
+    inset #FEAF41 0 0 0 20px;
+    
 }
 
 @media screen and (max-width: 1100px){
@@ -88,6 +103,7 @@ html{
 
 h1{
   font-size: 3rem !important;
+  text-shadow: 3px 3px 1px #4f36c2;
 }
 
 p{
