@@ -7,8 +7,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jake.entitys.Interest;
 import com.jake.exception.InterestNotFoundException;
-import com.jake.models.Interest;
 import com.jake.repo.InterestRepo;
 
 @Service

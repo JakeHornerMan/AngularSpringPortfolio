@@ -1,8 +1,8 @@
-package com.jake.models;
+package com.jake.entitys;
 
-import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,14 +18,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Interest implements Serializable {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column(nullable = false)
-	private String title;
-	private String description;
-	private String imageUrl;
-	
+	private String email;
+	private String password;
 }

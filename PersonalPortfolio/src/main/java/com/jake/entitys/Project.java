@@ -1,4 +1,4 @@
-package com.jake.models;
+package com.jake.entitys;
 
 import java.sql.Date;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.jake.models;
+package com.jake.entitys;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

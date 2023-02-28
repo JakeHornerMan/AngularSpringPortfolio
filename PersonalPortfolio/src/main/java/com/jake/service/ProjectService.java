@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jake.entitys.Project;
 import com.jake.exception.ProjectNotFoundException;
-import com.jake.models.Project;
 import com.jake.repo.ProjectRepo;
 
 @Service

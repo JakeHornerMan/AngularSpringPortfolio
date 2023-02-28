@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jake.models.Interest;
+import com.jake.entitys.Interest;
 import com.jake.service.InterestService;
 
 @Controller
