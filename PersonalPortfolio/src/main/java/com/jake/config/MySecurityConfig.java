@@ -26,12 +26,13 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http
-//		.csrf().disable()
+			.csrf().disable()
 			.authorizeRequests()
 			.antMatchers("/secure").authenticated()
-			.antMatchers("/interests/**","/projects/**","/login","/register").permitAll()
-			.and()
-			.formLogin()
+			.antMatchers("/interests/**","/projects/**").permitAll()
+			.antMatchers("/login","/register").permitAll()
+//			.and()
+//			.formLogin()
 			.and()
 			.httpBasic();
 	}

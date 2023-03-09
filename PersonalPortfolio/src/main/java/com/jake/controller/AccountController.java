@@ -39,4 +39,9 @@ public class AccountController {
 	public ResponseEntity<User> register(@RequestBody UserModel user) {
 		return new ResponseEntity<>(accountService.registerUser(user), HttpStatus.OK);
 	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<HttpStatus> login(@RequestBody UserModel user) throws Exception {
+		return new ResponseEntity<>(accountService.loginUser(user), HttpStatus.OK);
+	}
 }
