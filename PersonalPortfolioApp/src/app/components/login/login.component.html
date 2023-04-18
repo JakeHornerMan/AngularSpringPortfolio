@@ -1,0 +1,12 @@
+<div class="flex-center-row">
+    <div>
+    <h1>Login</h1>
+        <form [formGroup]="loginForm">
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="username" formControlName="email">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" formControlName="password">
+            <input type="submit" value="Login" (click)="login()">
+        </form>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,18 +18,33 @@ import com.jake.entitys.Interest;
 import com.jake.entitys.User;
 import com.jake.models.UserModel;
 import com.jake.service.AccountService;
+import com.jake.service.InterestService;
 
 @Controller
 @RestController
+@CrossOrigin
 public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
 	
+	@Autowired
+	private InterestService interestService;
+	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/secure")
-	public String securedResponce() {
-		return "Secured Request Access";
+	public ResponseEntity<String> securedResponce() {
+		System.out.println("It did run!");
+		String str = "Secured Request Access";
+		return new ResponseEntity<>(str, HttpStatus.OK);
 	}
+	
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@PostMapping("/secure/interests/save")
+//	public ResponseEntity<Interest> addInterest(@RequestBody Interest interest) {
+//		Interest newInterest = interestService.addInterest(interest);
+//		return new ResponseEntity<>(newInterest, HttpStatus.CREATED);
+//	}
 	
 	@GetMapping("/no")
 	public String nonSecuredResponce() {
@@ -41,7 +57,7 @@ public class AccountController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<HttpStatus> login(@RequestBody UserModel user) throws Exception {
+	public ResponseEntity<Object> login(@RequestBody UserModel user) throws Exception {
 		return new ResponseEntity<>(accountService.loginUser(user), HttpStatus.OK);
 	}
 }

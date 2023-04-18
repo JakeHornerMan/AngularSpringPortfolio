@@ -32,3 +32,8 @@ export interface Technology {
     techName: string;
     techDescription: string;
 }
+
+export interface User{
+    email: string;
+    password: string;
+}

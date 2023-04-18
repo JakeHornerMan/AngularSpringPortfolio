@@ -35,17 +35,18 @@ public class AccountService {
 		return userRepository.save(newUser);
 	}
 	
-	public HttpStatus loginUser(UserModel user) throws Exception {
+	public UserModel loginUser(UserModel user) throws Exception {
 		Authentication auth;
 		
 		try {
 			auth = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(auth);
+			
 		}
 		catch(BadCredentialsException e) {
 			throw new Exception("Invalid credentials");
 		}
-		return HttpStatus.OK;
+		return user;
 	}
 }

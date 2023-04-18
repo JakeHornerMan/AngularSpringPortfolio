@@ -2,6 +2,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +17,18 @@ import { ParagraphsComponent } from './components/contentTypes/paragraphs/paragr
 import { VideosComponent } from './components/contentTypes/videos/videos.component';
 import { ImagesComponent } from './components/contentTypes/images/images.component';
 import { LinksComponent } from './components/contentTypes/links/links.component';
+import { LoginComponent } from './components/login/login.component';
+import { ErrorComponent } from './components/error/error.component';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
+
+
+const appRoute: Routes =[
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path:'home', component: HomeComponent},
+  {path:'login', component: LoginComponent},
+  {path:'createPage', component: CreateProjectComponent},
+  {path:'**', component: ErrorComponent} //must be last
+];
 
 @NgModule({
   declarations: [
@@ -27,6 +41,10 @@ import { LinksComponent } from './components/contentTypes/links/links.component'
     VideosComponent,
     ImagesComponent,
     LinksComponent,
+    LoginComponent,
+    ErrorComponent,
+    CreateProjectComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -34,6 +52,9 @@ import { LinksComponent } from './components/contentTypes/links/links.component'
     HttpClientModule,
     MatExpansionModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(appRoute),
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [InterestService],
   bootstrap: [AppComponent]

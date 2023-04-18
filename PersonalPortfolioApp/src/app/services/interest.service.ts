@@ -18,8 +18,8 @@ export class InterestService {
     return this.httpClient.get<Interest[]>('http://localhost:8080/interests/'+ id);
   }
 
-  saveInterest(interest: Interest): Observable<Interest[]>{
-    return this.httpClient.get<Interest[]>('http://localhost:8080/interests/save/'+ interest);
+  saveInterest(interest: Interest): Observable<Interest>{
+    return this.httpClient.post<Interest>('http://localhost:8080/interests/save', interest);
   }
 
   deleteInterest(id: number): Observable<Interest[]>{

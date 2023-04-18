@@ -1,0 +1,38 @@
+.containerError {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1 {
+    color: red;
+    text-align: center;
+    font-size: 6em;
+    margin-bottom: 0;
+    text-shadow: 0 0 10px red;
+}
+p {
+    font-size: 2em;
+    margin-top: 0;
+}
+.danger-sign {
+    font-size: 10em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px red;
+    color: red;
+}
+.button {
+    background-color: red;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    font-size: 2em;
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+
+.containerError > *{
+    margin-bottom: 4rem;
+}
