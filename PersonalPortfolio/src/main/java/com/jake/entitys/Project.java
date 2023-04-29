@@ -39,6 +39,7 @@ public class Project {
 	private List<Content> contentList;
 	private Date startDate;
 	private Date endDate;
+	private String mainPoints;
 	
 	private String linkedInterests;
 	

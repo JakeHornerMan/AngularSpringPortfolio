@@ -11,6 +11,7 @@ export interface Project {
     contentList: Content[];
     startDate: Date;
     endDate: Date;
+    mainPoints: string;
     linkedInterests: string;
     interestList: Interest[];
     linkedTechnologys: string;

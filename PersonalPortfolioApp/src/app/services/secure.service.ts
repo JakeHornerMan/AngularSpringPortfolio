@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Interest, User } from '../models/models';
+import { Interest, Project, User } from '../models/models';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -36,6 +36,15 @@ export class SecureService {
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
     return this.httpClient.post<Interest>('http://localhost:8080/interests/save', interest, options);
+  }
+
+  saveProject(project: Project): Observable<Project>{
+    let user = this.userService.getUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
+    let options = { headers: headers };
+    return this.httpClient.post<Project>('http://localhost:8080/projects/save', project, options);
   }
 
 
