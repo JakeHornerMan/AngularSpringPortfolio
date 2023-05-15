@@ -17,7 +17,14 @@ export class ImagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.contentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.content.contentUrl);
-    this.paragraphList = this.content.contentParagraph.split('<?>');
+    if(!this.isEmpty(this.content.contentParagraph)) this.paragraphList = this.content.contentParagraph.split('<?>');
+  }
+
+  isEmpty(string: string): boolean {
+    if(string === "" || string === '' || string === undefined || string === null){
+      return true;
+    }
+    return false;
   }
 
 }

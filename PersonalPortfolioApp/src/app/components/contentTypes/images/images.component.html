@@ -1,4 +1,4 @@
-<div class="flex-row space-top" *ngIf="content.contentParagraph != null">
+<div class="flex-row space-top" *ngIf="paragraphList.length >= 1">
     <div class="right-box images">
         <img src="{{content.contentUrl}}" class="img-with-text">
     </div>
@@ -9,8 +9,8 @@
         </ng-container>
     </div>
 </div>
-<div *ngIf="content.contentParagraph == null" class="solo-img-div flex-center-column space-top">
-    <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
-    <img src="{{content.contentUrl}}" >
+<div *ngIf="paragraphList.length <= 0" class="solo-img-div flex-center-column space-top">
+    <h2 *ngIf="content.contentTitle" style="align-self: center;">{{content.contentTitle}}</h2>
+    <img src="{{content.contentUrl}}" style="align-self: center;">
 </div>
 

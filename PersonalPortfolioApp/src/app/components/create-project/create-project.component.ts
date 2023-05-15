@@ -125,6 +125,12 @@ export class CreateProjectComponent implements OnInit {
     return contentList;
   }
 
+  // previewProject(){
+  //   let dialogRef = dialog.open(YourDialog, {
+  //     data: { name: 'austin' },
+  //   });
+  // }
+
   saveProject() {
     this.service.saveProject(this.project).subscribe((res: any)=>{
       // console.log(res);

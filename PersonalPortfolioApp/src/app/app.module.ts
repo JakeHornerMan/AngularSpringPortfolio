@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,6 +56,7 @@ const appRoute: Routes =[
     RouterModule.forRoot(appRoute),
     ReactiveFormsModule,
     FormsModule,
+    MatDialogModule,
   ],
   providers: [InterestService],
   bootstrap: [AppComponent]

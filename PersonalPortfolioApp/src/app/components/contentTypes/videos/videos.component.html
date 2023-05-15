@@ -1,4 +1,4 @@
-<div class="flex-row space-top" *ngIf="content.contentParagraph != null">
+<div class="flex-row space-top" *ngIf="paragraphList.length >= 2 || !isEmpty(content.contentParagraph)">
     <div class="right-box images">
         <iframe width="560" height="315" [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
@@ -9,7 +9,7 @@
         </ng-container>
     </div>
 </div>
-<div *ngIf="content.contentParagraph == null" class="space-top flex-center-column">
+<div *ngIf="isEmpty(content.contentParagraph)" class="space-top flex-center-column">
     <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
-    <iframe [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" style="min-height:25rem" allowfullscreen></iframe>
 </div>

@@ -27,7 +27,7 @@ public class Content {
 //	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
 //	@JoinColumn(name="project_id")
 //	private Project project;
-//	private String contentTitle;
+	private String contentTitle;
 	@Lob
 	@Column
 	private String contentParagraph;
