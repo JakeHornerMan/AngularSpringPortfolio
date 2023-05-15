@@ -47,5 +47,22 @@ export class SecureService {
     return this.httpClient.post<Project>('http://localhost:8080/projects/save', project, options);
   }
 
+  updateProject(project: Project): Observable<Project>{
+    let user = this.userService.getUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
+    let options = { headers: headers };
+    return this.httpClient.put<Project>('http://localhost:8080/projects/update', project, options);
+  }
+
+  saveContentsofProject(project: Project) {
+    let user = this.userService.getUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
+    let options = { headers: headers };
+    return this.httpClient.post<Project>('http://localhost:8080/projects/contents/save', project, options);
+  }
 
 }

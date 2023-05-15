@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jake.entitys.Content;
 import com.jake.entitys.Project;
 import com.jake.service.ProjectService;
 
@@ -45,9 +46,23 @@ public class ProjectController {
 		return new ResponseEntity<>(newProject, HttpStatus.CREATED);
 	}
 	
+	@CrossOrigin
+	@PutMapping("/update")
+	public ResponseEntity<Project> updateProject(@RequestBody Project project) {
+		Project newProject = projectService.updateProject(project);
+		return new ResponseEntity<>(newProject, HttpStatus.ACCEPTED);
+	}
+	
 	@PutMapping("/delete/{id}")
 	public ResponseEntity<?> deleteProject(@PathVariable("id") int id) {
 		projectService.deleteProject(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+//	@CrossOrigin
+//	@PostMapping("contents/save")
+//	public ResponseEntity<Project> addContents(@RequestBody Project project) {
+//		Project updatedProject = projectService.addContents(project);
+//		return new ResponseEntity<>(updatedProject, HttpStatus.CREATED);
+//	}
 }

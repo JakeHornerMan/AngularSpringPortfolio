@@ -20,7 +20,6 @@ export interface Project {
 
 export interface Content {
     id: number;
-	projectId: number;
 	contentTitle: string;
     contentParagraph: string;
 	contentType: string;

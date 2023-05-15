@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,9 @@ public class Project {
 	private int id;
 	private String projectName;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="project")
+//	@PrimaryKeyJoinColumn
+	@OneToMany(targetEntity = Content.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="project_fk", referencedColumnName="id")
 	private List<Content> contentList;
 	private Date startDate;
 	private Date endDate;

@@ -97,27 +97,28 @@ export class CreateProjectComponent implements OnInit {
     this.project.linkedInterests = this.projectForm.controls['linkedInterests'].value;
     // this.project.interestList = this.projectForm.controls['interestList'].value; ???what is this???
     this.project.linkedTechnologys = this.projectForm.controls['linkedTechnologys'].value;
+    
+    
 
-    // this.project.contentList = this.createProjectContents();
-
-    console.log(this.project);
-
-    this.saveProject();
     this.project.contentList = this.createProjectContents();
+    this.saveProject();
 
-    this.project.contentList.forEach(value =>{
-      value.projectId = this.project.id;
-    });
+    // this.saveContents();
 
-    console.log(this.project); //NEED TO FIGURE OUT HOW TO SET PROJECT ID TO CONTENT ID AND SAVE INDIVIDUALLY
+    // console.log(this.project); //NEED TO FIGURE OUT HOW TO SET PROJECT ID TO CONTENT ID AND SAVE INDIVIDUALLY
   }
 
   createProjectContents(): Content[]{
     let contentList: Content[] = [];
-
+    let index = 0
     for (let control of this.contentForms.controls) {
       let content: Content = {} as Content;
       content.contentTitle = control.get('contentTitle')?.value;
+      content.contentParagraph = control.get('contentParagraph')?.value;
+      content.contentType = control.get('contentType')?.value;
+      content.contentUrl = control.get('contentUrl')?.value;
+      content.position = index;
+      index++;
       contentList.push(content);
     }
 
@@ -129,7 +130,20 @@ export class CreateProjectComponent implements OnInit {
       // console.log(res);
       this.project = res;
     });
-    
+  }
+
+  updateProject() {
+    this.service.updateProject(this.project).subscribe((res: any)=>{
+      // console.log(res);
+      this.project = res;
+    });
+  }
+
+  saveContents() {
+    this.service.saveContentsofProject(this.project).subscribe((res: any)=>{
+      // console.log(res);
+      this.project = res;
+    });
   }
 
 
