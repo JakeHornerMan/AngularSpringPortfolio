@@ -21,7 +21,7 @@ import { LinksComponent } from './components/contentTypes/links/links.component'
 import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
-
+import { PreviewProjectComponent } from './components/preview-project/preview-project.component';
 
 const appRoute: Routes =[
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -45,7 +45,7 @@ const appRoute: Routes =[
     LoginComponent,
     ErrorComponent,
     CreateProjectComponent,
-
+    PreviewProjectComponent,
   ],
   imports: [
     BrowserModule,

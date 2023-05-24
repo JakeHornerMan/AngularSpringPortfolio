@@ -1,0 +1,10 @@
+<div class="btn btn-one" mat-dialog-close="false" style="margin:0 auto;">
+    <span>Close</span>
+</div>
+<app-project-content [project]="data.project"></app-project-content>
+<div *ngIf="!data.isSaving" class="btn btn-one" mat-dialog-close="false" style="margin:0 auto;">
+    <span>Close</span>
+</div>
+<div *ngIf="data.isSaving" class="btn btn-one" mat-dialog-close="true" style="margin:0 auto;">
+    <span>Save</span>
+</div>

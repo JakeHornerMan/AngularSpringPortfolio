@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Content, Interest, Project } from 'src/app/models/models';
 import { InterestService } from 'src/app/services/interest.service';
 import { SecureService } from 'src/app/services/secure.service';
 import { UserService } from 'src/app/services/user.service';
+import { PreviewProjectComponent } from '../preview-project/preview-project.component';
 
 @Component({
   selector: 'app-create-project',
@@ -20,8 +22,10 @@ export class CreateProjectComponent implements OnInit {
 
   project: Project = {} as Project;
 
-  constructor(private service: SecureService, private userService: UserService,
-    private fb: FormBuilder) {
+  constructor(private service: SecureService, 
+    private userService: UserService,
+    private fb: FormBuilder,
+    private dialog: MatDialog) {
       this.projectForm = this.fb.group({
         projectName: new FormControl(''),
         startDate: new FormControl(''),
@@ -89,6 +93,21 @@ export class CreateProjectComponent implements OnInit {
     console.log(this.contentForms.controls[i]);
   }
 
+  createAndSave(){
+    this.createProject();
+    let dialogRef = this.dialog.open(PreviewProjectComponent, {
+      data: { project: this.project, isSaving: true},
+      autoFocus: false,
+      height: '100vh',
+      minWidth: '100vw',
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log("You can now save this!");
+      this.saveProject();
+    })
+  }
+
   createProject(){
     this.project.projectName = this.projectForm.controls['projectName'].value;
     this.project.startDate = this.projectForm.controls['startDate'].value;
@@ -98,14 +117,7 @@ export class CreateProjectComponent implements OnInit {
     // this.project.interestList = this.projectForm.controls['interestList'].value; ???what is this???
     this.project.linkedTechnologys = this.projectForm.controls['linkedTechnologys'].value;
     
-    
-
     this.project.contentList = this.createProjectContents();
-    this.saveProject();
-
-    // this.saveContents();
-
-    // console.log(this.project); //NEED TO FIGURE OUT HOW TO SET PROJECT ID TO CONTENT ID AND SAVE INDIVIDUALLY
   }
 
   createProjectContents(): Content[]{
@@ -125,12 +137,6 @@ export class CreateProjectComponent implements OnInit {
     return contentList;
   }
 
-  // previewProject(){
-  //   let dialogRef = dialog.open(YourDialog, {
-  //     data: { name: 'austin' },
-  //   });
-  // }
-
   saveProject() {
     this.service.saveProject(this.project).subscribe((res: any)=>{
       // console.log(res);
@@ -145,13 +151,18 @@ export class CreateProjectComponent implements OnInit {
     });
   }
 
-  saveContents() {
-    this.service.saveContentsofProject(this.project).subscribe((res: any)=>{
-      // console.log(res);
-      this.project = res;
+  viewProject(){
+    this.createProject();
+
+    let dialogRef = this.dialog.open(PreviewProjectComponent, {
+      data: { project: this.project, isSaving: false },
+      autoFocus: false,
+      height: '100vh',
+      minWidth: '100vw',
     });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log("You can now save this!");
+    })
   }
-
-
-
 }
