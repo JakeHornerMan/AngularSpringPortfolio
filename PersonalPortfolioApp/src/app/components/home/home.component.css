@@ -12,7 +12,6 @@ ul {
    
   li {
     font: 200 20px/1.5 Helvetica;
-    /* border-bottom: 1px solid #ccc; */
   }
    
   li:last-child {
@@ -34,7 +33,6 @@ ul {
   li:hover {
     font-size: 2rem;
     color: #e0472e;
-    /* background: #f6f6f6; */
   }
 
 .socialIcons{

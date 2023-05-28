@@ -10,15 +10,9 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private userService: UserService){}
+  constructor(){}
 
   ngOnInit(){
-    if(this.userService.isLoggedIn()){
-      console.log("you are logged in!");
-    }
-    else{
-      console.log("not logged in!");
-    }
   }
 
 }

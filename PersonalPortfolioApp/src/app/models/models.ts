@@ -12,6 +12,9 @@ export interface Project {
     startDate: Date;
     endDate: Date;
     mainPoints: string;
+    projectDescription: string;
+    projectImageUrl: string;
+    projectVideoUrl: string;
     linkedInterests: string;
     interestList: Interest[];
     linkedTechnologys: string;

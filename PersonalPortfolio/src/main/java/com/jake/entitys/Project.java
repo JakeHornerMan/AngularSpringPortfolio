@@ -43,7 +43,9 @@ public class Project {
 	private Date startDate;
 	private Date endDate;
 	private String mainPoints;
-	
+	private String projectDescription;
+	private String projectImageUrl;
+	private String projectVideoUrl;
 	private String linkedInterests;
 	
 	private String cateorys;

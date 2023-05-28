@@ -8,27 +8,51 @@
             <label>{{project.endDate}}</label>
         </div>
     </div>
-    <div>
-        
+    <div class="space-bottom">
+        <ul class="gradient-list" *ngIf="liList.length > 0">
+            <ng-container *ngFor="let li of liList">
+                <li>{{li}}</li>
+            </ng-container>
+        </ul>
+        <ng-container *ngIf="project.projectDescription && !project.projectImageUrl">
+            <p>{{project.projectDescription}}</p>
+        </ng-container>
+        <!-- <div class="flex-row space-top" *ngIf="project.projectDescription && project.projectImageUrl">
+            <div class="right-box images">
+                <img src="{{project.projectImageUrl}}" class="img-with-text">
+            </div>
+            <div class="left-box" style="margin-right:0.5rem">
+                <p>{{project.projectDescription}}</p>
+            </div>
+        </div> -->
     </div>
 
-    <ng-container *ngFor="let content of contentList">
+    
+    <!-- <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h2>Read More</h2>
+          </mat-panel-title>
+        </mat-expansion-panel-header> -->
+            <ng-container *ngFor="let content of contentList">
 
-        <ng-container *ngIf="content.contentType == 'text'">
-            <app-paragraphs [content]="content"></app-paragraphs>
-        </ng-container>
+                <ng-container *ngIf="content.contentType == 'text'">
+                    <app-paragraphs [content]="content"></app-paragraphs>
+                </ng-container>
 
-        <ng-container *ngIf="content.contentType == 'video'">
-            <app-videos [content]="content"></app-videos>
-        </ng-container>
+                <ng-container *ngIf="content.contentType == 'video'">
+                    <app-videos [content]="content"></app-videos>
+                </ng-container>
 
-        <ng-container *ngIf="content.contentType == 'image'">
-            <app-images [content]="content"></app-images>
-        </ng-container>
+                <ng-container *ngIf="content.contentType == 'image'">
+                    <app-images [content]="content"></app-images>
+                </ng-container>
 
-        <ng-container *ngIf="content.contentType == 'link'">
-            <app-links [content]="content"></app-links>
-        </ng-container>
+                <ng-container *ngIf="content.contentType == 'link'">
+                    <app-links [content]="content"></app-links>
+                </ng-container>
 
-    </ng-container>
+            </ng-container>
+    <!-- </mat-expansion-panel> -->
+
 <div>

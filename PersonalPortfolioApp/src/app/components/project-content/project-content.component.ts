@@ -10,6 +10,7 @@ export class ProjectContentComponent implements OnInit {
 
   @Input() project!: Project;
   contentList = new Array<Content>();
+  liList = new Array<String>();
 
   constructor() {
     
@@ -18,6 +19,7 @@ export class ProjectContentComponent implements OnInit {
   ngOnInit(): void {
     this.contentList = this.project.contentList;
     this.sortContent();
+    this.liList = this.project.mainPoints.split('&');
   }
 
   sortContent(){

@@ -114,6 +114,7 @@ p{
 h1,h2,h3,h4,h5,h6,label{
   color: #e0472e;
   font-family: Kanit !important;
+  line-height: 1.6;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -323,9 +324,3 @@ hr.top:before {
 mat-dialog-container {
   background-color: rgb(29, 29, 29, 0.5) !important;
 }
-
-
-
-
-
-

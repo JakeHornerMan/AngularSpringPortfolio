@@ -1,5 +1,6 @@
 .titleBox{
     justify-content: space-between;
+    max-width: -webkit-fill-available;
 }
 
 .wave {
@@ -9,4 +10,65 @@
     width: 100vw;
     overflow: hidden;
     line-height: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+   
+  li {
+    font: 200 20px/1.5 Helvetica;
+  }
+   
+  li:last-child {
+    border: none;
+  }
+   
+  li {
+    text-decoration: none;
+    color: #feaf41;
+    display: block;
+   
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+  }
+   
+  li:hover {
+    font-size: 2rem;
+    color: #e0472e;
+  }
+
+.right-box{
+    float: right;
+    width: 40%;
+    order: 3;
+}
+.left-box{
+    float: left;
+    width: 60%;
+    order: 2;
+    align-self: baseline;
+}
+
+@media screen and (max-width: 990px){
+  .right-box{
+    width: 100%;
+    order: 1;
+  }
+  .left-box{
+    width: 100%;
+  }
+  .flex-row{
+    flex-direction: column !important;
+  }
+}
+
+.img-with-text{
+  max-height: 15rem;
+  border-radius: 0.25rem;
 }
