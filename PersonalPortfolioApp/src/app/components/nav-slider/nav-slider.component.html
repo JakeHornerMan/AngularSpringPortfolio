@@ -3,7 +3,7 @@
     <ng-container *ngFor="let interest of interestList">
         <div class="option" appNavSlider style="background-image: url({{interest.imageUrl}});">
             <div class="label">
-                <div class="info">
+                <div class="info" (click)="routeToPage(interest.title)">
                     <div class="main">{{interest.title}}</div>
                     <div class="sub">{{interest.description}}</div>
                 </div>    

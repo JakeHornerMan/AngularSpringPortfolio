@@ -6,6 +6,7 @@ import { InterestService } from 'src/app/services/interest.service';
 import { SecureService } from 'src/app/services/secure.service';
 import { UserService } from 'src/app/services/user.service';
 import { PreviewProjectComponent } from '../preview-project/preview-project.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-project',
@@ -25,7 +26,8 @@ export class CreateProjectComponent implements OnInit {
   constructor(private service: SecureService, 
     private userService: UserService,
     private fb: FormBuilder,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private router: Router) {
       this.projectForm = this.fb.group({
         projectName: new FormControl(''),
         startDate: new FormControl(''),
@@ -79,7 +81,6 @@ export class CreateProjectComponent implements OnInit {
 	    contentType: ['', Validators.required],
 	    contentUrl: ['', Validators.required],
       position: ['', Validators.required],
-      // openedPanel: ['false'],
     });
 
     this.contentForms.push(contentForm);
@@ -139,8 +140,11 @@ export class CreateProjectComponent implements OnInit {
 
   saveProject() {
     this.service.saveProject(this.project).subscribe((res: any)=>{
-      // console.log(res);
       this.project = res;
+      this.router.navigateByUrl('/home');
+    },
+    error => {
+      console.log("Error Saving!");
     });
   }
 
@@ -148,6 +152,10 @@ export class CreateProjectComponent implements OnInit {
     this.service.updateProject(this.project).subscribe((res: any)=>{
       // console.log(res);
       this.project = res;
+      this.router.navigateByUrl('/home');
+    },
+    error => {
+      console.log("Error Saving!");
     });
   }
 

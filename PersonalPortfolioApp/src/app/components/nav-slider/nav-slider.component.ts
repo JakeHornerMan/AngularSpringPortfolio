@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Interest } from 'src/app/models/models';
 import { InterestService } from 'src/app/services/interest.service';
 
@@ -11,7 +12,8 @@ export class NavSliderComponent implements OnInit {
 
   interestList = new Array<Interest>();
 
-  constructor(private interestService:InterestService) { 
+  constructor(private interestService:InterestService,
+    private router: Router) { 
 
   }
 
@@ -22,6 +24,18 @@ export class NavSliderComponent implements OnInit {
         // console.log(this.interestList[0].title);
       }
     })
+  }
+
+  routeToPage(input: string){
+    switch(input) { 
+      case "All Projects": { 
+        this.router.navigateByUrl('/home');
+        break; 
+      } 
+      default: { 
+        this.router.navigateByUrl('/home');
+      } 
+   }
   }
 
 }
