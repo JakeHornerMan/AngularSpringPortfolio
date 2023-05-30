@@ -5,10 +5,12 @@
 @const TAN_COLOR: #D4B483;
 
 html{
-    /* background-image: url(../src/assets/spikes.png); */
-    background-color: #13131e;
+    background-image: url(../src/assets/spikes.png);
+    /* background-color: #13131e; */
+    /* background-color: black; */
     /* width: 100vw; */
     cursor: auto;
+    color: white !important;
 }
 
 /* div {
@@ -17,7 +19,7 @@ html{
 } */
 
 .boxColor{
-  background-color: #202133;
+  /* background-color: #202133; */
 }
 
 .primaryColor{
@@ -42,14 +44,27 @@ html{
   src: url(assets/fonts/Kanit-Regular.ttf) format("truetype");
 }  
 
+body::-webkit-scrollbar {
+  width: 1rem;               /* width of the entire scrollbar */
+}
+body::-webkit-scrollbar-track {
+  background: black;        /* color of the tracking area */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: white;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid grey;  /* creates padding around scroll thumb */
+}
+
 .box{
   border-radius: 1rem;
-  margin-top: 3rem;
+  margin-top: 1rem;
   margin-left: 10rem;
   margin-right: 10rem;
-  margin-bottom: 3rem;
-  padding: 3rem;
+  margin-bottom: 1rem;
+  padding: 0rem;
   width: -webkit-fill-available;
+
 
   box-shadow:
 	  inset #e0472e 0 0 0 5px,
@@ -98,7 +113,7 @@ html{
 }
 
 .space-top{
-  margin-top: 1rem;
+  margin-top: 1rem !important;
 }
 
 h1{
@@ -107,7 +122,8 @@ h1{
 }
 
 p{
-  color: #feaf41;
+  /* color: #feaf41; */
+  color: black;
   font-size: 1rem;
 }
 
@@ -119,7 +135,7 @@ h1,h2,h3,h4,h5,h6,label{
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
-  background-color: #4f36c2;
+  /* background-color: #4f36c2; */
   cursor: default;
 }
 
