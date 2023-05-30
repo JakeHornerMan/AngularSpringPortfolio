@@ -22,12 +22,14 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { PreviewProjectComponent } from './components/preview-project/preview-project.component';
+import { ProjectByInterestComponent } from './components/project-by-interest/project-by-interest.component';
 
 const appRoute: Routes =[
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path:'home', component: HomeComponent},
   {path:'login', component: LoginComponent},
   {path:'createPage', component: CreateProjectComponent},
+  {path:'interest/:id', component: ProjectByInterestComponent},
   {path:'**', component: ErrorComponent} //must be last
 ];
 
@@ -46,6 +48,7 @@ const appRoute: Routes =[
     ErrorComponent,
     CreateProjectComponent,
     PreviewProjectComponent,
+    ProjectByInterestComponent,
   ],
   imports: [
     BrowserModule,

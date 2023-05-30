@@ -58,3 +58,7 @@ mat-expansion-panel-header:hover {
         max-height: 10vw;
     }
 }
+
+h2{
+  color: black;
+}

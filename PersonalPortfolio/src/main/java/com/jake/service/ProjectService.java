@@ -41,6 +41,11 @@ public class ProjectService {
 			.orElseThrow(() -> new ProjectNotFoundException ("This Interest ID "+projectId+" was not found"));
 	}
 
+	public List<Project> findProjectByLinkedInterest(String id) {
+		return projectRepository.findProjectsByLinkedInterests(id);
+//				.orElseThrow(() -> new ProjectNotFoundException ("This Interest ID "+id+" was not found"));
+	}
+
 //	public Project addContents(Project project) {
 //		int projectId = project.getId();
 //		for (Content content : project.getContentList()) {
