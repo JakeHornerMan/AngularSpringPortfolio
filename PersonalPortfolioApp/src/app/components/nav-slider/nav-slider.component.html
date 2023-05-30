@@ -1,7 +1,7 @@
 
 <div class="options">
     <ng-container *ngFor="let interest of interestList">
-        <div class="option" appNavSlider style="background-image: url({{interest.imageUrl}});">
+        <div class="option" appNavSlider style="background-image: url({{interest.imageUrl}}); overflow: auto;">
             <div class="label">
                 <div class="info" (click)="routeToPage(interest.title)">
                     <div class="main">{{interest.title}}</div>

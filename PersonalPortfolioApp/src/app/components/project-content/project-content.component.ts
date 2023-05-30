@@ -19,7 +19,9 @@ export class ProjectContentComponent implements OnInit {
   ngOnInit(): void {
     this.contentList = this.project.contentList;
     this.sortContent();
-    this.liList = this.project.mainPoints.split('&');
+    if(this.project.mainPoints && this.project.mainPoints.includes('&')){
+      this.liList = this.project.mainPoints.split('&');
+    }
   }
 
   sortContent(){

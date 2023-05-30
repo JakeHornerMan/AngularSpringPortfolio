@@ -28,7 +28,7 @@ ul {
    
   li {
     text-decoration: none;
-    color: #feaf41;
+    color: black;
     display: block;
    
     -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
