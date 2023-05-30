@@ -32,6 +32,24 @@ export class NavSliderComponent implements OnInit {
         this.router.navigateByUrl('/home');
         break; 
       } 
+      case "Game Development": { 
+        this.router.navigateByUrl('/interest/1').then(() => {
+          window.location.reload();
+        });
+        break; 
+      }
+      case "Art Works": { 
+        this.router.navigateByUrl('/interest/2').then(() => {
+          window.location.reload();
+        });
+        break; 
+      }
+      case "Software Development": { 
+        this.router.navigateByUrl('/interest/3').then(() => {
+          window.location.reload();
+        });
+        break; 
+      }
       default: { 
         this.router.navigateByUrl('/home');
       } 

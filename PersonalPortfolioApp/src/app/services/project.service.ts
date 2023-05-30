@@ -18,6 +18,10 @@ export class ProjectService {
     return this.httpClient.get<Project[]>('http://localhost:8080/projects/'+ id);
   }
 
+  getProjectsByInterest(id: string): Observable<Project[]>{
+    return this.httpClient.get<Project[]>('http://localhost:8080/projects/interest/'+ id);
+  }
+
   saveProject(interest: Project): Observable<Project[]>{
     return this.httpClient.get<Project[]>('http://localhost:8080/projects/save/'+ interest);
   }

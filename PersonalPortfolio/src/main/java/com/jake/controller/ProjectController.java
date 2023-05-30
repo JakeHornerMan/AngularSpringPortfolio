@@ -39,6 +39,12 @@ public class ProjectController {
 		return new ResponseEntity<>(projects, HttpStatus.OK);
 	}
 	
+	@GetMapping("interest/{id}")
+	public ResponseEntity<List<Project>> getProjectByLinkedInterest(@PathVariable("id") String id) {
+		List<Project> projects  = projectService.findProjectByLinkedInterest(id);
+		return new ResponseEntity<>(projects, HttpStatus.OK);
+	}
+	
 	@CrossOrigin
 	@PostMapping("/save")
 	public ResponseEntity<Project> addProject(@RequestBody Project project) {
