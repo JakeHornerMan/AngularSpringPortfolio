@@ -33,20 +33,20 @@ export class NavSliderComponent implements OnInit {
         break; 
       } 
       case "Game Development": { 
-        this.router.navigateByUrl('/interest/1').then(() => {
-          window.location.reload();
-        });
+        this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/interest/1']);
+        }); 
         break; 
       }
       case "Art Works": { 
-        this.router.navigateByUrl('/interest/2').then(() => {
-          window.location.reload();
+        this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/interest/2']);
         });
         break; 
       }
       case "Software Development": { 
-        this.router.navigateByUrl('/interest/3').then(() => {
-          window.location.reload();
+        this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/interest/3']);
         });
         break; 
       }
