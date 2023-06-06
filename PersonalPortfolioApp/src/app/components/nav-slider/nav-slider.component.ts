@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Interest } from 'src/app/models/models';
 import { InterestService } from 'src/app/services/interest.service';
@@ -12,8 +13,11 @@ export class NavSliderComponent implements OnInit {
 
   interestList = new Array<Interest>();
 
+  selectedElement: any;
+
   constructor(private interestService:InterestService,
-    private router: Router) { 
+    private router: Router,
+    @Inject(DOCUMENT) document: Document) { 
 
   }
 
@@ -27,33 +31,45 @@ export class NavSliderComponent implements OnInit {
   }
 
   routeToPage(input: string){
-    switch(input) { 
-      case "All Projects": { 
-        this.router.navigateByUrl('/home');
-        break; 
-      } 
-      case "Game Development": { 
-        this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/interest/1']);
-        }); 
-        break; 
+    // console.log(element)
+    
+    // if(!document.getElementById(input)?.classList.contains("selected")){
+    //   document.getElementById(input)?.classList.add('selected');
+    //   this.selectedElement.classList.remove('selected');
+    //   this.selectedElement = document.getElementById(input);
+    //   return;
+    // }
+    // else{
+      
+
+      switch(input) { 
+        case "All Projects": { 
+          this.router.navigateByUrl('/home');
+          break; 
+        } 
+        case "Game Development": { 
+          this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/interest/1']);
+          }); 
+          break; 
+        }
+        case "Art Works": { 
+          this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/interest/2']);
+          });
+          break; 
+        }
+        case "Software Development": { 
+          this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/interest/3']);
+          });
+          break; 
+        }
+        default: { 
+          this.router.navigateByUrl('/home');
+        }
       }
-      case "Art Works": { 
-        this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/interest/2']);
-        });
-        break; 
-      }
-      case "Software Development": { 
-        this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/interest/3']);
-        });
-        break; 
-      }
-      default: { 
-        this.router.navigateByUrl('/home');
-      } 
-   }
+    // }
   }
 
 }
