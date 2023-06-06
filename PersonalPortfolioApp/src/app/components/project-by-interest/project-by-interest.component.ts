@@ -19,12 +19,12 @@ export class ProjectByInterestComponent implements OnInit {
       //@ts-ignore
       this.id = paramMap.get('id'); 
     });
-    console.log(this.id);
+    // console.log(this.id);
   }
 
   ngOnInit(): void {
     this.projectService.getProjectsByInterest(this.id).subscribe((res: any)=>{
-      console.log(res);
+      // console.log(res);
       this.projectList = res;
     });
   }
