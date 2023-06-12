@@ -71,5 +71,27 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<build>
+				<finalName>${project.artifactId}--dev</finalName>
+				<filters>
+					<filter>src/main/resources/dev.propertys</filter>
+				</filters>
+			</build>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<build>
+				<finalName>${project.artifactId}--prod</finalName>
+				<filters>
+					<filter>src/main/resources/prod.propertys</filter>
+				</filters>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
