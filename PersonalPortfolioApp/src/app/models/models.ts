@@ -19,6 +19,7 @@ export interface Project {
     interestList: Interest[];
     linkedTechnologys: string;
     technologyList: Technology[];
+    staredProject: boolean;
 }
 
 export interface Content {

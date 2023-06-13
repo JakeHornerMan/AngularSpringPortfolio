@@ -35,13 +35,21 @@ export class HomeComponent implements OnInit {
   getProjects(){
     this.projectService.getAllProjects().subscribe((res: Project[])=>{
       if(res){
-        this.projectList = res;
+        this.sortLists(res);
+        
         this.projectList.sort((x, y) => +new Date(y.endDate) - +new Date(x.endDate));
+        this.staredProjectList.sort((x, y) => +new Date(y.endDate) - +new Date(x.endDate));
+      }
+    });
+  }
 
-        
-        
-        console.log(this.projectList);
-        console.log(this.staredProjectList);
+  sortLists(arr: Project[]) {
+    arr.forEach((item) => {
+      if(item.staredProject){
+        this.staredProjectList.push(item);
+      }
+      else{
+        this.projectList.push(item);
       }
     });
   }

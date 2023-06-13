@@ -1,7 +1,7 @@
 <div class="box boxColor">
     <hr class="top" style="width:100%">
     <div class="flex-row space-bottom titleBox">
-        <span class="fa fa-star checked"></span>
+        <i *ngIf="project.staredProject" class="star"></i>
         <h1>{{project.projectName}}</h1>
         <div class="flex-center-column">
             <label>{{project.startDate}}</label>
