@@ -15,12 +15,12 @@ export class AppComponent implements OnInit {
   constructor(){}
 
   ngOnInit(){
-    this.innerWidth = window.innerWidth;
-    console.log(this.innerWidth);
+    // this.innerWidth = window.innerWidth;
+    // console.log(this.innerWidth);
   }
 
   isNotMobile(): boolean{
-    if(this.innerWidth < 700){
+    if(window.innerWidth < 700){
       return false;
     }
     return true;
