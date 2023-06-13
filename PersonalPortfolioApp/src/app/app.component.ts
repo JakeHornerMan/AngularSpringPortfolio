@@ -10,9 +10,20 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
 
+  public innerWidth: any;
+
   constructor(){}
 
   ngOnInit(){
+    this.innerWidth = window.innerWidth;
+    console.log(this.innerWidth);
+  }
+
+  isNotMobile(): boolean{
+    if(this.innerWidth < 700){
+      return false;
+    }
+    return true;
   }
 
 }

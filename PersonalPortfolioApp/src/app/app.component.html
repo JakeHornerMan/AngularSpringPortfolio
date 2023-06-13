@@ -1,5 +1,13 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<app-nav-slider></app-nav-slider>
+
+<div *ngIf="isNotMobile()">
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div style="margin-top:5rem;"></div>
+    <app-nav-slider></app-nav-slider>
+</div>
+
 <div class="component-container">
     <router-outlet></router-outlet>
 </div>
