@@ -3,16 +3,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Interest, Project, User } from '../models/models';
 import { UserService } from './user.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecureService {
 
-  constructor(private httpClient: HttpClient, private userService: UserService) { }
+  domain: string | undefined;
+
+  constructor(private httpClient: HttpClient, private userService: UserService) {
+    this.domain = environment.apiBaseUrl;
+  }
 
   login(user: User): Observable<any>{
-    return this.httpClient.post<any>('http://localhost:8080/login', user);
+    return this.httpClient.post<any>(this.domain+'/login', user);
   }
 
   secure(): Observable<String>{
@@ -23,10 +28,8 @@ export class SecureService {
       ),
       responseType: 'text'
     };
-    // const headers = new HttpHeaders({'JakeDev:jG2s--dV'});
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('JakeDev:jG2s--dV')});
-    // headers.append('Access-Control-Allow-Origin', '*');
-    return this.httpClient.get<String>('http://localhost:8080/secure' ,{headers});
+    return this.httpClient.get<String>(this.domain+'/secure' ,{headers});
   }
 
   saveInterest(interest: Interest): Observable<Interest>{
@@ -35,7 +38,7 @@ export class SecureService {
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
-    return this.httpClient.post<Interest>('http://localhost:8080/interests/save', interest, options);
+    return this.httpClient.post<Interest>(this.domain+'/interests/save', interest, options);
   }
 
   saveProject(project: Project): Observable<Project>{
@@ -44,7 +47,7 @@ export class SecureService {
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
-    return this.httpClient.post<Project>('http://localhost:8080/projects/save', project, options);
+    return this.httpClient.post<Project>(this.domain+'/projects/save', project, options);
   }
 
   updateProject(project: Project): Observable<Project>{
@@ -53,7 +56,7 @@ export class SecureService {
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
-    return this.httpClient.put<Project>('http://localhost:8080/projects/update', project, options);
+    return this.httpClient.put<Project>(this.domain+'/projects/update', project, options);
   }
 
   saveContentsofProject(project: Project) {
@@ -62,7 +65,7 @@ export class SecureService {
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
-    return this.httpClient.post<Project>('http://localhost:8080/projects/contents/save', project, options);
+    return this.httpClient.post<Project>(this.domain+'/projects/contents/save', project, options);
   }
 
 }

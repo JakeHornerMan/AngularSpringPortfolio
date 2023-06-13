@@ -14,9 +14,9 @@ export class HomeComponent implements OnInit {
 
   interestList = new Array<Interest>();
   projectList = new Array<Project>();
+  staredProjectList = new Array<Project>();
 
   constructor(private interestService:InterestService, private projectService:ProjectService) { 
-
   }
 
   ngOnInit(): void {
@@ -36,7 +36,12 @@ export class HomeComponent implements OnInit {
     this.projectService.getAllProjects().subscribe((res: Project[])=>{
       if(res){
         this.projectList = res;
+        this.projectList.sort((x, y) => +new Date(y.endDate) - +new Date(x.endDate));
+
+        
+        
         console.log(this.projectList);
+        console.log(this.staredProjectList);
       }
     });
   }

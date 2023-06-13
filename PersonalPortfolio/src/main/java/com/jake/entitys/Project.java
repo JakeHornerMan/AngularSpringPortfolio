@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -51,5 +52,8 @@ public class Project {
 	private String cateorys;
 	
 	private String linkedTechnologys;
+	
+	@Column(columnDefinition = "boolean default false")
+	private boolean staredProject;
 	
 }
