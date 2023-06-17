@@ -22,6 +22,18 @@ export interface Project {
     staredProject: boolean;
 }
 
+export interface WorkExperience {
+    id: number;
+    workPlace: string;
+    workTitle: string;
+    contentList: Content[];
+    startDate: Date;
+    endDate: Date;
+    workDescription: string;
+    workIconUrl: string;
+    technologys: string;
+}
+
 export interface Content {
     id: number;
 	contentTitle: string;

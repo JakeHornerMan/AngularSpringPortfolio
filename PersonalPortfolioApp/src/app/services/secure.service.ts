@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Interest, Project, User } from '../models/models';
+import { Interest, Project, User, WorkExperience } from '../models/models';
 import { UserService } from './user.service';
 import { environment } from 'src/environments/environment';
 
@@ -66,6 +66,24 @@ export class SecureService {
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
     return this.httpClient.post<Project>(this.domain+'/projects/contents/save', project, options);
+  }
+
+  saveWorkExperience(workExperience: WorkExperience): Observable<WorkExperience>{
+    let user = this.userService.getUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
+    let options = { headers: headers };
+    return this.httpClient.post<WorkExperience>(this.domain+'/workExperience/save', workExperience, options);
+  }
+
+  updateWorkExperience(workExperience: WorkExperience): Observable<WorkExperience>{
+    let user = this.userService.getUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
+    let options = { headers: headers };
+    return this.httpClient.put<WorkExperience>(this.domain+'/workExperience/update', workExperience, options);
   }
 
 }

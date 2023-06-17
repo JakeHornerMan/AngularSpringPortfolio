@@ -23,6 +23,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { PreviewProjectComponent } from './components/preview-project/preview-project.component';
 import { ProjectByInterestComponent } from './components/project-by-interest/project-by-interest.component';
+import { ViewWorkExperienceComponent } from './components/view-work-experience/view-work-experience.component';
 
 const appRoute: Routes =[
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -49,6 +50,7 @@ const appRoute: Routes =[
     CreateProjectComponent,
     PreviewProjectComponent,
     ProjectByInterestComponent,
+    ViewWorkExperienceComponent,
   ],
   imports: [
     BrowserModule,
