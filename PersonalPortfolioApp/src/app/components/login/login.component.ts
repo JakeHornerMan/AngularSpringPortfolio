@@ -1,6 +1,6 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/models';
 import { SecureService } from 'src/app/services/secure.service';
@@ -15,9 +15,9 @@ export class LoginComponent implements OnInit {
 
   user = {} as User;
 
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+  loginForm = new UntypedFormGroup({
+    email: new UntypedFormControl(''),
+    password: new UntypedFormControl(''),
   });
   
   constructor(private service: SecureService, private router: Router, private userService: UserService) { }

@@ -103,5 +103,7 @@
       }
     }
   },
-  "defaultProject": "PersonalPortfolioApp"
+  "cli": {
+    "analytics": false
+  }
 }
