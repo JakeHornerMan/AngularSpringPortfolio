@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Content, Interest, Project } from 'src/app/models/models';
 import { InterestService } from 'src/app/services/interest.service';
@@ -17,7 +17,7 @@ export class CreateProjectComponent implements OnInit {
 
   access!: boolean;
   
-  projectForm: UntypedFormGroup;
+  projectForm: FormGroup;
 
   interestId:number  =0;
 
@@ -25,17 +25,17 @@ export class CreateProjectComponent implements OnInit {
 
   constructor(private service: SecureService, 
     private userService: UserService,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router) {
       this.projectForm = this.fb.group({
-        projectName: new UntypedFormControl(''),
-        startDate: new UntypedFormControl(''),
-        endDate: new UntypedFormControl(''),
-        mainPoints: new UntypedFormControl(''),
-        linkedInterests: new UntypedFormControl(''),
+        projectName: new FormControl(''),
+        startDate: new FormControl(''),
+        endDate: new FormControl(''),
+        mainPoints: new FormControl(''),
+        linkedInterests: new FormControl(''),
         // cateorys: new FormControl(''), ???what is this???
-        linkedTechnologys: new UntypedFormControl(''),
+        linkedTechnologys: new FormControl(''),
         contents: this.fb.array([])
       });
     }
@@ -70,7 +70,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   get contentForms(){
-    return this.projectForm.get('contents') as UntypedFormArray;
+    return this.projectForm.get('contents') as FormArray;
   }
 
   addContent(){
