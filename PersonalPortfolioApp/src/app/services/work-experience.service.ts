@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { WorkExperience } from '../models/models';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkExperienceServiceService {
+export class WorkExperienceService {
 
   domain: string | undefined;
 
@@ -26,5 +26,4 @@ export class WorkExperienceServiceService {
   getWorkExperiencesByInterest(id: string): Observable<WorkExperience[]>{
     return this.httpClient.get<WorkExperience[]>(this.domain+'/workExperience/interest/'+ id);
   }
-
 }

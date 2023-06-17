@@ -31,6 +31,7 @@ const appRoute: Routes =[
   {path:'login', component: LoginComponent},
   {path:'createPage', component: CreateProjectComponent},
   {path:'interest/:id', component: ProjectByInterestComponent},
+  {path:'workExperiences', component: ViewWorkExperienceComponent},
   {path:'**', component: ErrorComponent} //must be last
 ];
 

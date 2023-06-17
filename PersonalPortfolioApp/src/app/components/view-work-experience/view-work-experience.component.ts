@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WorkExperience } from 'src/app/models/models';
+import { WorkExperienceService } from 'src/app/services/work-experience.service';
 
 @Component({
   selector: 'app-view-work-experience',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewWorkExperienceComponent implements OnInit {
 
-  constructor() { }
+  workExperienceList = new Array<WorkExperience>();
+
+  constructor(private workExperienceService: WorkExperienceService) { }
 
   ngOnInit(): void {
+    this.workExperienceService.getAllWorkExperiences().subscribe((res: any)=>{
+      // console.log(res);
+      this.workExperienceList = res;
+    });
   }
 
 }

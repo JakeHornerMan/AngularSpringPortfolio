@@ -65,6 +65,12 @@ export class NavSliderComponent implements OnInit {
           });
           break; 
         }
+        case "Work Experience": { 
+          this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/workExperiences']);
+          });
+          break; 
+        }
         default: { 
           this.router.navigateByUrl('/home');
         }
