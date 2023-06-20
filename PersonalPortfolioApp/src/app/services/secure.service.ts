@@ -28,7 +28,7 @@ export class SecureService {
       ),
       responseType: 'text'
     };
-    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('JakeDev:jG2s--dV')});
+    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(user.email+':'+user.password)});
     return this.httpClient.get<String>(this.domain+'/secure' ,{headers});
   }
 
@@ -45,7 +45,7 @@ export class SecureService {
     let user = this.userService.getUser();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
+      'Authorization': 'Basic ' +  btoa(user.email+':'+user.password)});
     let options = { headers: headers };
     return this.httpClient.post<Project>(this.domain+'/projects/save', project, options);
   }

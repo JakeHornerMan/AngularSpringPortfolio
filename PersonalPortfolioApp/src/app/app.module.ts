@@ -5,6 +5,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,13 +25,16 @@ import { CreateProjectComponent } from './components/create-project/create-proje
 import { PreviewProjectComponent } from './components/preview-project/preview-project.component';
 import { ProjectByInterestComponent } from './components/project-by-interest/project-by-interest.component';
 import { ViewWorkExperienceComponent } from './components/view-work-experience/view-work-experience.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const appRoute: Routes =[
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path:'home', component: HomeComponent},
   {path:'login', component: LoginComponent},
+  {path:'logout', component: LogoutComponent},
   {path:'createPage', component: CreateProjectComponent},
   {path:'interest/:id', component: ProjectByInterestComponent},
+  {path:'createPage/:id', component: CreateProjectComponent},
   {path:'workExperiences', component: ViewWorkExperienceComponent},
   {path:'**', component: ErrorComponent} //must be last
 ];
@@ -52,6 +56,7 @@ const appRoute: Routes =[
     PreviewProjectComponent,
     ProjectByInterestComponent,
     ViewWorkExperienceComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,7 @@ const appRoute: Routes =[
     FormsModule,
     MatDialogModule,
   ],
-  providers: [InterestService],
+  providers: [InterestService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -289,7 +289,7 @@ hr.top:before {
 ========================
 */
 .btn-one {
-  color: #FFF;
+  color: #ff0000;
   transition: all 0.3s;
   position: relative;
 }
@@ -310,8 +310,8 @@ hr.top:before {
   border-bottom-width: 1px;
   border-top-style: solid;
   border-bottom-style: solid;
-  border-top-color: rgba(255,255,255,0.5);
-  border-bottom-color: rgba(255,255,255,0.5);
+  border-top-color: rgba(255, 0, 0, 0.5);
+  border-bottom-color: rgba(255, 0, 0, 0.5);
   transform: scale(0.1, 1);
 }
 .btn-one:hover span {
@@ -339,4 +339,9 @@ hr.top:before {
 
 mat-dialog-container {
   background-color: rgb(29, 29, 29, 0.5) !important;
+}
+
+.icons{
+  max-width: 80px;
+  margin-bottom: 1rem;
 }

@@ -6,7 +6,8 @@ import { InterestService } from 'src/app/services/interest.service';
 import { SecureService } from 'src/app/services/secure.service';
 import { UserService } from 'src/app/services/user.service';
 import { PreviewProjectComponent } from '../preview-project/preview-project.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-create-project',
@@ -15,7 +16,9 @@ import { Router } from '@angular/router';
 })
 export class CreateProjectComponent implements OnInit {
 
-  access!: boolean;
+  id!: number;
+
+  title!: string;
   
   projectForm: FormGroup;
 
@@ -24,10 +27,11 @@ export class CreateProjectComponent implements OnInit {
   project: Project = {} as Project;
 
   constructor(private service: SecureService, 
-    private userService: UserService,
+    private projectService: ProjectService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private router: Router) {
+    private router: Router,
+    private activatedroute: ActivatedRoute,) {
       this.projectForm = this.fb.group({
         projectName: new FormControl(''),
         startDate: new FormControl(''),
@@ -41,7 +45,24 @@ export class CreateProjectComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.access = this.userService.isLoggedIn();
+    window.scroll(0,0);
+    this.activatedroute.paramMap.subscribe(paramMap => { 
+      //@ts-ignore
+      this.id = paramMap.get('id'); 
+    });
+    if(this.id != null){
+      this.title ="Edit Project";
+      this.projectService.getProject(this.id).subscribe((res: any)=>{
+        this.project = res;
+        console.log(this.project);
+      },
+      error => {
+        console.log("Error, cannot get project by id: " + this.id);
+      });
+    }
+    else{
+      this.title ="Create Project";
+    }
   }
 
   // interest: Interest = {id:56,title:"Game Development",description:"View Game Development Projects",imageUrl:"https://onfire.craftwork.design/images/s-5-img-26.png"};

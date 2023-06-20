@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Content, Project } from 'src/app/models/models';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-project-content',
@@ -12,7 +14,7 @@ export class ProjectContentComponent implements OnInit {
   contentList = new Array<Content>();
   liList = new Array<String>();
 
-  constructor() {
+  constructor(private userService: UserService, private router: Router,) {
     
   }
 
@@ -29,6 +31,16 @@ export class ProjectContentComponent implements OnInit {
       return a.position - b.position;
     });
     this.contentList = this.project.contentList;
+  }
+
+  isUserLoggedIn(): boolean{
+    return this.userService.isLoggedIn();
+  }
+
+  editProject(id: number){
+    this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/createPage/'+id]);
+    });
   }
 
 }

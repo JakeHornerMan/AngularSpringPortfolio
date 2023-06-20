@@ -30,10 +30,9 @@ export class LoginComponent implements OnInit {
     this.user.password = this.loginForm.controls['password'].value;
     // console.log(this.user);
     this.service.login(this.user).subscribe((res: any)=>{
-      console.log(res);
       if(res.email == this.user.email && res.password == this.user.password){
         this.userService.setUser(this.user);
-        this.router.navigate(['createPage']);
+        this.router.navigate(['home']);
       }
       else{
         console.log('Invalid!');
