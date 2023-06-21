@@ -39,7 +39,7 @@ export class ProjectContentComponent implements OnInit {
 
   editProject(id: number){
     this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/createPage/'+id]);
+      this.router.navigate(['/createProject/'+id]);
     });
   }
 

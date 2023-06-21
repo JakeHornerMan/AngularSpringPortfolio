@@ -1,0 +1,78 @@
+<form [formGroup]="workExperienceForm" class="input-container paragraphSpacing" style="padding: 3rem">
+    <h1>{{title}}</h1>
+
+    <label for="workPlace">Work Place</label>
+    <input type="text" id="workPlace" formControlName="workPlace" required autocomplete="off" />
+
+    <label for="workTitle">Work Title:</label>
+    <input type="text" id="workTitle" formControlName="workTitle" required autocomplete="off" />
+
+    <label for="technologys">Technologys: (format: Java, Spring Framework, Angular, Typescript)</label>
+    <input type="text" id="technologys" formControlName="technologys" />
+
+    <label for="startDate">Start date:</label>
+    <input type="date" id="start" formControlName="startDate" name="start">
+
+    <label for="endDate">End date:</label>
+    <input type="date" id="end" formControlName="endDate" name="end">
+
+    <label for="workDescription">Work Description:</label>
+    <textarea  type="text" id="projectDescription" formControlName="projectDescription" name="projectDescription"></textarea>
+
+    <label for="workIconUrl">Link to work Icon:</label>
+    <input type="text" id="workIconUrl" formControlName="workIconUrl" name="workIconUrl">
+
+    <div formArrayName="contents">
+        <div *ngFor="let content of contentForms.controls; let i = index" [formGroupName]="i" class="input-container paragraphSpacing">
+
+            <div class="input-container paragraphSpacing">
+                <hr class="top" style="width:100%" >
+
+                <label for="contentTitle">Title:</label>
+                <input type="text" id="contentTitle" formControlName="contentTitle" name="contentTitle">
+
+                <div class="buttonContainer">
+                    <a class="fillLink" (click)="setContentType(i,'image')" [ngClass]="{'aSelected':contentTypeSelected(i) == 'image'}">Image</a>
+                    <a class="fillLink" (click)="setContentType(i,'link')" [ngClass]="{'aSelected':contentTypeSelected(i) == 'link'}">Link</a>
+                    <a class="fillLink" (click)="setContentType(i,'video')" [ngClass]="{'aSelected':contentTypeSelected(i) == 'video'}">Video</a>
+                    <a class="fillLink" (click)="setContentType(i,'text')" [ngClass]="{'aSelected':contentTypeSelected(i) == 'text'}">Text</a>
+                </div>
+
+                <label for="contentParagraph">Paragraph:</label>
+                <textarea  type="text" id="contentParagraph" formControlName="contentParagraph" name="contentParagraph"></textarea>
+
+                <label for="contentUrl">URL:</label>
+                <input type="text" id="contentUrl" formControlName="contentUrl" name="contentUrl">
+
+                <div class="buttonContainer">
+                    <div class="btn btn-one" (click)="deleteContent(i)">
+                        <span>Delete Content</span>
+                    </div>
+                </div>
+
+                <hr class="bottom" style="width:100%;">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="buttonContainer">
+        <div class="btn btn-one" (click)="addContent()">
+            <span>Add Content</span>
+        </div>
+    </div>
+
+</form>
+
+<div class="buttonContainerCol">
+    <button class="cybr-btn" style="width:50%; align-self: center; margin-bottom: 2rem;" (click)="null">
+        Preview<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">OPEN</span>
+        <span aria-hidden class="cybr-btn__tag">R25</span>
+    </button>
+    <button class="cybr-btn" style="width:50%; align-self: center;  margin-bottom: 2rem;" (click)="null">
+        Submit<span aria-hidden>_</span>
+        <span aria-hidden class="cybr-btn__glitch">SAVE</span>
+        <span aria-hidden class="cybr-btn__tag">R25</span>
+    </button>
+</div>

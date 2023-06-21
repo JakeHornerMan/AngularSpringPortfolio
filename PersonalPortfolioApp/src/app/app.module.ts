@@ -26,16 +26,19 @@ import { PreviewProjectComponent } from './components/preview-project/preview-pr
 import { ProjectByInterestComponent } from './components/project-by-interest/project-by-interest.component';
 import { ViewWorkExperienceComponent } from './components/view-work-experience/view-work-experience.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { CreateWorkexperienceComponent } from './components/create-workexperience/create-workexperience.component';
 
 const appRoute: Routes =[
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path:'home', component: HomeComponent},
   {path:'login', component: LoginComponent},
   {path:'logout', component: LogoutComponent},
-  {path:'createPage', component: CreateProjectComponent},
+  {path:'createProject', component: CreateProjectComponent},
   {path:'interest/:id', component: ProjectByInterestComponent},
-  {path:'createPage/:id', component: CreateProjectComponent},
+  {path:'createProject/:id', component: CreateProjectComponent},
   {path:'workExperiences', component: ViewWorkExperienceComponent},
+  {path:'createWorkExperience', component: CreateWorkexperienceComponent},
+  {path:'createWorkExperience/:id', component: CreateWorkexperienceComponent},
   {path:'**', component: ErrorComponent} //must be last
 ];
 
@@ -57,6 +60,7 @@ const appRoute: Routes =[
     ProjectByInterestComponent,
     ViewWorkExperienceComponent,
     LogoutComponent,
+    CreateWorkexperienceComponent,
   ],
   imports: [
     BrowserModule,
