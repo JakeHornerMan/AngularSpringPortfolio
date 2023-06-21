@@ -13,6 +13,9 @@
     <label for="mainPoints">Insert main point/leaning from each project, separate by & symbol (It was great! &I learned alot! ):</label>
     <input type="mainPoints" id="mainPoints" formControlName="mainPoints" name="mainPoints">
 
+    <label for="projectDescription">Project Description:</label>
+    <textarea  type="text" id="projectDescription" formControlName="projectDescription" name="projectDescription"></textarea>
+
     <div class="buttonContainer">
         <a class="fillLink"  (click)="setInterest(1)" [ngClass]="{'aSelected':interestId == 1}">Game Development</a>
         <a class="fillLink"  (click)="setInterest(2)" [ngClass]="{'aSelected':interestId == 2}">Software/Web project</a>

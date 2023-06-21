@@ -38,6 +38,7 @@ export class CreateProjectComponent implements OnInit {
         endDate: new FormControl(''),
         mainPoints: new FormControl(''),
         linkedInterests: new FormControl(''),
+        projectDescription: new FormControl(''),
         // cateorys: new FormControl(''), ???what is this???
         linkedTechnologys: new FormControl(''),
         contents: this.fb.array([])
@@ -55,6 +56,8 @@ export class CreateProjectComponent implements OnInit {
       this.projectService.getProject(this.id).subscribe((res: any)=>{
         this.project = res;
         console.log(this.project);
+        
+        this.fillForm();
       },
       error => {
         console.log("Error, cannot get project by id: " + this.id);
@@ -65,15 +68,21 @@ export class CreateProjectComponent implements OnInit {
     }
   }
 
-  // interest: Interest = {id:56,title:"Game Development",description:"View Game Development Projects",imageUrl:"https://onfire.craftwork.design/images/s-5-img-26.png"};
-  // saveInterest(): void {
-  //   this.service.saveInterest(this.interest).subscribe((res: any)=>{
-  //     console.log(res);
-  //   });
-  // }
+  fillForm() {
+    this.projectForm.patchValue(this.project);
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    this.project.contentList.forEach((item) => {
+      const contentForm= this.fb.group({
+        projectId: ['', Validators.required],
+        contentTitle: ['', Validators.required],
+        contentParagraph: ['', Validators.required],
+        contentType: ['', Validators.required],
+        contentUrl: ['', Validators.required],
+        position: ['', Validators.required],
+      });
+      contentForm.patchValue(item);
+      this.contentForms.push(contentForm);
+    });
   }
 
   setInterest(input: number): void {
@@ -194,4 +203,6 @@ export class CreateProjectComponent implements OnInit {
       console.log("You can now save this!");
     })
   }
+
+  
 }
