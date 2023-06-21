@@ -44,11 +44,6 @@ ul {
     border-radius:1rem;
 }
 
-.icons{
-    max-width: 80px;
-    margin-bottom: 1rem;
-}
-
 mat-expansion-panel-header:hover {
     background-color: #4f36c2;
 }

@@ -1,8 +1,14 @@
 
 <div *ngIf="isNotMobile()">
     <div class="navbar">
-        <a href="#home">Home</a>
-        <a href="#contact">Contact</a>
+        <div class="left-box">
+            <a href="/home">Home</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <div class="right-box" *ngIf="isUserLoggedIn()">
+            <a href="/createProject">Create Project</a>
+            <a href="/logout">Log out</a>
+        </div>
     </div>
     <div style="margin-top:5rem;"></div>
     <app-nav-slider></app-nav-slider>

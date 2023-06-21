@@ -9,7 +9,7 @@
 }
 
 /* Links inside the navbar */
-.navbar a {
+a {
     float: left;
     display: block;
     color: #f2f2f2;
@@ -19,7 +19,17 @@
 }
 
 /* Change background on mouse-over */
-.navbar a:hover {
+a:hover {
     background: #ddd;
     color: red;
+}
+
+.right-box{
+    float: right;
+    order: 3;
+}
+
+.left-box{
+    float: left;
+    order: 2;
 }

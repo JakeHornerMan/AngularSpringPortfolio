@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   public innerWidth: any;
 
-  constructor(){}
+  constructor(private userService: UserService){}
 
   ngOnInit(){
     // this.innerWidth = window.innerWidth;
@@ -24,6 +24,10 @@ export class AppComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  isUserLoggedIn(): boolean{
+    return this.userService.isLoggedIn();
   }
 
 }
