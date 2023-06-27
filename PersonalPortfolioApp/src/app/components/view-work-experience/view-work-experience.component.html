@@ -1,6 +1,9 @@
 <ng-container *ngFor="let workExperience of workExperienceList">
     <div class="box boxColor">
         <hr class="top" style="width:100%">
+        <div class="flex-center-row" *ngIf="isUserLoggedIn()">
+            <img src="/assets/edit.png" class="hvr-pulse" style="max-width: 50px;margin-bottom: 1rem;" (click)="editWorkExperience(workExperience.id)">
+        </div>
         <div class="flex-row space-bottom titleBox">
             <img src="{{workExperience.workIconUrl}}">
             <h1>{{workExperience.workPlace}}</h1>

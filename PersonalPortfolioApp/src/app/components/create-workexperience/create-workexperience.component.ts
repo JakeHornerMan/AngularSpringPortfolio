@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { WorkExperience } from 'src/app/models/models';
+import { Content, WorkExperience } from 'src/app/models/models';
 import { ProjectService } from 'src/app/services/project.service';
 import { SecureService } from 'src/app/services/secure.service';
+import { PreviewWorkExperienceComponent } from '../preview-work-experience/preview-work-experience.component';
+import { WorkExperienceService } from 'src/app/services/work-experience.service';
 
 @Component({
   selector: 'app-create-workexperience',
@@ -24,7 +26,7 @@ export class CreateWorkexperienceComponent implements OnInit {
   workExperience: WorkExperience = {} as WorkExperience;
 
   constructor(private service: SecureService, 
-    private projectService: ProjectService,
+    private workExperienceService: WorkExperienceService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private router: Router,
@@ -50,12 +52,11 @@ export class CreateWorkexperienceComponent implements OnInit {
     });
     if(this.id != null){
       this.title ="Edit Work Experience";
-      this.projectService.getProject(this.id).subscribe((res: any)=>{
+      this.workExperienceService.getWorkExperience(this.id).subscribe((res: any)=>{
         this.workExperience = res;
         console.log(this.workExperience);
         
-        //TODO: fill fome with object
-        // this.fillForm();
+        this.fillForm();
       },
       error => {
         console.log("Error, cannot get project by id: " + this.id);
@@ -64,6 +65,23 @@ export class CreateWorkexperienceComponent implements OnInit {
     else{
       this.title ="Create Work Experience";
     }
+  }
+
+  fillForm() {
+    this.workExperienceForm.patchValue(this.workExperience);
+
+    this.workExperience.contentList.forEach((item) => {
+      const contentForm= this.fb.group({
+        workExperienceId: ['', Validators.required],
+        contentTitle: ['', Validators.required],
+        contentParagraph: ['', Validators.required],
+        contentType: ['', Validators.required],
+        contentUrl: ['', Validators.required],
+        position: ['', Validators.required],
+      });
+      contentForm.patchValue(item);
+      this.contentForms.push(contentForm);
+    });
   }
 
   setContentType(index: number, input: string): void {
@@ -81,7 +99,7 @@ export class CreateWorkexperienceComponent implements OnInit {
 
   addContent(){
     const contentForm= this.fb.group({
-      projectId: ['', Validators.required],
+      workExperienceId: ['', Validators.required],
 	    contentTitle: ['', Validators.required],
       contentParagraph: ['', Validators.required],
 	    contentType: ['', Validators.required],
@@ -98,6 +116,86 @@ export class CreateWorkexperienceComponent implements OnInit {
 
   showContent(i: any): void {
     console.log(this.contentForms.controls[i]);
+  }
+
+  viewWorkExperience(){
+    this.createWorkExperience();
+
+    let dialogRef = this.dialog.open(PreviewWorkExperienceComponent, {
+      data: { project: this.workExperience, isSaving: false },
+      autoFocus: false,
+      height: '100vh',
+      minWidth: '100vw',
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log("You can now save this!");
+    })
+  }
+
+  createWorkExperience(){
+    this.workExperience.workPlace = this.workExperienceForm.controls['workPlace'].value;
+    this.workExperience.workTitle = this.workExperienceForm.controls['workTitle'].value;
+    this.workExperience.startDate = this.workExperienceForm.controls['startDate'].value;
+    this.workExperience.endDate = this.workExperienceForm.controls['endDate'].value;
+    this.workExperience.workDescription = this.workExperienceForm.controls['workDescription'].value;
+    this.workExperience.workIconUrl = this.workExperienceForm.controls['workIconUrl'].value;
+    this.workExperience.technologys = this.workExperienceForm.controls['technologys'].value;
+    
+    this.workExperience.contentList = this.createWorkExperienceContents();
+  }
+
+  createWorkExperienceContents(): Content[]{
+    let contentList: Content[] = [];
+    let index = 0
+    for (let control of this.contentForms.controls) {
+      let content: Content = {} as Content;
+      content.contentTitle = control.get('contentTitle')?.value;
+      content.contentParagraph = control.get('contentParagraph')?.value;
+      content.contentType = control.get('contentType')?.value;
+      content.contentUrl = control.get('contentUrl')?.value;
+      content.position = index;
+      index++;
+      contentList.push(content);
+    }
+
+    return contentList;
+  }
+
+  createAndSave(){
+    this.createWorkExperience();
+    let dialogRef = this.dialog.open(PreviewWorkExperienceComponent, {
+      data: { project: this.workExperience, isSaving: true},
+      autoFocus: false,
+      height: '100vh',
+      minWidth: '100vw',
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      console.log("You can now save this!");
+      this.saveWorkExperience();
+    })
+  }
+
+  saveWorkExperience() {
+    this.service.saveWorkExperience(this.workExperience).subscribe((res: any)=>{
+      this.workExperience = res;
+      this.router.navigateByUrl('/home');
+    },
+    error => {
+      console.log("Error Saving!");
+    });
+  }
+
+  updateWorkExperience() {
+    this.service.updateWorkExperience(this.workExperience).subscribe((res: any)=>{
+      // console.log(res);
+      this.workExperience = res;
+      this.router.navigateByUrl('/home');
+    },
+    error => {
+      console.log("Error Saving!");
+    });
   }
 
 }

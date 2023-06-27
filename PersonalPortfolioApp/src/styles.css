@@ -213,8 +213,8 @@ input:focus, textarea:focus {
 
 input:hover, textarea:hover {
   outline: none;
-  border-color: white;
-  box-shadow: 0 0 10px white;
+  border-color: red;
+  box-shadow: 0 0 5px red;
   cursor: pointer;
 }
 

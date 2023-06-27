@@ -27,6 +27,7 @@ import { ProjectByInterestComponent } from './components/project-by-interest/pro
 import { ViewWorkExperienceComponent } from './components/view-work-experience/view-work-experience.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CreateWorkexperienceComponent } from './components/create-workexperience/create-workexperience.component';
+import { PreviewWorkExperienceComponent } from './components/preview-work-experience/preview-work-experience.component';
 
 const appRoute: Routes =[
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -61,6 +62,7 @@ const appRoute: Routes =[
     ViewWorkExperienceComponent,
     LogoutComponent,
     CreateWorkexperienceComponent,
+    PreviewWorkExperienceComponent,
   ],
   imports: [
     BrowserModule,
