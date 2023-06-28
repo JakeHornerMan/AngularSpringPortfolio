@@ -59,13 +59,13 @@ export class SecureService {
     return this.httpClient.put<Project>(this.domain+'/projects/update', project, options);
   }
 
-  saveContentsofProject(project: Project) {
+  deleteProject(projectId: number): Observable<Project>{
     let user = this.userService.getUser();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
-    return this.httpClient.post<Project>(this.domain+'/projects/contents/save', project, options);
+    return this.httpClient.put<Project>(this.domain+'/projects/delete/'+projectId, options);
   }
 
   saveWorkExperience(workExperience: WorkExperience): Observable<WorkExperience>{
@@ -84,6 +84,15 @@ export class SecureService {
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
     return this.httpClient.put<WorkExperience>(this.domain+'/workExperience/update', workExperience, options);
+  }
+
+  deleteWorkExperience(workExperienceId: number): Observable<WorkExperience>{
+    let user = this.userService.getUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
+    let options = { headers: headers };
+    return this.httpClient.put<WorkExperience>(this.domain+'/workExperience/delete'+ workExperienceId, options);
   }
 
 }

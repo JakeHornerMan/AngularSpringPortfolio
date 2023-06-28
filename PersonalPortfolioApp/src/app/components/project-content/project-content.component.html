@@ -1,14 +1,15 @@
 <div class="box boxColor">
     <hr class="top" style="width:100%">
-    <div class="flex-center-row" *ngIf="isUserLoggedIn()">
-        <img src="/assets/edit.png" class="hvr-pulse" style="max-width: 50px;margin-bottom: 1rem;" (click)="editProject(project.id)">
+    <div class="flex-row" *ngIf="isUserLoggedIn()">
+        <img src="/assets/edit.png" class="hvr-pulse" style="max-width: 50px;margin: 1rem;" (click)="editProject(project.id)">
+        <img src="/assets/delete.png" class="hvr-pulse" style="max-width: 50px;margin: 1rem;" (click)="removeProject(project.id)">
     </div>
     <div class="flex-row space-bottom titleBox">
         <i *ngIf="project.staredProject" class="star"></i>
         <h1>{{project.projectName}}</h1>
         <div class="flex-center-column">
             <label>{{project.startDate}}</label>
-            <label>-</label>
+            <label style="margin: 0 auto;">-</label>
             <label>{{project.endDate}}</label>
         </div>
     </div>

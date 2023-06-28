@@ -299,6 +299,15 @@ mat-dialog-container {
   padding:1rem;
 }
 
+.pop-up {
+  max-width: 30rem;
+  margin: 0 auto;
+  margin-top: 15rem;
+  background-color: black;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
 @media screen and (max-width: 750px){
   .buttonContainer{
       flex-direction: column;

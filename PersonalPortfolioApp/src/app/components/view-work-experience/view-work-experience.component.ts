@@ -18,20 +18,13 @@ export class ViewWorkExperienceComponent implements OnInit {
     private userService: UserService,) { }
 
   ngOnInit(): void {
+    window.scroll(0,0);
     this.workExperienceService.getAllWorkExperiences().subscribe((res: any)=>{
       // console.log(res);
       this.workExperienceList = res;
     });
   }
 
-  editWorkExperience(id: number){
-    this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/createWorkExperience/'+id]);
-    });
-  }
-
-  isUserLoggedIn(): boolean{
-    return this.userService.isLoggedIn();
-  }
+  
 
 }

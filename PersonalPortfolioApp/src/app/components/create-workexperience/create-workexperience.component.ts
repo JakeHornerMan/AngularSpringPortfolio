@@ -118,21 +118,6 @@ export class CreateWorkexperienceComponent implements OnInit {
     console.log(this.contentForms.controls[i]);
   }
 
-  viewWorkExperience(){
-    this.createWorkExperience();
-
-    let dialogRef = this.dialog.open(PreviewWorkExperienceComponent, {
-      data: { project: this.workExperience, isSaving: false },
-      autoFocus: false,
-      height: '100vh',
-      minWidth: '100vw',
-    });
-
-    dialogRef.afterClosed().subscribe(result =>{
-      console.log("You can now save this!");
-    })
-  }
-
   createWorkExperience(){
     this.workExperience.workPlace = this.workExperienceForm.controls['workPlace'].value;
     this.workExperience.workTitle = this.workExperienceForm.controls['workTitle'].value;
@@ -162,10 +147,11 @@ export class CreateWorkexperienceComponent implements OnInit {
     return contentList;
   }
 
-  createAndSave(){
+  viewWorkExperience(){
     this.createWorkExperience();
+
     let dialogRef = this.dialog.open(PreviewWorkExperienceComponent, {
-      data: { project: this.workExperience, isSaving: true},
+      data: { workExperience: this.workExperience, isSaving: false },
       autoFocus: false,
       height: '100vh',
       minWidth: '100vw',
@@ -173,14 +159,31 @@ export class CreateWorkexperienceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result =>{
       console.log("You can now save this!");
-      this.saveWorkExperience();
+    })
+  }
+
+  createAndSave(){
+    this.createWorkExperience();
+
+    let dialogRef = this.dialog.open(PreviewWorkExperienceComponent, {
+      data: { workExperience: this.workExperience, isSaving: true},
+      autoFocus: false,
+      height: '100vh',
+      minWidth: '100vw',
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        console.log("You can now save this!");
+        this.saveWorkExperience();
+      }
     })
   }
 
   saveWorkExperience() {
     this.service.saveWorkExperience(this.workExperience).subscribe((res: any)=>{
       this.workExperience = res;
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/workExperiences');
     },
     error => {
       console.log("Error Saving!");
@@ -191,7 +194,7 @@ export class CreateWorkexperienceComponent implements OnInit {
     this.service.updateWorkExperience(this.workExperience).subscribe((res: any)=>{
       // console.log(res);
       this.workExperience = res;
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/workExperiences');
     },
     error => {
       console.log("Error Saving!");

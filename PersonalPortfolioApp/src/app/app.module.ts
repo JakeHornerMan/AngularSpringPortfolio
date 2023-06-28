@@ -28,6 +28,8 @@ import { ViewWorkExperienceComponent } from './components/view-work-experience/v
 import { LogoutComponent } from './components/logout/logout.component';
 import { CreateWorkexperienceComponent } from './components/create-workexperience/create-workexperience.component';
 import { PreviewWorkExperienceComponent } from './components/preview-work-experience/preview-work-experience.component';
+import { WorkExperienceContentComponent } from './components/work-experience-content/work-experience-content.component';
+import { DeletePopupComponent } from './components/delete-popup/delete-popup.component';
 
 const appRoute: Routes =[
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -63,6 +65,8 @@ const appRoute: Routes =[
     LogoutComponent,
     CreateWorkexperienceComponent,
     PreviewWorkExperienceComponent,
+    WorkExperienceContentComponent,
+    DeletePopupComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,7 @@
     <input type="date" id="end" formControlName="endDate" name="end">
 
     <label for="workDescription">Work Description:</label>
-    <textarea  type="text" id="projectDescription" formControlName="projectDescription" name="projectDescription"></textarea>
+    <textarea  type="text" id="workDescription" formControlName="workDescription" name="workDescription"></textarea>
 
     <label for="workIconUrl">Link to work Icon:</label>
     <input type="text" id="workIconUrl" formControlName="workIconUrl" name="workIconUrl">
@@ -70,7 +70,7 @@
         <span aria-hidden class="cybr-btn__glitch">OPEN</span>
         <span aria-hidden class="cybr-btn__tag">R25</span>
     </button>
-    <button class="cybr-btn" style="width:50%; align-self: center;  margin-bottom: 2rem;" (click)="null">
+    <button class="cybr-btn" style="width:50%; align-self: center;  margin-bottom: 2rem;" (click)="createAndSave()">
         Submit<span aria-hidden>_</span>
         <span aria-hidden class="cybr-btn__glitch">SAVE</span>
         <span aria-hidden class="cybr-btn__tag">R25</span>

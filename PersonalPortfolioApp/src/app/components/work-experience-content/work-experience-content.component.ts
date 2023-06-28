@@ -1,56 +1,50 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Content, Project } from 'src/app/models/models';
-import { SecureService } from 'src/app/services/secure.service';
+import { Content, Project, WorkExperience } from 'src/app/models/models';
 import { UserService } from 'src/app/services/user.service';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
-import { MatDialog } from '@angular/material/dialog';
+import { SecureService } from 'src/app/services/secure.service';
 
 @Component({
-  selector: 'app-project-content',
-  templateUrl: './project-content.component.html',
-  styleUrls: ['./project-content.component.css']
+  selector: 'app-work-experience-content',
+  templateUrl: './work-experience-content.component.html',
+  styleUrls: ['./work-experience-content.component.css']
 })
-export class ProjectContentComponent implements OnInit {
+export class WorkExperienceContentComponent implements OnInit {
 
-  @Input() project!: Project;
+  @Input() workExperience!: WorkExperience;
   contentList = new Array<Content>();
   liList = new Array<String>();
 
   constructor(private userService: UserService, 
     private router: Router,
     private service: SecureService,
-    private dialog: MatDialog,) {
-    
-  }
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    window.scroll(0,0);
-    this.contentList = this.project.contentList;
+    this.contentList = this.workExperience.contentList;
     this.sortContent();
-    if(this.project.mainPoints && this.project.mainPoints.includes('&')){
-      this.liList = this.project.mainPoints.split('&');
-    }
   }
 
   sortContent(){
     this.contentList.sort((a, b) => {
       return a.position - b.position;
     });
-    this.contentList = this.project.contentList;
+    this.contentList = this.workExperience.contentList;
   }
 
   isUserLoggedIn(): boolean{
     return this.userService.isLoggedIn();
   }
 
-  editProject(id: number){
+  editWorkExperience(id: number){
     this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/createProject/'+id]);
+      this.router.navigate(['/createWorkExperience/'+id]);
     });
   }
 
-  removeProject(projectId: number){
+  removeWorkExperience(workExperienceId: number){
     let dialogRef = this.dialog.open(DeletePopupComponent, {
       autoFocus: false,
       height: '100vh',
@@ -59,10 +53,10 @@ export class ProjectContentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result =>{
       if(result){
-        this.service.deleteProject(this.project.id).subscribe((res: any)=>{
+        this.service.deleteWorkExperience(workExperienceId).subscribe((res: any)=>{
           console.log("this is now deleted");
-          console.log(this.project);
-          this.router.navigateByUrl('/home');
+          console.log(this.workExperience);
+          this.router.navigateByUrl('/workExperiences');
           window.location.reload();
         },
         error => {

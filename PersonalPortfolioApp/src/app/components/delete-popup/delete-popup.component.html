@@ -1,0 +1,22 @@
+<div class="pop-up" *ngIf="areYouSure == false">
+    <h1>Are you sure you want to delete this?</h1>
+    <div class="flex-row">
+        <div class="btn btn-one" [mat-dialog-close]="false" style="margin:0 auto;">
+            <span>CANCEL</span>
+        </div>
+        <div class="btn btn-one" (click)="areYouSure = true" style="margin:0 auto;">
+            <span>YES</span>
+        </div>
+    </div>
+</div>
+<div class="pop-up" *ngIf="areYouSure == true">
+    <h1>Please Confirm?</h1>
+    <div class="flex-row">
+        <div class="btn btn-one" [mat-dialog-close]="false" style="margin:0 auto;">
+            <span>CANCEL</span>
+        </div>
+        <div class="btn btn-one" [mat-dialog-close]="true" style="margin:0 auto;">
+            <span>DELETE</span>
+        </div>
+    </div>
+</div>

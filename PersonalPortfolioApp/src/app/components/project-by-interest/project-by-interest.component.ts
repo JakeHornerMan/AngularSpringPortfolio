@@ -23,6 +23,7 @@ export class ProjectByInterestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scroll(0,0);
     this.projectService.getProjectsByInterest(this.id).subscribe((res: any)=>{
       // console.log(res);
       this.projectList = res;

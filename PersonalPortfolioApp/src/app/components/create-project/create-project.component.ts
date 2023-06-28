@@ -134,8 +134,10 @@ export class CreateProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result =>{
-      console.log("You can now save this!");
-      this.saveProject();
+      if(result){
+        console.log("You can now save this!");
+        this.saveProject();
+      }
     })
   }
 
