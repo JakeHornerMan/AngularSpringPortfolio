@@ -21,7 +21,8 @@ public class ProjectService {
 	private ContentRepo contentRepository;
 	
 	public List<Project> getAllProjects(){
-		return projectRepository.findAll(); 
+//		return projectRepository.findAll(); 
+		return projectRepository.findProjectsByActive(true);
 	}
 	
 	public Project addProject(Project project) {
@@ -44,6 +45,12 @@ public class ProjectService {
 	public List<Project> findProjectByLinkedInterest(String id) {
 		return projectRepository.findProjectsByLinkedInterests(id);
 //				.orElseThrow(() -> new ProjectNotFoundException ("This Interest ID "+id+" was not found"));
+	}
+
+	public void setProjectInactive(int id) {
+		Project project = findProject(id);
+		project.setActive(false);
+		updateProject(project); 
 	}
 
 //	public Project addContents(Project project) {

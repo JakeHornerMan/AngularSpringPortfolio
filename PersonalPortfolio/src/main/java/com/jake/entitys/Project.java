@@ -55,5 +55,8 @@ public class Project {
 	
 	@Column(columnDefinition = "boolean default false")
 	private boolean staredProject;
+
+	@Column(columnDefinition = "boolean default true")
+	private boolean active;
 	
 }

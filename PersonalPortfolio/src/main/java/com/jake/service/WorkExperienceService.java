@@ -21,7 +21,8 @@ public class WorkExperienceService {
 	private ContentRepo contentRepository;
 	
 	public List<WorkExperience> getAllWorkExperience(){
-		return workExperienceRepository.findAll(); 
+//		return workExperienceRepository.findAll(); 
+		return workExperienceRepository.findWorkExperiencesByActive(true);
 	}
 	
 	public WorkExperience addWorkExperience(WorkExperience workExperience) {
@@ -39,5 +40,12 @@ public class WorkExperienceService {
 	public WorkExperience findWorkExperience(int workExperienceId) {
 		return workExperienceRepository.findWorkExperienceById(workExperienceId)
 			.orElseThrow(() -> new ProjectNotFoundException ("This Interest ID "+workExperienceId+" was not found"));
+	}
+
+	public void setWorkExperienceInactive(int id) {
+		WorkExperience workExperience = findWorkExperience(id);
+		workExperience.setActive(false);
+		updateWorkExperience(workExperience); 
+		
 	}
 }

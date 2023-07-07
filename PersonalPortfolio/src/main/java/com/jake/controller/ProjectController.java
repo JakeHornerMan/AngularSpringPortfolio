@@ -62,7 +62,8 @@ public class ProjectController {
 	@CrossOrigin
 	@PutMapping("/delete/{id}")
 	public ResponseEntity<?> deleteProject(@PathVariable("id") int id) {
-		projectService.deleteProject(id);
+//		projectService.deleteProject(id);
+		projectService.setProjectInactive(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

@@ -147,8 +147,8 @@ export class CreateProjectComponent implements OnInit {
     this.project.endDate = this.projectForm.controls['endDate'].value;
     this.project.mainPoints = this.projectForm.controls['mainPoints'].value;
     this.project.linkedInterests = this.projectForm.controls['linkedInterests'].value;
-    // this.project.interestList = this.projectForm.controls['interestList'].value; ???what is this???
     this.project.linkedTechnologys = this.projectForm.controls['linkedTechnologys'].value;
+    this.project.active = true;
     
     this.project.contentList = this.createProjectContents();
   }

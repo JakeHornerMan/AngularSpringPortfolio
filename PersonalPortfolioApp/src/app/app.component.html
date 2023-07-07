@@ -1,5 +1,4 @@
-
-<div *ngIf="isNotMobile()">
+<!-- <div *ngIf="isNotMobile()">
     <div class="navbar">
         <div class="left-box">
             <a href="/home">Home</a>
@@ -17,4 +16,35 @@
 
 <div class="component-container">
     <router-outlet></router-outlet>
-</div>
+</div> -->
+
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="isOpened">
+        
+        <a href="/home"><img src="/assets/close.png" class="hvr-pulse close" (click)="isOpened = !isOpened"></a>
+        <div class="top-box">
+            <a class="hvr-pulse menuItem" href="/home">Home</a>
+            <a class="hvr-pulse menuItem" href="/interest/1">Game Development</a>
+            <a class="hvr-pulse menuItem" href="/interest/2">Art Work</a>
+            <a class="hvr-pulse menuItem" href="/interest/3">Software Development</a>
+            <a class="hvr-pulse menuItem" href="/workExperiences">Work Experience</a>
+            <!-- <a class="hvr-pulse" href="/contact">Contact</a> -->
+        </div>
+        <div class="bottom-box" *ngIf="isUserLoggedIn()">
+            <hr/>
+            <a class="hvr-pulse menuItem" href="/createProject">Create Project</a>
+            <a class="hvr-pulse menuItem" href="/createWorkExperience">Create Work Experience</a>
+            <a class="hvr-pulse menuItem" href="/logout">Log out</a>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <img src="/assets/menu.png" class="hvr-pulse menuIcon" style="max-width: 70px;margin: 1rem;" *ngIf="isOpened == false" (click)="isOpened = !isOpened">
+        <div class="top-space" *ngIf="isNotMobile()">
+            <app-nav-slider></app-nav-slider>
+        </div>
+        <div class="component-container">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

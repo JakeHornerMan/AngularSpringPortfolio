@@ -62,11 +62,12 @@ export class ProjectContentComponent implements OnInit {
         this.service.deleteProject(this.project.id).subscribe((res: any)=>{
           console.log("this is now deleted");
           console.log(this.project);
-          this.router.navigateByUrl('/home');
           window.location.reload();
+          this.router.navigateByUrl('/home');
+          
         },
         error => {
-          console.log("Error Saving!");
+          console.log("Error Deleting!");
         });
       }
     })

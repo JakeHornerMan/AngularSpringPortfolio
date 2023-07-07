@@ -10,7 +10,8 @@
         <div class="flex-center-column">
             <label>{{workExperience.startDate}}</label>
             <label style="margin: 0 auto;">-</label>
-            <label>{{workExperience.endDate}}</label>
+            <label *ngIf="workExperience.endDate">{{workExperience.endDate}}</label>
+            <label style="margin: 0 auto;" *ngIf="!workExperience.endDate">Current</label>
         </div>
     </div>
     <div class="flex-row">

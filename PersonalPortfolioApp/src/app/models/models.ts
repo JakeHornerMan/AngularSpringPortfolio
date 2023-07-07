@@ -20,6 +20,7 @@ export interface Project {
     linkedTechnologys: string;
     technologyList: Technology[];
     staredProject: boolean;
+    active: true;
 }
 
 export interface WorkExperience {
@@ -32,6 +33,7 @@ export interface WorkExperience {
     workDescription: string;
     workIconUrl: string;
     technologys: string;
+    active: true;
 }
 
 export interface Content {

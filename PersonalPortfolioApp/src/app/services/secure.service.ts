@@ -92,7 +92,7 @@ export class SecureService {
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + btoa(user.email+':'+user.password)});
     let options = { headers: headers };
-    return this.httpClient.put<WorkExperience>(this.domain+'/workExperience/delete'+ workExperienceId, options);
+    return this.httpClient.put<WorkExperience>(this.domain+'/workExperience/delete/'+ workExperienceId, options);
   }
 
 }

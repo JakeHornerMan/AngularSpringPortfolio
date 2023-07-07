@@ -52,9 +52,11 @@ public class WorkExperienceController {
 		return new ResponseEntity<>(newWorkExperience, HttpStatus.ACCEPTED);
 	}
 	
+	@CrossOrigin
 	@PutMapping("/delete/{id}")
 	public ResponseEntity<?> deleteWorkExperience(@PathVariable("id") int id) {
-		workExperienceService.deleteWorkExperience(id);
+//		workExperienceService.deleteWorkExperience(id);
+		workExperienceService.setWorkExperienceInactive(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

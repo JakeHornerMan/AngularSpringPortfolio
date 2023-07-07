@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -78,6 +79,7 @@ const appRoute: Routes =[
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+    MatSidenavModule,
   ],
   providers: [InterestService, CookieService],
   bootstrap: [AppComponent]

@@ -13,6 +13,10 @@ html{
     color: white !important;
 }
 
+.mat-sidenav-content{
+  background-image: url(../src/assets/spikes.png);
+}
+
 /* div {
   border-style: solid;
   border-color: coral;

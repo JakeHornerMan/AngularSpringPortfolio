@@ -41,4 +41,7 @@ public class WorkExperience {
 	private String workIconUrl;
 	private String technologys;
 	
+	@Column(columnDefinition = "boolean default true")
+	private boolean active;
+	
 }

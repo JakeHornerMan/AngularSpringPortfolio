@@ -56,11 +56,12 @@ export class WorkExperienceContentComponent implements OnInit {
         this.service.deleteWorkExperience(workExperienceId).subscribe((res: any)=>{
           console.log("this is now deleted");
           console.log(this.workExperience);
-          this.router.navigateByUrl('/workExperiences');
           window.location.reload();
+          this.router.navigateByUrl('/home');
+          
         },
         error => {
-          console.log("Error Saving!");
+          console.log("Error Deleting!");
         });
       }
     })

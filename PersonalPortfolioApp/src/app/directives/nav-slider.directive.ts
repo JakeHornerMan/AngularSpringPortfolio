@@ -12,8 +12,10 @@ export class NavSliderDirective {
     var option = document.getElementsByClassName("option");
     for(let i=0; i<option.length; i++){
       option[i].classList.remove("active");
+      option[i].classList.add("hvr-pulse")
     }
     this.elementRef.nativeElement.classList.add("active");
+    this.elementRef.nativeElement.classList.remove("hvr-pulse");
   }
 
 }

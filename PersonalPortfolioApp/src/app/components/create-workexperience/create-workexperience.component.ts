@@ -126,6 +126,7 @@ export class CreateWorkexperienceComponent implements OnInit {
     this.workExperience.workDescription = this.workExperienceForm.controls['workDescription'].value;
     this.workExperience.workIconUrl = this.workExperienceForm.controls['workIconUrl'].value;
     this.workExperience.technologys = this.workExperienceForm.controls['technologys'].value;
+    this.workExperience.active = true;
     
     this.workExperience.contentList = this.createWorkExperienceContents();
   }

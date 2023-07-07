@@ -10,6 +10,8 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
 
+  isOpened: boolean = false;
+
   public innerWidth: any;
 
   constructor(private userService: UserService){}

@@ -15,5 +15,6 @@ public interface ProjectRepo extends CrudRepository<Project, Integer>, JpaReposi
 
 	Optional<Project> findProjectById(int projectId);
 	List<Project> findProjectsByLinkedInterests(String interestId);
+	List<Project> findProjectsByActive(boolean value);
 
 }
