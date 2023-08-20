@@ -1,2 +1,4 @@
 /PersonalPortfolio/src/main/resources/application-prod.properties
 /PersonalPortfolio/src/main/resources/instructions for EC2 instance
+/PersonalPortfolio/PersonalPortfolio-0.0.1-SNAPSHOT.jar
+/PersonalPortfolio/target/ec2-user@54.74.141.140
