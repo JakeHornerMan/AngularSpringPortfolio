@@ -184,7 +184,7 @@ export class CreateWorkexperienceComponent implements OnInit {
   saveWorkExperience() {
     this.service.saveWorkExperience(this.workExperience).subscribe((res: any)=>{
       this.workExperience = res;
-      this.router.navigateByUrl('/workExperiences');
+      this.router.navigate(['workExperiences']);
     },
     error => {
       console.log("Error Saving!");
@@ -195,7 +195,7 @@ export class CreateWorkexperienceComponent implements OnInit {
     this.service.updateWorkExperience(this.workExperience).subscribe((res: any)=>{
       // console.log(res);
       this.workExperience = res;
-      this.router.navigateByUrl('/workExperiences');
+      this.router.navigate(['workExperiences']);
     },
     error => {
       console.log("Error Saving!");

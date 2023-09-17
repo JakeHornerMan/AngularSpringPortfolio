@@ -32,4 +32,8 @@ export class AppComponent implements OnInit {
     return this.userService.isLoggedIn();
   }
 
+  close(): void{
+    this.isOpened = false;
+  }
+
 }

@@ -32,19 +32,19 @@ import { PreviewWorkExperienceComponent } from './components/preview-work-experi
 import { WorkExperienceContentComponent } from './components/work-experience-content/work-experience-content.component';
 import { DeletePopupComponent } from './components/delete-popup/delete-popup.component';
 
-const appRoute: Routes =[
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path:'home', component: HomeComponent},
-  {path:'login', component: LoginComponent},
-  {path:'logout', component: LogoutComponent},
-  {path:'createProject', component: CreateProjectComponent},
-  {path:'interest/:id', component: ProjectByInterestComponent},
-  {path:'createProject/:id', component: CreateProjectComponent},
-  {path:'workExperiences', component: ViewWorkExperienceComponent},
-  {path:'createWorkExperience', component: CreateWorkexperienceComponent},
-  {path:'createWorkExperience/:id', component: CreateWorkexperienceComponent},
-  {path:'**', component: ErrorComponent} //must be last
-];
+// const appRoute: Routes =[
+//   {path: '', redirectTo: 'home', pathMatch: 'full'},
+//   {path:'home', component: HomeComponent},
+//   {path:'login', component: LoginComponent},
+//   {path:'logout', component: LogoutComponent},
+//   {path:'createProject', component: CreateProjectComponent},
+//   {path:'interest/:id', component: ProjectByInterestComponent},
+//   {path:'createProject/:id', component: CreateProjectComponent},
+//   {path:'workExperiences', component: ViewWorkExperienceComponent},
+//   {path:'createWorkExperience', component: CreateWorkexperienceComponent},
+//   {path:'createWorkExperience/:id', component: CreateWorkexperienceComponent},
+//   {path:'**', component: ErrorComponent} //must be last
+// ];
 
 @NgModule({
   declarations: [
@@ -75,7 +75,6 @@ const appRoute: Routes =[
     HttpClientModule,
     MatExpansionModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoute),
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,

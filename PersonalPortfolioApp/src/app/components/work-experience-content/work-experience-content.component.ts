@@ -57,7 +57,7 @@ export class WorkExperienceContentComponent implements OnInit {
           console.log("this is now deleted");
           console.log(this.workExperience);
           window.location.reload();
-          this.router.navigateByUrl('/home');
+          this.router.navigate(['home']);
           
         },
         error => {

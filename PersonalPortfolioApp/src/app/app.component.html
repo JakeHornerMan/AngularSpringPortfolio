@@ -12,9 +12,9 @@
     </div>
     <div style="margin-top:5rem;"></div>
     <app-nav-slider></app-nav-slider>
-</div>
+</div> -->
 
-<div class="component-container">
+<!-- <div class="component-container">
     <router-outlet></router-outlet>
 </div> -->
 
@@ -23,18 +23,22 @@
         
         <a href="/home"><img src="/assets/close.png" class="hvr-pulse close" (click)="isOpened = !isOpened"></a>
         <div class="top-box">
-            <a class="hvr-pulse menuItem" href="/home">Home</a>
-            <a class="hvr-pulse menuItem" href="/interest/1">Game Development</a>
-            <a class="hvr-pulse menuItem" href="/interest/2">Art Work</a>
-            <a class="hvr-pulse menuItem" href="/interest/3">Software Development</a>
-            <a class="hvr-pulse menuItem" href="/workExperiences">Work Experience</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/home" routerLinkActive="active">Home</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/interest/1" routerLinkActive="active">Game Development</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/interest/2" routerLinkActive="active">Art Work</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/interest/3" routerLinkActive="active">Software Development</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/workExperiences" routerLinkActive="active">Work Experience</a>
             <!-- <a class="hvr-pulse" href="/contact">Contact</a> -->
+        </div>
+        <div class="bottom-box" *ngIf="!isUserLoggedIn()">
+            <hr/>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/login" routerLinkActive="active">Log In</a>
         </div>
         <div class="bottom-box" *ngIf="isUserLoggedIn()">
             <hr/>
-            <a class="hvr-pulse menuItem" href="/createProject">Create Project</a>
-            <a class="hvr-pulse menuItem" href="/createWorkExperience">Create Work Experience</a>
-            <a class="hvr-pulse menuItem" href="/logout">Log out</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/createProject" routerLinkActive="active">Create Project</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/createWorkExperience" routerLinkActive="active">Create Work Experience</a>
+            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/logout" routerLinkActive="active">Log out</a>
         </div>
     </mat-sidenav>
 

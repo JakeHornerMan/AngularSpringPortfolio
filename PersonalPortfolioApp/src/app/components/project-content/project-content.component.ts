@@ -63,7 +63,7 @@ export class ProjectContentComponent implements OnInit {
           console.log("this is now deleted");
           console.log(this.project);
           window.location.reload();
-          this.router.navigateByUrl('/home');
+          this.router.navigate(['home']);
           
         },
         error => {

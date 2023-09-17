@@ -173,7 +173,7 @@ export class CreateProjectComponent implements OnInit {
   saveProject() {
     this.service.saveProject(this.project).subscribe((res: any)=>{
       this.project = res;
-      this.router.navigateByUrl('/home');
+      this.router.navigate(['home']);
     },
     error => {
       console.log("Error Saving!");
@@ -184,7 +184,7 @@ export class CreateProjectComponent implements OnInit {
     this.service.updateProject(this.project).subscribe((res: any)=>{
       // console.log(res);
       this.project = res;
-      this.router.navigateByUrl('/home');
+      this.router.navigate(['home']);
     },
     error => {
       console.log("Error Saving!");

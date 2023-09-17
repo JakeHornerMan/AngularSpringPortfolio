@@ -44,35 +44,35 @@ export class NavSliderComponent implements OnInit {
 
       switch(input) { 
         case "All Projects": { 
-          this.router.navigateByUrl('/home');
+          this.router.navigate(['home']);
           break; 
         } 
         case "Game Development": { 
           this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/interest/1']);
+            this.router.navigate(['interest/1']);
           }); 
           break; 
         }
         case "Art Works": { 
           this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/interest/2']);
+            this.router.navigate(['interest/2']);
           });
           break; 
         }
         case "Software Development": { 
           this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/interest/3']);
+            this.router.navigate(['interest/3']);
           });
           break; 
         }
         case "Work Experience": { 
-          this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/workExperiences']);
-          });
+          // this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['workExperiences']);
+          // });
           break; 
         }
         default: { 
-          this.router.navigateByUrl('/home');
+          this.router.navigate(['home']);
         }
       }
     // }
