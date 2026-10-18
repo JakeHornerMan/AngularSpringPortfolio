@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, NgZone, OnDestroy } from '@angular/core';
 import { prefersReducedMotion } from '../ink/ink-noise';
 import { DESKTOP_MEDIA } from '../layout-mode';
 import { SpaceNavService } from '../services/space-nav.service';
@@ -8,7 +8,7 @@ import { Box, CLOSE_MS, OPEN_MS, flip, layoutBox } from '../window-motion';
 // Turns the children of a `.pockets` grid into little windows that drift around and bounce off the
 // edges (and each other), like the old DVD screensaver. Grab a window by its title bar (the pocket's
 // first `.label`) to move it yourself; let go with a flick to throw it.
-// The windows are shared out into "spaces" of at most PER_SPACE windows. Each space is one browser
+// The windows are shared out into "spaces" of at most PER_SPACE windows (or `perSpace`; 0 puts them all in one). Each space is one browser
 // window tall, with a SPACER gap before the next, and its windows bounce inside it; the page scrolls
 // from space to space. Space 0 starts at the very top of the page. Each gap holds a slowly rippling
 // wavy ink line (`.space-divider`).
@@ -56,6 +56,9 @@ let topZ = 2;
   selector: '[appBounceField]'
 })
 export class BounceFieldDirective implements AfterViewInit, OnDestroy {
+
+  // Windows per space; 0 means no limit, so every window bounces in the one space.
+  @Input() perSpace = PER_SPACE;
 
   private bodies = new Map<HTMLElement, Body>();
   private active = false;
@@ -200,6 +203,7 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
         flip(el, from, to, 'translate3d(0px, 0px, 0)', OPEN_MS);
       }
     });
+    const per = this.perSpace > 0 ? this.perSpace : Infinity;
     children.forEach((el, index) => {
       if (!wanted.has(el)) return;
       let body = this.bodies.get(el);
@@ -222,10 +226,10 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
           }
         }
       }
-      // Windows fill the spaces in page order, PER_SPACE at a time.
-      if (!body.movedSpace) body.space = Math.floor(index / PER_SPACE);
+      // Windows fill the spaces in page order, perSpace at a time.
+      if (!body.movedSpace) body.space = Math.floor(index / per);
     });
-    this.spaceCount = Math.max(1, Math.ceil(children.length / PER_SPACE),
+    this.spaceCount = Math.max(1, Math.ceil(children.length / per),
       ...Array.from(this.bodies.values(), b => b.space + 1));
     this.updateCrowded();
   }

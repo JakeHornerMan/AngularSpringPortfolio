@@ -4,7 +4,7 @@
             <span class="window-dots" aria-hidden="true"></span>{{open ? 'close ↖' : 'open ↘'}}
         </button>
         <ng-template #plainDots><span class="window-dots" aria-hidden="true"></span></ng-template>
-        <span class="bar-title">{{workExperience.workPlace}}</span>
+        <span class="bar-title">{{barTitle || workExperience.workPlace}}</span>
     </span>
 
     <div class="work-head">

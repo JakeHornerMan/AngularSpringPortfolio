@@ -35,10 +35,10 @@
     </button>
     <nav class="dock" aria-label="Main">
         <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">home</a>
+        <a routerLink="/workExperiences" routerLinkActive="active">work</a>
+        <a routerLink="/interest/3" routerLinkActive="active">software</a>
         <a routerLink="/interest/1" routerLinkActive="active">games</a>
         <a routerLink="/interest/2" routerLinkActive="active">art</a>
-        <a routerLink="/interest/3" routerLinkActive="active">software</a>
-        <a routerLink="/workExperiences" routerLinkActive="active">work</a>
     </nav>
     <button type="button" class="more-arrows right up" (click)="previousSpace()" aria-label="Show the previous windows" tabindex="-1">
         <img src="/assets/cursors/SmoothArrowUp.png" alt=""><img src="/assets/cursors/SmoothArrowUp.png" alt=""><img src="/assets/cursors/SmoothArrowUp.png" alt="">
@@ -47,5 +47,8 @@
         <img src="/assets/cursors/SmoothArrowDown.png" alt=""><img src="/assets/cursors/SmoothArrowDown.png" alt=""><img src="/assets/cursors/SmoothArrowDown.png" alt="">
     </button>
 </div>
+
+<!-- The joke "virus" that floods the screen with terminals before a link opens in a new tab. -->
+<app-terminal-swarm></app-terminal-swarm>
 
 <app-intro-loader></app-intro-loader>

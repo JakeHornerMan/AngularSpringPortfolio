@@ -15,6 +15,8 @@ import { OpenableWindow, OpenWindowService } from 'src/app/services/open-window.
 export class WorkExperienceContentComponent implements OnInit, OnDestroy, OpenableWindow {
 
   @Input() workExperience!: WorkExperience;
+  // Shown in the title bar instead of the workplace's name.
+  @Input() barTitle?: string;
   contentList = new Array<Content>();
   liList = new Array<String>();
   @Input() @HostBinding('class.wide') open = false;

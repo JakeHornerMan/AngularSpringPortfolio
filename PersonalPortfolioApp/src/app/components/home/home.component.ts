@@ -1,8 +1,6 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Interest, Project } from 'src/app/models/models';
-import { InterestService } from 'src/app/services/interest.service';
-import { ProjectService } from 'src/app/services/project.service';
+import { WorkExperience } from 'src/app/models/models';
+import { WorkExperienceService } from 'src/app/services/work-experience.service';
 
 
 @Component({
@@ -12,52 +10,22 @@ import { ProjectService } from 'src/app/services/project.service';
 })
 export class HomeComponent implements OnInit {
 
-  interestList = new Array<Interest>();
-  projectList = new Array<Project>();
-  staredProjectList = new Array<Project>();
+  currentWork?: WorkExperience;
 
-  constructor(private interestService:InterestService, private projectService:ProjectService) { 
+  constructor(private workExperienceService: WorkExperienceService) {
   }
 
   ngOnInit(): void {
     window.scroll(0,0);
-    this.getInterests();
-    this.getProjects();
+    this.getCurrentWork();
   }
 
-  getInterests(){
-    this.interestService.getAllInterests().subscribe((res: Interest[])=>{
-      if(res){
-        this.interestList = res;
-      }
-    });
-  }
-
-  getProjects(){
-    this.projectService.getAllProjects().subscribe((res: Project[])=>{
-      if(res){
-        this.sortLists(res);
-        
-        this.projectList.sort((x, y) => +new Date(y.endDate) - +new Date(x.endDate));
-        this.staredProjectList.sort((x, y) => +new Date(y.endDate) - +new Date(x.endDate));
-      }
-    });
-  }
-
-  // Interest 4 is work experience and 5 is "all projects" (this page); the rest list projects by interest.
-  interestLink(interest: Interest): string {
-    if(interest.id == 4) return '/workExperiences';
-    if(interest.id == 5) return '/home';
-    return '/interest/' + interest.id;
-  }
-
-  sortLists(arr: Project[]) {
-    arr.forEach((item) => {
-      if(item.staredProject){
-        this.staredProjectList.push(item);
-      }
-      else{
-        this.projectList.push(item);
+  // The current job is the one with no end date; failing that, the one that started most recently.
+  getCurrentWork(){
+    this.workExperienceService.getAllWorkExperiences().subscribe((res: WorkExperience[])=>{
+      if(res?.length){
+        const byStart = [...res].sort((x, y) => +new Date(y.startDate) - +new Date(x.startDate));
+        this.currentWork = byStart.find(work => !work.endDate) ?? byStart[0];
       }
     });
   }

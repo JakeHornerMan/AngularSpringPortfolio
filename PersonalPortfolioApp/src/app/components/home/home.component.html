@@ -1,4 +1,11 @@
-<section class="pockets" appBounceField>
+<!-- The home page is a fixed set of windows, all bouncing in the one space. Only the current job comes from the API. -->
+<section class="pockets" appBounceField [perSpace]="0">
+    <div class="pocket">
+        <span class="label">i make</span>
+        <p>Software, websites, games and artwork.</p>
+        <p class="muted">Programmer · Game Designer · Software Engineer · Web Developer · Artist</p>
+    </div>
+
     <div class="pocket">
         <span class="label">tldr</span>
         <p>
@@ -6,22 +13,6 @@
             TypeScript and Angular. I have a degree in Computer Science from the National College
             of Ireland, where I specialised in software development.
         </p>
-    </div>
-
-    <div class="pocket">
-        <span class="label">i make</span>
-        <p>Software, websites, games and artwork.</p>
-        <p class="muted">Programmer · Game Designer · Software Engineer · Web Developer · Artist</p>
-    </div>
-
-    <div class="pocket" *ngIf="interestList.length">
-        <span class="label">explore</span>
-        <ul class="link-list">
-            <li *ngFor="let interest of interestList">
-                <a [routerLink]="interestLink(interest)">{{interest.title}}</a>
-                <span class="muted">{{interest.description}}</span>
-            </li>
-        </ul>
     </div>
 
     <div class="pocket">
@@ -41,6 +32,5 @@
         <a href="mailto:jakehorner19@gmail.com">jakehorner19@gmail.com</a>
     </div>
 
-    <app-project-content *ngFor="let project of staredProjectList" [project]="project"></app-project-content>
-    <app-project-content *ngFor="let project of projectList" [project]="project"></app-project-content>
+    <app-work-experience-content *ngIf="currentWork" [workExperience]="currentWork" barTitle="where i work"></app-work-experience-content>
 </section>

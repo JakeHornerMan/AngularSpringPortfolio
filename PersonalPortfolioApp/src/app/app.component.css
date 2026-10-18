@@ -21,6 +21,7 @@
 
 .name {
   display: inline-block;
+  font-family: var(--page-display);
   font-size: clamp(3rem, 9vw, 7.5rem);
   text-decoration: none;
   /* Paper halo keeps the name legible over the ink rings. */
@@ -37,11 +38,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0.5rem 1.5rem;
+  gap: 0 1.5rem;
   margin: 0 var(--gutter);
-  padding: 1rem 0 6.5rem;
+  /* A thin strip (~14px). Its text sits at the edges, clear of the centred nav dock floating over it. */
+  padding: 2px 0;
   border-top: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 10px;
+  line-height: 1.2;
   background: var(--pocket);
 }
 

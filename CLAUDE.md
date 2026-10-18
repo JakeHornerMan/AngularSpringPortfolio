@@ -55,7 +55,10 @@ Frontend (run from `PersonalPortfolioApp/`):
 
 **Frontend design (black & white suminagashi):**
 - Colour/font tokens live on `:root` in `src/styles.css`, along with the shared `.pocket`, `.pockets` (staggered grid), `.label` and button classes.
-- Fonts: Rubik Glitch for all headings (`--display`) and Asap Sharp for everything else (`--body`), loaded in `src/index.html`.
+- Fonts, loaded in `src/index.html`:
+  - Rubik Glitch (`--page-display`) for the big page header only (the masthead `.name`).
+  - Aboreto (`--display`) for all other headings.
+  - Asap Sharp (`--body`) for everything else.
 - `components/ink-field` is the slowly moving ink background (not interactive); the app shell renders one fixed instance behind everything.
   - It renders at 30fps with a WebGL fragment shader (`src/app/ink/ink-shader.ts`).
   - Lines are contours of a "drop potential": a smooth minimum of the stretched-ellipse distance to 2–3 ink drops (count, positions and sizes are random per seed, kept `MIN_SOURCE_GAP` apart). Each drop is its own ring source, and rings drift outward (`DRIFT`) and merge where they meet.
@@ -71,7 +74,7 @@ Frontend (run from `PersonalPortfolioApp/`):
 - Pockets are styled as little browser windows. A pocket's first `.label` becomes the title bar, with the window dots on the left and the title on the right. On project and work windows (`.label.has-dots`) the dots plus "open/close" are a real button (`.window-open`) that toggles the full story, and the title text is in `.bar-title`.
 - `BounceFieldDirective` (`appBounceField`, in `src/app/directives/`) sits on each `.pockets` grid:
   - It turns the children into windows that drift DVD-screensaver style, bouncing off the edges and off each other.
-  - The windows are shared out, in page order, into "spaces" of at most `PER_SPACE` (4). Each space is one browser window tall and the full width, with a `SPACER` gap before the next. Space 0 starts at the top of the page, and the page scrolls through the spaces.
+  - The windows are shared out, in page order, into "spaces" of at most `PER_SPACE` (4). A field can set its own `[perSpace]`; 0 means no limit (one space). Each space is one browser window tall and the full width, with a `SPACER` gap before the next. Space 0 starts at the top of the page, and the page scrolls through the spaces.
     - Each window bounces inside its own space. Dragging one into another space moves it there.
     - Each gap holds a `.space-divider` that the directive creates: three wavy ink lines, as tiled SVG backgrounds, rippling slowly sideways over a calm paper band.
     - The directive sets the field's height to hold every space. Windows are `position: absolute` in the field, with positions kept in page coordinates.
@@ -88,10 +91,18 @@ Frontend (run from `PersonalPortfolioApp/`):
   - An opened window's title bar is sticky. `OverlayScrollbarService` hides the browser's scrollbars and draws a thin thumb inside whatever is scrolling, only while it scrolls. Set `--scroll-inset-top` on a scroller to keep the thumb below a pinned header.
   - On phones and tablets the windows stay static and in order in the normal grid. "Desktop" is `DESKTOP_MEDIA` in `src/app/layout-mode.ts`: at least 720px wide, with a mouse (`hover: hover` and `pointer: fine`). Reduced motion also gets the static grid.
   - While active it adds `body.pockets-bouncing`, which lifts `.page` above the footer.
+- The home page is a fixed set of hard-coded windows (i make, tldr, elsewhere, contact) in a single space (`[perSpace]="0"`). The one window from the API is the current job: the work experience with no end date, else the latest start, shown as a work window titled "where i work" (`barTitle`).
 - The masthead shows "Jake Horner" on the home page and the current section's name everywhere else.
   - It comes from `SectionTitleService`, which also sets the browser tab title.
   - The app shell resets it on `ResolveStart`, once the curtain has covered the old page. Section pages (interest pages, work, log in, log out, 404) call `set()` in `ngOnInit`.
   - Those pages have no heading of their own.
+- `TerminalSwarmComponent` (in the app shell) is a joke "virus".
+  - Clicking any `target="_blank"` link floods the screen with fake terminal windows, then opens the link (~1.7s; Escape skips ahead) and the terminals vanish. Every other terminal prints ASCII art; the rest type made-up hacker lines (`HACKER_LINES`). Phones and tablets get a single art terminal, centred.
+  - The terminals are #2A4767 (`--terminal` on `.terminal`), the site's one colour, so the "virus" looks out of place.
+  - The art lives in `terminal-swarm/ascii-art.ts` (from asciiart.website, each with its source URL; keep the artists' signatures). Each terminal's font is sized from the measured character width so the whole piece fits on screen.
+  - The tab opens from a timer, which Chrome and Firefox allow for a few seconds after a click. If it's blocked, the last terminal stays up with the link to click.
+  - Modified or middle clicks, and reduced motion, open the link straight away.
+  - The terminals are plain DOM, styled by `.terminal*` in `styles.css`.
 - The masthead name and `.page-title` always stay in front of the windows but are click-through (`pointer-events: none`), so the name is no longer a link; the dock's "home" is.
 
 ## Cursors

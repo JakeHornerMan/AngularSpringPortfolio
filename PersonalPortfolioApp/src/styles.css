@@ -7,7 +7,9 @@
   --line: rgba(11, 11, 11, 0.16);
   --pocket: rgba(250, 250, 247, 0.84);
 
-  --display: 'Rubik Glitch', 'Rubik', system-ui, sans-serif;
+  --display: 'Aboreto', 'Cinzel', Georgia, serif;
+  /* The big page header only: "Jake Horner" on home, the section name elsewhere. */
+  --page-display: 'Rubik Glitch', 'Rubik', system-ui, sans-serif;
   --body: 'Asap Sharp', 'Asap', system-ui, sans-serif;
 
   --gutter: clamp(16px, 3.5vw, 48px);
@@ -769,6 +771,77 @@ hr.top, hr.bottom {
 .flex-center-column { display: flex; flex-direction: column; align-items: center; }
 .space-top { margin-top: 1rem; }
 .space-bottom { margin-bottom: 1rem; }
+
+/* The joke "virus" (TerminalSwarmComponent): fake terminals that flood the screen before a link opens
+   in a new tab. Over everything, page titles included; the layer swallows clicks while it plays. */
+app-terminal-swarm {
+  position: fixed;
+  inset: 0;
+  z-index: 200000;
+  display: none;
+}
+
+app-terminal-swarm.active {
+  display: block;
+}
+
+.terminal {
+  /* The one colour on the black-and-white site: the "virus" is meant to look out of place. */
+  --terminal: #2A4767;
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid var(--terminal);
+  border-radius: 8px;
+  background: var(--terminal);
+  box-shadow: 0 10px 30px rgba(11, 11, 11, 0.35);
+  animation: terminal-pop 140ms cubic-bezier(.2, 1.4, .4, 1) both;
+}
+
+.terminal.closing {
+  animation: terminal-gone 180ms ease-in both;
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 11px/1.4 var(--body);
+}
+
+/* TerminalSwarmComponent sets the font size and height so the whole piece of ASCII art fits; keep the
+   line height, padding and font in step with its constants. */
+.terminal-screen {
+  margin: 0;
+  padding: 10px 12px;
+  overflow: hidden;
+  color: var(--paper);
+  font: 12px/1.1 Consolas, 'Courier New', monospace;
+  white-space: pre;
+}
+
+.terminal.blocked .terminal-screen {
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.terminal-screen a {
+  color: var(--paper);
+  text-decoration: underline;
+}
+
+@keyframes terminal-pop {
+  from { opacity: 0; transform: scale(0.6); }
+}
+
+@keyframes terminal-gone {
+  to { opacity: 0; transform: scale(0.85); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .pocket { animation: none !important; }

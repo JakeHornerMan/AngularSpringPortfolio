@@ -47,6 +47,7 @@ import { MediaWindowComponent } from './components/media-window/media-window.com
 //   {path:'createWorkExperience/:id', component: CreateWorkexperienceComponent},
 //   {path:'**', component: ErrorComponent} //must be last
 // ];
+import { TerminalSwarmComponent } from './components/terminal-swarm/terminal-swarm.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { MediaWindowComponent } from './components/media-window/media-window.com
     PreviewWorkExperienceComponent,
     WorkExperienceContentComponent,
     DeletePopupComponent,
+    TerminalSwarmComponent,
   ],
   imports: [
     BrowserModule,
