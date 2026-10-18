@@ -1,23 +1,23 @@
 <article class="pocket">
-    <span class="label">
-        <span *ngIf="project.staredProject">featured · </span>{{project.startDate | date:'yyyy'}}<ng-container *ngIf="project.endDate && (project.endDate | date:'yyyy') != (project.startDate | date:'yyyy')">–{{project.endDate | date:'yyyy'}}</ng-container>
+    <span class="label has-dots">
+        <button type="button" class="window-open" *ngIf="contentList?.length; else plainDots" (click)="toggle()" [attr.aria-expanded]="open">
+            <span class="window-dots" aria-hidden="true"></span>{{open ? 'close ↖' : 'open ↘'}}
+        </button>
+        <ng-template #plainDots><span class="window-dots" aria-hidden="true"></span></ng-template>
+        <span class="bar-title">{{project.projectName}}</span>
     </span>
 
     <h1 class="pocket-title">{{project.projectName}}</h1>
+    <p class="pocket-meta"><span *ngIf="project.staredProject">featured · </span>{{project.startDate | date:'yyyy'}}<ng-container *ngIf="project.endDate && (project.endDate | date:'yyyy') != (project.startDate | date:'yyyy')">–{{project.endDate | date:'yyyy'}}</ng-container></p>
 
     <ul class="dash-list" *ngIf="liList.length > 0">
         <li *ngFor="let li of liList">{{li}}</li>
     </ul>
     <p *ngIf="project.projectDescription">{{project.projectDescription}}</p>
 
-    <div class="pocket-actions">
-        <button class="text-btn" *ngIf="contentList?.length" (click)="toggle()" [attr.aria-expanded]="open">
-            {{open ? 'close ↖' : 'open ↘'}}
-        </button>
-        <ng-container *ngIf="isUserLoggedIn()">
-            <button class="text-btn" (click)="editProject(project.id)">edit</button>
-            <button class="text-btn" (click)="removeProject(project.id)">delete</button>
-        </ng-container>
+    <div class="pocket-actions" *ngIf="isUserLoggedIn()">
+        <button class="text-btn" (click)="editProject(project.id)">edit</button>
+        <button class="text-btn" (click)="removeProject(project.id)">delete</button>
     </div>
 
     <div class="pocket-body" *ngIf="open">

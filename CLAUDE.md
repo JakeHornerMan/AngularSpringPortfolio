@@ -64,6 +64,39 @@ Frontend (run from `PersonalPortfolioApp/`):
   - On every later navigation it plays in reverse to cover the page, then dissolves again once the new page's data is in. It's hidden with `display:none` when idle.
 - All routes in `app-routing.module.ts` sit under one componentless parent with `canActivateChild: [PageTransitionGuard]`, which holds each navigation until `PageTransitionService` reports the curtain has covered the page. New routes must go in the `pages` array to get the transition. It waits for the first `NavigationEnd` and zero pending HTTP requests, tracked by `LoadingInterceptor`/`LoadingService` (min 1.4s, max 4s).
 - `project-content` and `work-experience-content` render as pockets. `open` (an input plus a host class `wide`) expands one to full width to show its content blocks.
+- Pockets are styled as little browser windows. A pocket's first `.label` becomes the title bar, with the window dots on the left and the title on the right. On project and work windows (`.label.has-dots`) the dots plus "open/close" are a real button (`.window-open`) that toggles the full story, and the title text is in `.bar-title`.
+- `BounceFieldDirective` (`appBounceField`, in `src/app/directives/`) sits on each `.pockets` grid:
+  - It turns the children into `position: fixed` windows that drift DVD-screensaver style, bouncing off the browser edges and off each other. Collisions switch off when the windows cover more than `CROWDED` of the screen.
+  - Hovering pauses a window. Its title bar is a drag handle, and a flick throws it, easing back to `CRUISE` speed.
+  - An opened (`.wide`) window leaves the simulation and sits centred. It grows there from its bouncing spot with a FLIP animation (`flip()` in `src/app/window-motion.ts`, shared by every window), and closing shrinks it back to the spot it left. While any window is open the others freeze.
+  - Videos never play inline. A `video` content block (`contentTypes/videos`) is a small tile: a greyscale YouTube thumbnail with a "▶ play" badge. Clicking it asks `VideoWindowService` to play it.
+    - The one `VideoWindowComponent`, rendered inside `main.page` above opened windows (z 5000) but below the page titles, grows a separate video window out of the tile and autoplays it (`toEmbedUrl` adds `autoplay=1`).
+    - Its close button or Escape shrinks it back into the tile.
+  - An opened window's title bar is sticky. `OverlayScrollbarService` hides the browser's scrollbars and draws a thin thumb inside whatever is scrolling, only while it scrolls. Set `--scroll-inset-top` on a scroller to keep the thumb below a pinned header.
+  - Below `MIN_WIDTH` or with reduced motion the normal grid is used.
+  - While active it adds `body.pockets-bouncing`, which lifts `.page` above the footer and pins the footer to the bottom.
+- The masthead name and `.page-title` always stay in front of the windows but are click-through (`pointer-events: none`), so the name is no longer a link; the dock's "home" is.
+
+## Cursors
+
+The site uses the **Smooth Classic** cursor set by Vlasta (http://www.rw-designer.com/cursor-set/antialiased-classic).
+- **License:** CC BY, so the footer credit linking to that page must stay.
+- **Files:** exported to PNG at 2× size (64px, nearest-neighbour), with their hotspots, in `src/assets/cursors/`. Hotspots below are in those 64px pixels. Safari ignores `.cur`, and no browser plays `.ani`.
+- **CSS:** they're defined as `--cursor-*` custom properties on `:root` in `src/styles.css`. Always use those variables, never a bare `cursor: pointer` etc.
+
+| Variable | File (hotspot) | Use it for | Why |
+|---|---|---|---|
+| `--cursor-arrow` | `SmoothArrow.png` (4 4) | The default, set on `html` | Nothing here is interactive |
+| `--cursor-hand` | `SmoothHand.png` (18 4) | Links, buttons, the dock, window controls (`.window-open`), anything clickable | A click does something |
+| `--cursor-text` | `TextSelect.png` (12 18) | Inputs, textareas, `p` and `li` | You can type here or select the text |
+| `--cursor-move` | `SmoothMove.png` (30 30) | Window title bars (`.drag-handle`), and everywhere while dragging (`html.grabbing`) | The window can be picked up and moved |
+| `--cursor-no` | `SmoothNo.png` (24 24) | `:disabled` and `[aria-disabled="true"]` | The control can't be used right now |
+| `--cursor-help` | `SmoothQuestion.png` (4 4) | Elements with a `title` tooltip (not links, buttons or iframes) | Hovering explains the thing |
+| `--cursor-busy` | `SmoothHourglass-0…10.png` (32 32) | While a window grows open or shrinks shut | Something is happening; wait a moment |
+
+`--cursor-busy` is animated. `playBusyCursor(ms)` in `src/app/cursors.ts` swaps the hourglass frames, using the original `.ani` timing sped up to fit `ms`. It adds `html.cursor-busy`, which forces that cursor everywhere.
+
+The set's other cursors were left out because nothing needs them yet (precision, resize, pen, lightbulb), or because their animations are covered by the hourglass (working, pendulum). Chrome hides cursors bigger than 32px where they would overlap the browser's own UI (near the page edges) and shows the fallback keyword cursor there instead. To add one, re-export it the same way (2×) and give it a `--cursor-*` variable and a row here.
 
 ## Gotchas
 

@@ -31,6 +31,8 @@ import { CreateWorkexperienceComponent } from './components/create-workexperienc
 import { PreviewWorkExperienceComponent } from './components/preview-work-experience/preview-work-experience.component';
 import { WorkExperienceContentComponent } from './components/work-experience-content/work-experience-content.component';
 import { DeletePopupComponent } from './components/delete-popup/delete-popup.component';
+import { BounceFieldDirective } from './directives/bounce-field.directive';
+import { VideoWindowComponent } from './components/video-window/video-window.component';
 
 // const appRoute: Routes =[
 //   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -52,6 +54,8 @@ import { DeletePopupComponent } from './components/delete-popup/delete-popup.com
     HomeComponent,
     InkFieldComponent,
     IntroLoaderComponent,
+    BounceFieldDirective,
+    VideoWindowComponent,
     ProjectContentComponent,
     ParagraphsComponent,
     VideosComponent,

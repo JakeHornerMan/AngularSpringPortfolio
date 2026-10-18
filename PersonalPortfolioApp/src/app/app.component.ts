@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
+import { OverlayScrollbarService } from './services/overlay-scrollbar.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,9 @@ export class AppComponent {
 
   readonly year = new Date().getFullYear();
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService, overlayScrollbars: OverlayScrollbarService){
+    overlayScrollbars.start();
+  }
 
   isUserLoggedIn(): boolean{
     return this.userService.isLoggedIn();

@@ -1,6 +1,10 @@
 <article class="pocket">
-    <span class="label">
-        {{workExperience.startDate | date:'MMM yyyy'}} – {{workExperience.endDate ? (workExperience.endDate | date:'MMM yyyy') : 'now'}}
+    <span class="label has-dots">
+        <button type="button" class="window-open" *ngIf="contentList?.length; else plainDots" (click)="toggle()" [attr.aria-expanded]="open">
+            <span class="window-dots" aria-hidden="true"></span>{{open ? 'close ↖' : 'open ↘'}}
+        </button>
+        <ng-template #plainDots><span class="window-dots" aria-hidden="true"></span></ng-template>
+        <span class="bar-title">{{workExperience.workPlace}}</span>
     </span>
 
     <div class="work-head">
@@ -8,20 +12,16 @@
         <div>
             <h1 class="pocket-title">{{workExperience.workPlace}}</h1>
             <p class="muted">{{workExperience.workTitle}}</p>
+            <p class="pocket-meta">{{workExperience.startDate | date:'MMM yyyy'}} – {{workExperience.endDate ? (workExperience.endDate | date:'MMM yyyy') : 'now'}}</p>
         </div>
     </div>
 
     <p *ngIf="workExperience.workDescription">{{workExperience.workDescription}}</p>
     <p class="muted" *ngIf="workExperience.technologys">{{workExperience.technologys}}</p>
 
-    <div class="pocket-actions">
-        <button class="text-btn" *ngIf="contentList?.length" (click)="toggle()" [attr.aria-expanded]="open">
-            {{open ? 'close ↖' : 'open ↘'}}
-        </button>
-        <ng-container *ngIf="isUserLoggedIn()">
-            <button class="text-btn" (click)="editWorkExperience(workExperience.id)">edit</button>
-            <button class="text-btn" (click)="removeWorkExperience(workExperience.id)">delete</button>
-        </ng-container>
+    <div class="pocket-actions" *ngIf="isUserLoggedIn()">
+        <button class="text-btn" (click)="editWorkExperience(workExperience.id)">edit</button>
+        <button class="text-btn" (click)="removeWorkExperience(workExperience.id)">delete</button>
     </div>
 
     <div class="pocket-body" *ngIf="open">

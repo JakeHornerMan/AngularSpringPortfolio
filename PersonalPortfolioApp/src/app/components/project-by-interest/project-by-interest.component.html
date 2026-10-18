@@ -1,5 +1,5 @@
 <h2 class="page-title display">{{title}}</h2>
-<section class="pockets" *ngIf="projectList.length">
+<section class="pockets" appBounceField *ngIf="projectList.length">
     <app-project-content *ngFor="let project of projectList" [project]="project"></app-project-content>
 </section>
 <div class="pocket empty" *ngIf="loaded && !projectList.length">

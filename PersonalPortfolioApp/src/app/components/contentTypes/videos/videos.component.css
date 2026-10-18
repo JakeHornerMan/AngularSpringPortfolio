@@ -1,0 +1,44 @@
+.video-tile {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.video-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 250ms ease, transform 400ms ease;
+}
+
+/* Colour comes in on hover, as if the tape is about to play. */
+.video-tile:hover img, .video-tile:focus-visible img {
+  filter: none;
+  transform: scale(1.03);
+}
+
+.video-tile-play {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.video-tile:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}

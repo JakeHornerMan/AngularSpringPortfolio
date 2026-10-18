@@ -14,6 +14,9 @@
 
 .masthead {
   padding-top: clamp(20px, 4vw, 44px);
+  /* The name always sits in front of the floating windows, but clicks pass straight through it. */
+  z-index: 3;
+  pointer-events: none;
 }
 
 .name {

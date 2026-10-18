@@ -3,13 +3,17 @@
         <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
         <p *ngFor="let paragraph of paragraphList">{{paragraph}}</p>
     </div>
-    <div class="video-frame">
-        <iframe [src]="contentUrl" [title]="content.contentTitle || 'Video'" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
+    <ng-container *ngTemplateOutlet="tile"></ng-container>
 </div>
 <div class="block" *ngIf="isEmpty(content.contentParagraph)">
     <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
-    <div class="video-frame">
-        <iframe [src]="contentUrl" [title]="content.contentTitle || 'Video'" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
+    <ng-container *ngTemplateOutlet="tile"></ng-container>
 </div>
+
+<!-- A small tile; the video itself plays in a window of its own (VideoWindowComponent). -->
+<ng-template #tile>
+    <button type="button" class="video-tile" #tileButton (click)="play(tileButton)" [attr.aria-label]="'Play ' + (content.contentTitle || 'video')">
+        <img *ngIf="thumbnail" [src]="thumbnail" alt="" loading="lazy">
+        <span class="video-tile-play" aria-hidden="true">▶ play</span>
+    </button>
+</ng-template>

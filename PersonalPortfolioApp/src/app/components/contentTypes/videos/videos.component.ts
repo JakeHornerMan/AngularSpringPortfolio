@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DomSanitizer, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import { Content } from 'src/app/models/models';
+import { VideoWindowService, youTubeIdOf } from 'src/app/services/video-window.service';
 
 @Component({
   selector: 'app-videos',
@@ -11,17 +11,22 @@ export class VideosComponent implements OnInit {
 
   @Input() content!: Content;
 
-  contentUrl!: SafeResourceUrl;
+  thumbnail: string | null = null;
 
   paragraphList = new Array<String>();
 
-  constructor(private sanitizer: DomSanitizer) { 
-    
+  constructor(private videoWindow: VideoWindowService) {
+
   }
 
   ngOnInit(): void {
-    this.contentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.content.contentUrl);
+    const youTubeId = youTubeIdOf(this.content.contentUrl || '');
+    this.thumbnail = youTubeId ? `https://i.ytimg.com/vi/${youTubeId}/hqdefault.jpg` : null;
     if(!this.isEmpty(this.content.contentParagraph)) this.paragraphList = this.content.contentParagraph.split('<?>');
+  }
+
+  play(tile: HTMLElement): void {
+    this.videoWindow.open({ title: this.content.contentTitle || 'Video', url: this.content.contentUrl, source: tile });
   }
 
   isEmpty(string: string): boolean {

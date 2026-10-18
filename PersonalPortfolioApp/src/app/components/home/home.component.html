@@ -1,4 +1,4 @@
-<section class="pockets">
+<section class="pockets" appBounceField>
     <div class="pocket">
         <span class="label">tldr</span>
         <p>
@@ -40,12 +40,7 @@
         <span class="label">contact</span>
         <a href="mailto:jakehorner19@gmail.com">jakehorner19@gmail.com</a>
     </div>
-</section>
 
-<ng-container *ngIf="staredProjectList.length || projectList.length">
-    <h2 class="page-title display">Selected work</h2>
-    <section class="pockets">
-        <app-project-content *ngFor="let project of staredProjectList" [project]="project"></app-project-content>
-        <app-project-content *ngFor="let project of projectList" [project]="project"></app-project-content>
-    </section>
-</ng-container>
+    <app-project-content *ngFor="let project of staredProjectList" [project]="project"></app-project-content>
+    <app-project-content *ngFor="let project of projectList" [project]="project"></app-project-content>
+</section>

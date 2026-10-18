@@ -6,10 +6,12 @@
 
 <main class="page">
     <router-outlet></router-outlet>
+    <!-- Inside the page so it layers above opened windows but below the page titles. -->
+    <app-video-window></app-video-window>
 </main>
 
 <footer class="footer">
-    <span>© {{year}} Jake Horner</span>
+    <span>© {{year}} Jake Horner · cursors by <a href="http://www.rw-designer.com/cursor-set/antialiased-classic" target="_blank" rel="noopener">Vlasta</a> (CC BY)</span>
     <span class="footer-links" *ngIf="!isUserLoggedIn()">
         <a routerLink="/login">log in</a>
     </span>

@@ -11,6 +11,14 @@
   --body: 'Asap Sharp', 'Asap', system-ui, sans-serif;
 
   --gutter: clamp(16px, 3.5vw, 48px);
+
+  /* Smooth Classic cursors by Vlasta (CC BY, credited in the footer), exported to PNG at 2x (64px) with their hotspots. */
+  --cursor-arrow: url('/assets/cursors/SmoothArrow.png') 4 4, default;
+  --cursor-hand: url('/assets/cursors/SmoothHand.png') 18 4, pointer;
+  --cursor-move: url('/assets/cursors/SmoothMove.png') 30 30, move;
+  --cursor-text: url('/assets/cursors/TextSelect.png') 12 18, text;
+  --cursor-no: url('/assets/cursors/SmoothNo.png') 24 24, not-allowed;
+  --cursor-help: url('/assets/cursors/SmoothQuestion.png') 4 4, help;
 }
 
 *, *::before, *::after {
@@ -29,6 +37,84 @@ body {
   font-size: 15px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* The browser's scrollbars are hidden; OverlayScrollbarService draws a thin Mac-style thumb inside
+   whatever is scrolling, only while it scrolls. */
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.overlay-thumb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9000;
+  width: 6px;
+  margin-left: -6px;
+  border-radius: 999px;
+  background: rgba(11, 11, 11, 0.42);
+  box-shadow: 0 0 0 1px rgba(250, 250, 247, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease, width 150ms ease, margin-left 150ms ease;
+}
+
+.overlay-thumb.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-thumb:hover, .overlay-thumb.dragging {
+  width: 9px;
+  margin-left: -9px;
+  background: rgba(11, 11, 11, 0.6);
+}
+
+/* ---------- Cursors ---------- */
+
+/* Arrow: the default everywhere nothing is interactive. */
+html {
+  cursor: var(--cursor-arrow);
+}
+
+/* Text select: anywhere you can type, and readable text you might want to select. */
+input, textarea, [contenteditable="true"], p, li {
+  cursor: var(--cursor-text);
+}
+
+/* Question arrow: hovering shows a tooltip that explains the thing. */
+[title]:not(a):not(button):not(iframe) {
+  cursor: var(--cursor-help);
+}
+
+/* Hand: a click does something (links, buttons, the dock, window controls). */
+a, button, select, summary, label[for], [role="button"],
+input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="file"] {
+  cursor: var(--cursor-hand);
+}
+
+/* No sign: a control that can't be used right now. */
+:disabled, [aria-disabled="true"] {
+  cursor: var(--cursor-no);
+}
+
+/* Move: a window's title bar, which drags the window (also shown everywhere while dragging). */
+.drag-handle {
+  cursor: var(--cursor-move);
+}
+
+html.grabbing, html.grabbing * {
+  cursor: var(--cursor-move) !important;
+}
+
+/* Hourglass: plays (frame by frame, from app/cursors.ts) while a window grows open or shrinks shut. */
+html.cursor-busy, html.cursor-busy * {
+  cursor: var(--cursor-busy, wait) !important;
 }
 
 html.intro-lock, html.intro-lock body {
@@ -85,6 +171,10 @@ a:hover {
 
 /* Section heading floating over the ink; a paper halo keeps it legible. */
 .page-title {
+  /* Always in front of the floating windows (and even an opened one). */
+  position: relative;
+  z-index: 100000;
+  pointer-events: none;
   font-size: clamp(2rem, 5vw, 3.5rem);
   margin: 0 0 2.5rem;
   text-shadow: 0 0 18px var(--paper), 0 0 6px var(--paper);
@@ -164,6 +254,157 @@ a:hover {
   animation: none;
 }
 
+/* ---------- Pockets as little browser windows ---------- */
+
+.pocket {
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px var(--ink), 5px 5px 0 rgba(11, 11, 11, 0.12);
+}
+
+/* A pocket's first label becomes its title bar: window controls on the left, the title on the right. */
+.pocket > .label:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin: -1rem -1.1rem 0.9rem;
+  padding: 0.45rem 0.9rem;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 8px 8px 0 0;
+  background: var(--paper);
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Three window buttons, like a browser's traffic lights: white while closed, filled once open. */
+.pocket > .label:first-child::before, .window-dots {
+  --dot-fill: var(--paper);
+  --dot: radial-gradient(circle, var(--dot-fill) 3.3px, var(--ink) 3.6px, var(--ink) 4.4px, transparent 4.8px);
+  flex: none;
+  display: inline-block;
+  width: 38px;
+  height: 10px;
+  background: var(--dot) 0 0 / 10px 10px no-repeat, var(--dot) 14px 0 / 10px 10px no-repeat, var(--dot) 28px 0 / 10px 10px no-repeat;
+}
+
+.pocket > .label:first-child::before {
+  content: '';
+}
+
+/* Project and work windows draw their own controls (the dots plus open/close). */
+.pocket > .label.has-dots::before {
+  content: none;
+}
+
+.bar-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window-open {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: var(--cursor-hand);
+}
+
+/* Hovering "open" lights the buttons green; an open window's buttons are ink, and hovering "close" turns them red. */
+.window-open:hover .window-dots, .window-open:focus-visible .window-dots {
+  --dot-fill: #28c840;
+}
+
+.window-open[aria-expanded="true"] .window-dots {
+  --dot-fill: var(--ink);
+}
+
+.window-open[aria-expanded="true"]:hover .window-dots, .window-open[aria-expanded="true"]:focus-visible .window-dots {
+  --dot-fill: #ff5f57;
+}
+
+.window-open:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.window-open:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.pocket-meta {
+  font-size: 13px;
+  color: var(--grey);
+  margin: -0.4rem 0 0.8rem;
+}
+
+/* An opened window keeps its title bar pinned to the top while its story scrolls under it. */
+.pockets > .wide .pocket > .label:first-child {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Bouncing windows (BounceFieldDirective): each child drifts over the whole browser window. */
+.pockets.bouncing {
+  display: block;
+}
+
+.pockets.bouncing > * {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: clamp(260px, 24vw, 360px);
+  margin: 0 !important;
+  will-change: transform;
+  /* Open/close animations scale windows from their top-left corner. */
+  transform-origin: 0 0;
+}
+
+.pockets.bouncing .pocket {
+  animation: none;
+}
+
+/* An opened window stops bouncing and sits in the middle of the screen, scrolling on its own. */
+.pockets.bouncing > .wide {
+  /* Below the masthead name (which stays in front) and clear of the nav dock. */
+  top: 18vh;
+  left: calc(50% - min(450px, 46vw));
+  width: min(900px, 92vw);
+  max-height: calc(82vh - 90px);
+  overflow: auto;
+  z-index: 1000 !important;
+  /* Keeps the overlay scrollbar below the pinned title bar. */
+  --scroll-inset-top: 40px;
+  border-radius: 8px;
+}
+
+.drag-handle {
+  user-select: none;
+  touch-action: none;
+}
+
+/* Lift the page above the footer so the windows can bounce over it. */
+body.pockets-bouncing .page {
+  z-index: 2;
+}
+
+/* The windows don't take up room on the page, so pin the footer to the bottom of the screen. */
+body.pockets-bouncing .footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 @media (max-width: 900px) {
   .pockets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pockets > :nth-child(3n + 2), .pockets > :nth-child(3n + 3) { margin-top: 0; }
@@ -185,7 +426,7 @@ a:hover {
   background: none;
   border: 0;
   padding: 0;
-  cursor: pointer;
+  cursor: var(--cursor-hand);
   text-decoration: underline;
   text-decoration-color: var(--line);
   text-underline-offset: 3px;
@@ -203,7 +444,7 @@ a:hover {
   border-radius: 999px;
   background: var(--ink);
   color: var(--paper);
-  cursor: pointer;
+  cursor: var(--cursor-hand);
   transition: opacity 150ms ease;
 }
 
@@ -310,7 +551,7 @@ input[type="submit"] {
   border-radius: 999px;
   background: var(--ink);
   color: var(--paper);
-  cursor: pointer;
+  cursor: var(--cursor-hand);
 }
 
 /* Legacy admin form controls, restyled to match. */
@@ -332,7 +573,7 @@ input[type="submit"] {
   border: 1px solid var(--line);
   border-radius: 999px;
   text-decoration: none;
-  cursor: pointer;
+  cursor: var(--cursor-hand);
   transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
 }
 
@@ -355,7 +596,7 @@ input[type="submit"] {
   border-radius: 999px;
   background: transparent;
   color: var(--ink);
-  cursor: pointer;
+  cursor: var(--cursor-hand);
   text-align: center;
   transition: background 150ms ease, color 150ms ease;
 }
