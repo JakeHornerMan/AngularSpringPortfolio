@@ -38,6 +38,7 @@ export class CreateWorkexperienceComponent implements OnInit {
       startDate: new FormControl(''),
       endDate: new FormControl(''),
       workDescription: new FormControl(''),
+      tldr: new FormControl(''),
       workIconUrl: new FormControl(''),
       technologys: new FormControl(''),
       contents: this.fb.array([])
@@ -124,6 +125,7 @@ export class CreateWorkexperienceComponent implements OnInit {
     this.workExperience.startDate = this.workExperienceForm.controls['startDate'].value;
     this.workExperience.endDate = this.workExperienceForm.controls['endDate'].value;
     this.workExperience.workDescription = this.workExperienceForm.controls['workDescription'].value;
+    this.workExperience.tldr = this.workExperienceForm.controls['tldr'].value;
     this.workExperience.workIconUrl = this.workExperienceForm.controls['workIconUrl'].value;
     this.workExperience.technologys = this.workExperienceForm.controls['technologys'].value;
     this.workExperience.active = true;

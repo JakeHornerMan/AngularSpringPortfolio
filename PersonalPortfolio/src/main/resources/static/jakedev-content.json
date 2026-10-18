@@ -35,23 +35,23 @@
   {
    "projectName": "Scrambled Eggs",
    "startDate": "2023-07-01",
-   "endDate": "2023-07-31",
+   "endDate": "2024-07-22",
    "staredProject": true,
    "linkedInterests": "1",
-   "mainPoints": "Unity & C# & Aesprite & Unity Web GL & Steamworks API",
-   "projectDescription": "Released on Steam: over 15,000 library claims and 2,500 leaderboard entries.",
+   "mainPoints": "Unity & C# & Steamworks API & Aseprite",
+   "projectDescription": "Free chicken tower defence on Steam: 15,000+ downloads and 2,500 leaderboard entries.",
    "contentList": [
     {
      "contentType": "text",
      "contentTitle": "About the game",
-     "contentParagraph": "This project was made in Unity with C# and Steamworks API, by myself acting as project manager and lead developer, and two other developers, and released on Steam in July of 2024. we received over 15,000 library claims and over 2,500 leaderboard entries. The game is free to Play with no Micro-transactions, so please give it a try",
+     "contentParagraph": "A chicken tower defence game that finally answers \"why did the chicken cross the road?\" Throw wacky vehicles at the chicken hordes before they get to your corn, then fight your friends for the top of the leaderboards. Free on Steam for Windows and Mac, with no microtransactions.",
      "contentUrl": "",
      "id": 1,
      "position": 1
     },
     {
      "contentType": "link",
-     "contentTitle": "Play The Game Here!",
+     "contentTitle": "Play it free on Steam",
      "contentParagraph": "",
      "contentUrl": "https://store.steampowered.com/app/2906540/Scrambled_Eggs/",
      "id": 2,
@@ -59,57 +59,138 @@
     },
     {
      "contentType": "video",
-     "contentTitle": "Trailer",
+     "contentTitle": "Release trailer",
      "contentParagraph": "",
-     "contentUrl": "https://www.youtube.com/embed/tEQdHrRhsv0",
+     "contentUrl": "https://cdn.akamai.steamstatic.com/steam/apps/257032444/movie_max.mp4",
      "id": 3,
      "position": 3
     },
     {
-     "contentType": "text",
-     "contentTitle": "Gameplay video",
-     "contentParagraph": "Check out this video with over 45k views, going through our game and its mechanics.",
-     "contentUrl": "",
+     "contentType": "video",
+     "contentTitle": "Vehicular combat",
+     "contentParagraph": "Every vehicle has its own power.",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/extras/0b40c0bc066eefe75d8979afe0a13241.mp4?t=1723148311",
      "id": 4,
      "position": 4
     },
     {
      "contentType": "video",
-     "contentTitle": "Gameplay walkthrough (45k views)",
-     "contentParagraph": "",
-     "contentUrl": "https://www.youtube.com/embed/bfF7HR8LakM",
+     "contentTitle": "Strange chickens",
+     "contentParagraph": "Some chickens have abilities of their own.",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/extras/4b9c4134fbc6df58ba8cd52c321b34f9.mp4?t=1723148311",
      "id": 5,
      "position": 5
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Energy and ultimates",
+     "contentParagraph": "Grab energy tokens to fuel your cars, and drop in heavy machinery with recharging ultimates.",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/extras/6abbc6646c688bc4a1b8a5b938e249f9.mp4?t=1723148311",
+     "id": 6,
+     "position": 6
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Upgrades",
+     "contentParagraph": "Cash from each wave upgrades your vehicles, your ultimates and you.",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/extras/aa0aa336ac35f71acbcfa4e1363d89d6.mp4?t=1723148311",
+     "id": 7,
+     "position": 7
+    },
+    {
+     "contentType": "image",
+     "contentTitle": "Screenshots",
+     "contentParagraph": "",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/ss_c3771e8359bfa168739d622423694c69f4994cde.1920x1080.jpg?t=1723148311",
+     "id": 8,
+     "position": 8
+    },
+    {
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/ss_a16d3bf4a1ad5256a6581ffaa40c76597ee947b2.1920x1080.jpg?t=1723148311",
+     "id": 68,
+     "position": 9
+    },
+    {
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/ss_a19ebec6126d4d4f6d2726f03e92000404bddd79.1920x1080.jpg?t=1723148311",
+     "id": 69,
+     "position": 10
+    },
+    {
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/ss_d794cb676188f2c3e8e3b61c7533a48274cfe736.1920x1080.jpg?t=1723148311",
+     "id": 70,
+     "position": 11
+    },
+    {
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2906540/ss_48a15cf29e635badbe4c7d2159348d286ea7563f.1920x1080.jpg?t=1723148311",
+     "id": 71,
+     "position": 12
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "How we made it",
+     "contentParagraph": "Three of us made it: me as project manager and lead developer, with Anahat Mudgal and TheJackXBL. It's Unity and C#, with the Steamworks API for achievements, stats and leaderboards. It came out on 22 July 2024 and has been downloaded 15,000+ times, with 2,500+ leaderboard entries.",
+     "contentUrl": "",
+     "id": 72,
+     "position": 13
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Where it started",
+     "contentParagraph": "It began as our entry to GMTK Game Jam 2023. The theme was \"roles reversed\", so we flipped Crossy Road: instead of getting a chicken across the road, you stop them. It placed 263rd out of nearly 7,000 games, and we liked it enough to make it into a full game.",
+     "contentUrl": "",
+     "id": 73,
+     "position": 14
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "The game jam version",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/bfF7HR8LakM",
+     "id": 74,
+     "position": 15
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Play the game jam demo",
+     "contentParagraph": "",
+     "contentUrl": "https://thejackxbl.itch.io/scrambled-eggs",
+     "id": 75,
+     "position": 16
     },
     {
      "contentType": "link",
      "contentTitle": "GitHub repo",
      "contentParagraph": "",
      "contentUrl": "https://github.com/JakeHornerMan/GMTKGameJam2023",
-     "id": 6,
-     "position": 6
+     "id": 76,
+     "position": 17
     },
     {
-     "contentType": "text",
-     "contentTitle": "Game Jam Development",
-     "contentParagraph": "This was a team submission to GMTK Game Jam 2024, which placed 263rd out of nearly 7000 submitted games. The theme of the Game Jam was “roles reversed”, so we decided to do a reverse on the game ‘Crossy Road’. In ‘Crossy Road’, the player's aim is to control a chicken to get across a road, in our demo ‘Scrambled Eggs’ the player will place cars to stop waves of chicken from crossing the Road. We expanded on this idea with different car types and different chicken types.<?>The development team I led on this project worked really well together, so we have since decided to continue developing this idea into a full release.We are creating iteration with interesting Chicken roles, Car variations, and Road types. We plan to release it on PC and Mobile.",
-     "contentUrl": "",
-     "id": 7,
-     "position": 7
-    },
-    {
-     "contentType": "link",
-     "contentTitle": "Play the Game Jam Demo here",
-     "contentParagraph": "",
-     "contentUrl": "https://thejackxbl.itch.io/scrambled-eggs",
-     "id": 8,
-     "position": 8
+     "contentType": "video",
+     "contentTitle": "A let's play from a fan",
+     "contentParagraph": "InterndotGif stopping thousands of chickens from crossing the road.",
+     "contentUrl": "https://www.youtube.com/embed/tEQdHrRhsv0",
+     "id": 77,
+     "position": 18
     }
    ],
    "id": 1,
    "active": true,
    "linkedTechnologys": "",
-   "cateorys": ""
+   "cateorys": "",
+   "tldr": "A free game on Steam I made with two other devs. Downloaded 15,000+ times, with 2,500 leaderboard entries."
   },
   {
    "projectName": "Stock Trading Web Application",
@@ -148,7 +229,8 @@
    "id": 2,
    "active": true,
    "linkedTechnologys": "",
-   "cateorys": ""
+   "cateorys": "",
+   "tldr": "A stock trading simulator I led a team of four on: buy, sell, track your orders and check your wallet."
   },
   {
    "projectName": "Roadster Run",
@@ -259,7 +341,8 @@
    "id": 3,
    "active": true,
    "linkedTechnologys": "",
-   "cateorys": ""
+   "cateorys": "",
+   "tldr": "My final year project: a mobile game you steer by tilting your phone, with augmented reality."
   },
   {
    "projectName": "3rd Person Character Controller",
@@ -298,7 +381,8 @@
    "id": 4,
    "active": true,
    "linkedTechnologys": "",
-   "cateorys": ""
+   "cateorys": "",
+   "tldr": "A Dark Souls inspired third-person controller, built to get better at Unity 3D."
   },
   {
    "projectName": "Blobber",
@@ -329,7 +413,8 @@
    "id": 5,
    "active": true,
    "linkedTechnologys": "",
-   "cateorys": ""
+   "cateorys": "",
+   "tldr": "Play an escaped alien jumping on scientists for points, with Google Play leaderboards."
   },
   {
    "projectName": "ATM Banking",
@@ -360,7 +445,8 @@
    "id": 6,
    "active": true,
    "linkedTechnologys": "",
-   "cateorys": ""
+   "cateorys": "",
+   "tldr": "Spring Boot microservices for an ATM: make an account, sign in, take out cash in notes."
   },
   {
    "projectName": "Shy Chomper",
@@ -415,18 +501,121 @@
    "id": 7,
    "active": true,
    "linkedTechnologys": "",
-   "cateorys": ""
+   "cateorys": "",
+   "tldr": "A stealth puzzle game made in seven days for a game jam. Eat the enemy to cross its tiles."
   }
  ],
  "workExperiences": [
   {
-   "workPlace": "SuperNimbus",
-   "workTitle": "Software Development Engineer",
-   "startDate": "2024-06-01",
+   "workPlace": "ZIM Connections",
+   "workTitle": "Full-Stack Software Engineer",
+   "startDate": "2025-06-01",
    "endDate": null,
+   "workIconUrl": "",
+   "technologys": "TypeScript, NestJS, Fastify, React Native, PostgreSQL, Sequelize, AWS, Stripe, Elasticsearch, Socket.IO, Elastic APM, Mixpanel, Firebase, GitHub Actions",
+   "workDescription": "ZIM Connections is an award-winning London start-up giving travellers and businesses affordable mobile eSIM data. It started out as a travel eSIM provider and has grown into B2B and the UK domestic mobile market. I work full-stack on the ZIM app for iPhone and Android, from the NestJS APIs and AWS infrastructure to the React Native screens.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "UK domestic subscriptions",
+     "contentParagraph": "I led new product development on ZIM's domestic subscription service, making ZIM one of the first eSIM start-ups to offer a full UK mobile experience: a UK phone number with monthly rolling data, calls and SMS, and no contract. I built the new plan selection, purchasing and subscription management screens, the REST endpoints that plug the new subscription data into our existing systems, and the mobile provider and Stripe subscription integrations behind it.",
+     "contentUrl": "",
+     "id": 57,
+     "position": 1
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Order failures and refunds",
+     "contentParagraph": "I designed and built the order failure and refund system end to end: automatic refunds on failed orders, user notifications, and a flow that offers an eligible replacement plan. It turned a manual support job into an automatic one, and stopped partner provider outages from costing us closed sales.",
+     "contentUrl": "",
+     "id": 58,
+     "position": 2
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "eSIM wallet redesign",
+     "contentParagraph": "I led a full frontend redesign and backend rework of the eSIM wallet, pulling the business logic out of the visual components so they can be reused, with every screen built to the Figma designs.",
+     "contentUrl": "",
+     "id": 59,
+     "position": 3
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Plan selection and purchasing",
+     "contentParagraph": "I overhauled the plan selection and purchase flow, including new plan confirmation screens, and brought the UK domestic subscription plans into the same flow.",
+     "contentUrl": "",
+     "id": 60,
+     "position": 4
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "White-label apps: ZIM@SBB and G+D Travel",
+     "contentParagraph": "Beyond the main ZIM app I've contributed to ZIM's white-label B2B apps, which run on the same platform under a partner's brand. ZIM@SBB, built in partnership with SBB (Swiss Federal Railways), sells eSIM data plans in over 200 destinations through a co-branded app, and G+D Travel does the same for Giesecke+Devrient. I help deliver and maintain them alongside the main app.",
+     "contentUrl": "",
+     "id": 61,
+     "position": 5
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Keeping the lights on",
+     "contentParagraph": "Test coverage, a localised search bar, Elastic APM transactions, Mixpanel data collection, and migrating users onto our new backend infrastructure.",
+     "contentUrl": "",
+     "id": 62,
+     "position": 6
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "ZIM website",
+     "contentParagraph": "",
+     "contentUrl": "https://www.zimconnections.com/",
+     "id": 63,
+     "position": 7
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "ZIM on the App Store",
+     "contentParagraph": "",
+     "contentUrl": "https://apps.apple.com/gb/app/zim-esim-calls-data-plans/id1611244114",
+     "id": 64,
+     "position": 8
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "ZIM on Google Play",
+     "contentParagraph": "",
+     "contentUrl": "https://play.google.com/store/apps/details?id=com.zim_cli",
+     "id": 65,
+     "position": 9
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "ZIM@SBB on Google Play",
+     "contentParagraph": "",
+     "contentUrl": "https://play.google.com/store/apps/details?id=com.zim_sbb",
+     "id": 66,
+     "position": 10
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "G+D Travel on Google Play",
+     "contentParagraph": "",
+     "contentUrl": "https://play.google.com/store/apps/details?id=com.zim_gd",
+     "id": 67,
+     "position": 11
+    }
+   ],
+   "id": 7,
+   "active": true,
+   "tldr": "Full-stack on the ZIM eSIM app. I built the UK phone plan that lives on your eSIM, and the refunds for when an order goes wrong."
+  },
+  {
+   "workPlace": "SuperNimbus",
+   "workTitle": "Back-End Software Engineer",
+   "startDate": "2024-07-01",
+   "endDate": "2025-06-30",
    "workIconUrl": "/assets/content/SuperNimbus.svg",
-   "technologys": "JavaScript, C#, C++, TypeScript, SQL, PostgreSql, Unity, Unreal",
-   "workDescription": "SuperNimbus provided back end services for gaming projectsby creat custom project to suit the customers need. The application were hosted and created using AWS framework",
+   "technologys": "TypeScript, JavaScript, C#, C++, AWS, PostgreSQL, NoSQL, gRPC, PlayFab, Grafana k6",
+   "workDescription": "SuperNimbus is a contracting company that provides back-end services for gaming projects. It was a client-facing role: I worked out what each project needed and built custom back-end services for it, hosted on AWS.",
    "contentList": [
     {
      "contentType": "text",
@@ -462,16 +651,17 @@
     }
    ],
    "id": 1,
-   "active": true
+   "active": true,
+   "tldr": "Custom game backends on AWS for client projects, including Catan Universe and The Bornless."
   },
   {
-   "workPlace": "MasterCard",
-   "workTitle": "Software Development Engineer II",
+   "workPlace": "Mastercard",
+   "workTitle": "Back-End Software Engineer II",
    "startDate": "2023-02-01",
-   "endDate": "2024-06-30",
+   "endDate": "2024-07-31",
    "workIconUrl": "/assets/content/mastercard-logo.png",
    "technologys": "Java, Shell Scripting, Linux Administration, Spring Boot, mySQL",
-   "workDescription": "In MasterCard, I hold the position of Software Engineer II, where I work towards the development and maintenance of the In-Control Commercial Payments (ICCP) Platform, an active platform built with Java, Spring Framework, and Angular frontend. I have been actively involved in the Smart Data Project, a ‘Business-to-Business’ software solution for controlling payments for generated virtual cards.",
+   "workDescription": "At Mastercard I was a Back-End Software Engineer II, developing and maintaining the In Control for Commercial Payments (ICCP) platform, built with Java, Spring Framework and an Angular frontend. I worked mainly on the Smart Data project, a business-to-business solution for creating and controlling payments on virtual cards.",
    "contentList": [
     {
      "contentType": "text",
@@ -499,11 +689,12 @@
     }
    ],
    "id": 2,
-   "active": true
+   "active": true,
+   "tldr": "Java and Spring on the ICCP platform, mainly Smart Data: virtual cards for business payments."
   },
   {
    "workPlace": "Ergo (Contract: SBCI Customer Hub)",
-   "workTitle": "Junior Full Stack Software Developer",
+   "workTitle": "Full-Stack Software Developer",
    "startDate": "2022-05-01",
    "endDate": "2023-02-28",
    "workIconUrl": "/assets/content/ergo-logo.png",
@@ -536,11 +727,12 @@
     }
    ],
    "id": 3,
-   "active": true
+   "active": true,
+   "tldr": "Contracted to the SBCI, building the customer hub where small businesses apply for reduced-rate loans."
   },
   {
    "workPlace": "usheru",
-   "workTitle": "Full Stack Software Developer Intern",
+   "workTitle": "Junior Full-Stack Developer (Internship)",
    "startDate": "2020-02-01",
    "endDate": "2020-08-31",
    "workIconUrl": "/assets/content/usheru-logo.png",
@@ -557,7 +749,8 @@
     }
    ],
    "id": 4,
-   "active": true
+   "active": true,
+   "tldr": "A six-month internship building cinema ticketing and showtime pages in Java, HTML and CSS."
   },
   {
    "workPlace": "Albany Beck Pioneer’s Program",
@@ -578,7 +771,8 @@
     }
    ],
    "id": 5,
-   "active": true
+   "active": true,
+   "tldr": "Six months of intensive Java EE, SQL and Spring training, straight after college."
   },
   {
    "workPlace": "National College of Ireland",
@@ -663,7 +857,8 @@
     }
    ],
    "id": 6,
-   "active": true
+   "active": true,
+   "tldr": "BSc (Honours) in Computer Science, 2:1, specialising in software development."
   }
  ]
 }

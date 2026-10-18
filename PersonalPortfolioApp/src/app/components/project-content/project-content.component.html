@@ -1,6 +1,6 @@
 <article class="pocket">
     <span class="label has-dots">
-        <button type="button" class="window-open" *ngIf="contentList?.length; else plainDots" (click)="toggle()" [attr.aria-expanded]="open">
+        <button type="button" class="window-open" *ngIf="hasMore(); else plainDots" (click)="toggle()" [attr.aria-expanded]="open">
             <span class="window-dots" aria-hidden="true"></span>{{open ? 'close ↖' : 'open ↘'}}
         </button>
         <ng-template #plainDots><span class="window-dots" aria-hidden="true"></span></ng-template>
@@ -13,7 +13,7 @@
     <ul class="dash-list" *ngIf="liList.length > 0">
         <li *ngFor="let li of liList">{{li}}</li>
     </ul>
-    <p *ngIf="project.projectDescription">{{project.projectDescription}}</p>
+    <p *ngIf="summary()">{{summary()}}</p>
 
     <div class="pocket-actions" *ngIf="isUserLoggedIn()">
         <button class="text-btn" (click)="editProject(project.id)">edit</button>

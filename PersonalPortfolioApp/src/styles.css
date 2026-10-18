@@ -456,7 +456,7 @@ body.pockets-bouncing .page {
   box-shadow: 0 0 0 1px var(--ink);
 }
 
-.media-tile img {
+.media-tile img, .media-tile video {
   display: block;
   width: 100%;
   height: 100%;
@@ -466,7 +466,8 @@ body.pockets-bouncing .page {
 }
 
 /* Colour comes in on hover. */
-.media-tile:hover img, .media-tile:focus-visible img {
+.media-tile:hover img, .media-tile:focus-visible img,
+.media-tile:hover video, .media-tile:focus-visible video {
   filter: none;
   transform: scale(1.03);
 }

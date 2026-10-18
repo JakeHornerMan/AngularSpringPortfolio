@@ -20,7 +20,7 @@ export class ViewWorkExperienceComponent implements OnInit {
     private sectionTitle: SectionTitleService,) { }
 
   ngOnInit(): void {
-    this.sectionTitle.set('Work experience');
+    this.sectionTitle.set('Work and education');
     window.scroll(0,0);
     this.workExperienceService.getAllWorkExperiences().subscribe((res: any)=>{
       // console.log(res);

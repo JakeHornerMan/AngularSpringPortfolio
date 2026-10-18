@@ -45,6 +45,16 @@ export class ProjectContentComponent implements OnInit, OnDestroy, OpenableWindo
     }
   }
 
+  // Closed, the window shows the tldr; opened, the full description (or the tldr if there isn't one).
+  summary(): string {
+    const { tldr, projectDescription } = this.project;
+    return (this.open || !tldr ? projectDescription : tldr) || tldr || '';
+  }
+
+  hasMore(): boolean {
+    return this.contentList?.length > 0 || (!!this.project.tldr && !!this.project.projectDescription);
+  }
+
   close(){
     this.open = false;
     this.openWindows.closed(this);

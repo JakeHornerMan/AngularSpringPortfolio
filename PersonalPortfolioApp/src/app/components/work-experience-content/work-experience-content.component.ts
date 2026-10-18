@@ -49,6 +49,16 @@ export class WorkExperienceContentComponent implements OnInit, OnDestroy, Openab
     }
   }
 
+  // Closed, the window shows the tldr; opened, the full description (or the tldr if there isn't one).
+  summary(): string {
+    const { tldr, workDescription } = this.workExperience;
+    return (this.open || !tldr ? workDescription : tldr) || tldr || '';
+  }
+
+  hasMore(): boolean {
+    return this.contentList?.length > 0 || (!!this.workExperience.tldr && !!this.workExperience.workDescription);
+  }
+
   close(){
     this.open = false;
     this.openWindows.closed(this);

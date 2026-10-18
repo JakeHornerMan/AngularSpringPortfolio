@@ -34,7 +34,12 @@
   padding-bottom: 8rem;
 }
 
+/* Always pinned to the bottom of the screen; the page's bottom padding keeps content clear of it. */
 .footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

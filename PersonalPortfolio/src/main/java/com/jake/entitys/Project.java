@@ -45,6 +45,9 @@ public class Project {
 	private Date endDate;
 	private String mainPoints;
 	private String projectDescription;
+	// Short summary shown on the closed window; opening it shows the full description and content.
+	@Column(length = 500)
+	private String tldr;
 	private String projectImageUrl;
 	private String projectVideoUrl;
 	private String linkedInterests;

@@ -38,6 +38,9 @@ public class WorkExperience {
 	@Lob
 	@Column
 	private String workDescription;
+	// Short summary shown on the closed window; opening it shows the full description and content.
+	@Column(length = 500)
+	private String tldr;
 	private String workIconUrl;
 	private String technologys;
 	

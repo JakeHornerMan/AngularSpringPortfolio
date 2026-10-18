@@ -13,6 +13,8 @@ export interface Project {
     endDate: Date;
     mainPoints: string;
     projectDescription: string;
+    // Short summary on the closed window; opening it shows the description and content instead.
+    tldr: string;
     projectImageUrl: string;
     projectVideoUrl: string;
     linkedInterests: string;
@@ -31,6 +33,8 @@ export interface WorkExperience {
     startDate: Date;
     endDate: Date;
     workDescription: string;
+    // Short summary on the closed window; opening it shows the description and content instead.
+    tldr: string;
     workIconUrl: string;
     technologys: string;
     active: true;

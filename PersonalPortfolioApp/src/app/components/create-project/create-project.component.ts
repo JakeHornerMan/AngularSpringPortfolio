@@ -39,6 +39,7 @@ export class CreateProjectComponent implements OnInit {
         mainPoints: new FormControl(''),
         linkedInterests: new FormControl(''),
         projectDescription: new FormControl(''),
+        tldr: new FormControl(''),
         // cateorys: new FormControl(''), ???what is this???
         linkedTechnologys: new FormControl(''),
         contents: this.fb.array([])
@@ -146,6 +147,8 @@ export class CreateProjectComponent implements OnInit {
     this.project.startDate = this.projectForm.controls['startDate'].value;
     this.project.endDate = this.projectForm.controls['endDate'].value;
     this.project.mainPoints = this.projectForm.controls['mainPoints'].value;
+    this.project.projectDescription = this.projectForm.controls['projectDescription'].value;
+    this.project.tldr = this.projectForm.controls['tldr'].value;
     this.project.linkedInterests = this.projectForm.controls['linkedInterests'].value;
     this.project.linkedTechnologys = this.projectForm.controls['linkedTechnologys'].value;
     this.project.active = true;

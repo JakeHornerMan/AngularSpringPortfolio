@@ -107,14 +107,14 @@ void main() {
   float grad = max(length(vec2(dFdx(v), dFdy(v))), 1e-4);
   float dist = abs(v - edge) / grad;  // device px to this line's centre
 
-  // Each line has its own weight: mostly hairlines, some medium, a few bold...
+  // Each line has its own random weight, from hairline up to a broad band of ink. The cube keeps
+  // most lines fine, so the few heavy ones stand out...
   float tier = hash1(mod(edge, 997.0));
-  float base = tier < 0.4 ? mix(0.7, 1.2, tier / 0.4)
-             : tier < 0.75 ? mix(1.8, 3.2, (tier - 0.4) / 0.35)
-             : mix(4.5, 8.5, (tier - 0.75) / 0.25);
+  float base = mix(0.6, 42.0, pow(tier, 5.0));
   // ...and swells and pinches slowly along its length.
   float swell = noise(w * 0.004 + vec2(edge * 3.17, edge * 1.31) + t * 0.006);
-  float thickness = base * (0.35 + 1.2 * swell) * uDpr;
+  // Capped at 65% of the gap to the next line (1 / grad device px), so neighbours never merge.
+  float thickness = min(base * (0.35 + 1.2 * swell) * uDpr, 0.65 / grad);
 
   // Lines are never drawn thinner than one device pixel: a thinner line would land between pixels
   // and blink as it drifts, so it's drawn 1px wide and lighter instead (same amount of ink).
