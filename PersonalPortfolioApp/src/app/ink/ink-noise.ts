@@ -5,6 +5,10 @@ export interface InkNoise {
   (x: number, y: number, t: number): number;
 }
 
+// Picked once per page load: the ink pattern is new on every reload but stays the same while
+// moving between pages, and the background and transition curtain share it so their rings line up.
+export const SESSION_SEED = 1 + Math.floor(Math.random() * 1000000);
+
 // Small seeded PRNG (mulberry32) so a given seed always draws the same marbling.
 export function seededRandom(seed: number): () => number {
   let a = seed >>> 0;

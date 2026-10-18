@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
-import { prefersReducedMotion, seededRandom } from 'src/app/ink/ink-noise';
+import { prefersReducedMotion, seededRandom, SESSION_SEED } from 'src/app/ink/ink-noise';
 import { InkRenderer2D } from 'src/app/ink/ink-renderer-2d';
 import { INK_FRAGMENT_SHADER, INK_VERTEX_SHADER, linePotential, MAX_DROPS } from 'src/app/ink/ink-shader';
 
@@ -15,6 +15,9 @@ const UNIFORM_NAMES = ['uRes', 'uDpr', 'uTime', 'uInk', 'uPaper', 'uDrops', 'uSp
 // How many rings fade at once during a reveal, and the margin (in rings) for the warp moving lines
 // beyond the unwarped range we sample.
 const REVEAL_FADE = 4;
+
+// Number of ink drops the rings spread out from.
+const SOURCES = 3;
 const REVEAL_MARGIN = 10;
 type Uniforms = Record<typeof UNIFORM_NAMES[number], WebGLUniformLocation | null>;
 
@@ -30,7 +33,7 @@ const FRAME_INTERVAL = 1000 / 30;
 })
 export class InkFieldComponent implements AfterViewInit, OnDestroy {
 
-  @Input() seed = 7;
+  @Input() seed = SESSION_SEED;
   @Input() animate = true;
   @Input() inverted = false;
   // Higher = more lines on screen.
@@ -82,7 +85,11 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
 
     const canvas = this.canvasRef.nativeElement;
     if (!this.initWebGL(canvas)) {
-      this.fallback = new InkRenderer2D(canvas, { seed: this.seed, density: this.density, waveSpeed: this.waveSpeed });
+      // A canvas that has handed out a WebGL context can never give a 2D one, so swap in a fresh canvas.
+      const fresh = canvas.cloneNode() as HTMLCanvasElement;
+      canvas.replaceWith(fresh);
+      this.canvasRef = new ElementRef(fresh);
+      this.fallback = new InkRenderer2D(fresh, { seed: this.seed, density: this.density, waveSpeed: this.waveSpeed });
     }
 
     this.zone.runOutsideAngular(() => {
@@ -113,13 +120,13 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
 
   private createDrops(): DropSpec[] {
     const rand = seededRandom(this.seed * 31 + 1);
-    const count = 3 + Math.floor(rand() * 2);
+    // Three sources, one in each third of the screen so they stay apart, at different heights.
     const drops: DropSpec[] = [];
-    for (let i = 0; i < count && i < MAX_DROPS; i++) {
+    for (let i = 0; i < SOURCES; i++) {
       drops.push({
-        x: 0.1 + rand() * 0.8,
-        y: 0.1 + rand() * 0.8,
-        weight: i === 0 ? 1 : 0.35 + rand() * 0.5,
+        x: (i + 0.35 + rand() * 0.3) / SOURCES,
+        y: 0.2 + rand() * 0.6,
+        weight: 0.8 + rand() * 0.45,
         phase: rand() * Math.PI * 2,
       });
     }
@@ -163,7 +170,7 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
     UNIFORM_NAMES.forEach(name => this.uniforms[name] = gl.getUniformLocation(program, name));
-    gl.uniform1f(this.uniforms.uSeed, (this.seed % 97) / 97);
+    gl.uniform1f(this.uniforms.uSeed, (this.seed % 997) / 997);
     gl.uniform1f(this.uniforms.uReveal, -1e9);
     gl.uniform1f(this.uniforms.uRevealFade, REVEAL_FADE);
 
@@ -200,14 +207,12 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
   // Drop positions and line spacing are relative to the screen, so recompute them on resize.
   private layoutDrops(): void {
     this.dropData.fill(0);
-    let totalWeight = 0;
     this.drops.forEach((drop, i) => {
       this.dropData.set([drop.x * this.width, drop.y * this.height, drop.weight, drop.phase], i * 4);
-      totalWeight += drop.weight;
     });
-    // Aim for roughly 64 lines across the screen's diagonal.
+    // Aim for roughly 32 rings from a source out to the far side of the screen.
     const diagonal = Math.hypot(this.width, this.height);
-    const spacing = totalWeight * Math.pow(diagonal, 0.8) / (64 * this.density);
+    const spacing = Math.pow(diagonal * 0.5, 0.8) / (32 * this.density);
     this.gl?.uniform1f(this.uniforms.uSpacing, spacing);
 
     if (this.revealMode) {

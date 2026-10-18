@@ -3,6 +3,7 @@
 // Each line swells and pinches along its length, like ink stretched and bunched on the water.
 
 export const MAX_DROPS = 4;
+const MERGE = 70;
 
 export const INK_VERTEX_SHADER = `
 attribute vec2 aPosition;
@@ -30,7 +31,10 @@ uniform float uSeed;
 uniform float uReveal;
 uniform float uRevealFade;
 
-const float DRIFT = 0.035; // lines per second the rings drift outward
+// New rings per second each drop sends outward. Fast enough to watch rings grow from each source
+// and merge into their neighbours' rings where they meet.
+const float DRIFT = 0.22;
+const float MERGE = ${MERGE.toFixed(1)}; // px: how softly neighbouring drops' rings blend where they meet
 
 float hash(vec2 p) {
   p = fract(p * vec2(123.34, 456.21) + uSeed);
@@ -78,18 +82,22 @@ void main() {
   w.x += 150.0 * sin(w.y * 0.0026 + t * 0.05);
   w.y += 60.0 * sin(w.x * 0.0021 - t * 0.04);
 
-  // Drop potential: rings around each drop that merge into wavy contours between drops.
-  float pot = 0.0;
+  // Drop potential: a smooth minimum of the distance to each drop, so every drop is its own source
+  // of rings, and where neighbouring drops' rings meet they merge into shared waves.
+  float sum = 0.0;
   float nearest = 1e5;
   for (int i = 0; i < MAX_DROPS; i++) {
     vec4 drop = uDrops[i];
     if (drop.z <= 0.0) continue;
     vec2 c = drop.xy + 40.0 * vec2(sin(t * 0.03 + drop.w), cos(t * 0.025 + drop.w * 1.7));
     // Squashed distance: drops spread into stretched ellipses along the current, not circles.
+    // A heavier drop (larger weight) spreads further, so its rings are wider.
     float d = length((w - c) * vec2(0.72, 1.25));
-    pot += drop.z * pow(d + 30.0, 0.8);
+    sum += exp(-(d / drop.z) / MERGE);
     nearest = min(nearest, d);
   }
+  float spread = -MERGE * log(max(sum, 1e-30));
+  float pot = pow(max(spread, 0.0) + 30.0, 0.8);
   // Lines drift slowly outward from the drops, as new ink keeps spreading.
   float v = pot / uSpacing - t * DRIFT;
 
@@ -125,13 +133,14 @@ void main() {
 
 // Same field as the shader without the warp, for finding the range of line numbers on screen.
 export function linePotential(x: number, y: number, drops: Float32Array, dropCount: number): number {
-  let pot = 0;
+  let sum = 0;
   for (let i = 0; i < dropCount; i++) {
     const weight = drops[i * 4 + 2];
     if (weight <= 0) continue;
     const dx = (x - drops[i * 4]) * 0.72;
     const dy = (y - drops[i * 4 + 1]) * 1.25;
-    pot += weight * Math.pow(Math.hypot(dx, dy) + 30, 0.8);
+    sum += Math.exp(-(Math.hypot(dx, dy) / weight) / MERGE);
   }
-  return pot;
+  const dist = -MERGE * Math.log(Math.max(sum, 1e-30));
+  return Math.pow(Math.max(dist, 0) + 30, 0.8);
 }

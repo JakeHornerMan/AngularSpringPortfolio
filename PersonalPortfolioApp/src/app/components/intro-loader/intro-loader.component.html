@@ -1,4 +1,4 @@
 <div #curtain class="intro" aria-hidden="true">
-    <!-- Same seed and density as the page background, so the rings line up as they dissolve. -->
-    <app-ink-field #ink class="intro-ink" [seed]="7" [density]="1.15" [inverted]="true" [revealMode]="true"></app-ink-field>
+    <!-- Same (per-load) seed and density as the page background, so the rings line up as they dissolve. -->
+    <app-ink-field #ink class="intro-ink" [density]="1.15" [inverted]="true" [revealMode]="true"></app-ink-field>
 </div>
