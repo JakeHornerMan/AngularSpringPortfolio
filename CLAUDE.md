@@ -54,7 +54,7 @@ Frontend (run from `PersonalPortfolioApp/`):
 - Fonts: Rubik Glitch for all headings (`--display`) and Asap Sharp for everything else (`--body`), loaded in `src/index.html`.
 - `components/ink-field` is the slowly moving ink background (not interactive); the app shell renders one fixed instance behind everything.
   - It renders at 30fps with a WebGL fragment shader (`src/app/ink/ink-shader.ts`).
-  - Lines are contours of a "drop potential": a smooth minimum of the stretched-ellipse distance to 3 ink drops. Each drop is its own ring source, and rings drift outward (`DRIFT`) and merge where they meet.
+  - Lines are contours of a "drop potential": a smooth minimum of the stretched-ellipse distance to 2–3 ink drops (count, positions and sizes are random per seed, kept `MIN_SOURCE_GAP` apart). Each drop is its own ring source, and rings drift outward (`DRIFT`) and merge where they meet.
   - The contours are folded into flowing waves by slow fbm domain warping plus a sideways current.
   - The pattern comes from `SESSION_SEED` (`src/app/ink/ink-noise.ts`), picked once per page load. It's new on every reload, the same across in-app navigation, and shared by the background and the curtain so their rings line up.
   - Each line gets a hashed weight (hairline/medium/bold) and swells along its length, capped so neighbours never merge.

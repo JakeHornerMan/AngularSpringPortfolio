@@ -3,7 +3,10 @@
 // Each line swells and pinches along its length, like ink stretched and bunched on the water.
 
 export const MAX_DROPS = 4;
-const MERGE = 70;
+
+// Shared with fieldPotential() below, which has to match the shader's field.
+const DRIFT = 0.22;       // new rings per second each drop sends outward
+const MERGE = 70;         // px: how softly neighbouring drops' rings blend where they meet
 
 export const INK_VERTEX_SHADER = `
 attribute vec2 aPosition;
@@ -31,10 +34,8 @@ uniform float uSeed;
 uniform float uReveal;
 uniform float uRevealFade;
 
-// New rings per second each drop sends outward. Fast enough to watch rings grow from each source
-// and merge into their neighbours' rings where they meet.
-const float DRIFT = 0.22;
-const float MERGE = ${MERGE.toFixed(1)}; // px: how softly neighbouring drops' rings blend where they meet
+const float DRIFT = ${DRIFT.toFixed(3)};
+const float MERGE = ${MERGE.toFixed(1)};
 
 float hash(vec2 p) {
   p = fract(p * vec2(123.34, 456.21) + uSeed);
@@ -131,8 +132,9 @@ void main() {
 }
 `;
 
-// Same field as the shader without the warp, for finding the range of line numbers on screen.
-export function linePotential(x: number, y: number, drops: Float32Array, dropCount: number): number {
+// Same field as the shader without the warp or the drops' wander, for finding the range of line
+// numbers on screen.
+export function fieldPotential(x: number, y: number, drops: Float32Array, dropCount: number): number {
   let sum = 0;
   for (let i = 0; i < dropCount; i++) {
     const weight = drops[i * 4 + 2];
@@ -141,6 +143,6 @@ export function linePotential(x: number, y: number, drops: Float32Array, dropCou
     const dy = (y - drops[i * 4 + 1]) * 1.25;
     sum += Math.exp(-(Math.hypot(dx, dy) / weight) / MERGE);
   }
-  const dist = -MERGE * Math.log(Math.max(sum, 1e-30));
-  return Math.pow(Math.max(dist, 0) + 30, 0.8);
+  const spread = -MERGE * Math.log(Math.max(sum, 1e-30));
+  return Math.pow(Math.max(spread, 0) + 30, 0.8);
 }

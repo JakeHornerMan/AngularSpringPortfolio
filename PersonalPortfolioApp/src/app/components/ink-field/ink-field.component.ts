@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { prefersReducedMotion, seededRandom, SESSION_SEED } from 'src/app/ink/ink-noise';
 import { InkRenderer2D } from 'src/app/ink/ink-renderer-2d';
-import { INK_FRAGMENT_SHADER, INK_VERTEX_SHADER, linePotential, MAX_DROPS } from 'src/app/ink/ink-shader';
+import { fieldPotential, INK_FRAGMENT_SHADER, INK_VERTEX_SHADER, MAX_DROPS } from 'src/app/ink/ink-shader';
 
 interface DropSpec {
   x: number;      // centre, as a fraction of width
@@ -16,8 +16,10 @@ const UNIFORM_NAMES = ['uRes', 'uDpr', 'uTime', 'uInk', 'uPaper', 'uDrops', 'uSp
 // beyond the unwarped range we sample.
 const REVEAL_FADE = 4;
 
-// Number of ink drops the rings spread out from.
-const SOURCES = 3;
+// How many ink drops the rings spread out from (picked per page load), and how far apart they must be.
+const MIN_SOURCES = 2;
+const MAX_SOURCES = 3;
+const MIN_SOURCE_GAP = 0.28;
 const REVEAL_MARGIN = 10;
 type Uniforms = Record<typeof UNIFORM_NAMES[number], WebGLUniformLocation | null>;
 
@@ -120,15 +122,15 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
 
   private createDrops(): DropSpec[] {
     const rand = seededRandom(this.seed * 31 + 1);
-    // Three sources, one in each third of the screen so they stay apart, at different heights.
+    // 2 or 3 sources anywhere on screen, each a different size; a larger weight spreads wider rings.
+    const count = MIN_SOURCES + Math.floor(rand() * (MAX_SOURCES - MIN_SOURCES + 1));
     const drops: DropSpec[] = [];
-    for (let i = 0; i < SOURCES; i++) {
-      drops.push({
-        x: (i + 0.35 + rand() * 0.3) / SOURCES,
-        y: 0.2 + rand() * 0.6,
-        weight: 0.8 + rand() * 0.45,
-        phase: rand() * Math.PI * 2,
-      });
+    for (let attempt = 0; drops.length < count && attempt < 200; attempt++) {
+      const x = 0.12 + rand() * 0.76;
+      const y = 0.15 + rand() * 0.7;
+      // Keep sources apart (in screen fractions) so each one reads as its own set of rings.
+      if (drops.some(d => Math.hypot(d.x - x, (d.y - y) * 0.6) < MIN_SOURCE_GAP)) continue;
+      drops.push({ x, y, weight: 0.5 + rand() * 1.1, phase: rand() * Math.PI * 2 });
     }
     return drops;
   }
@@ -221,7 +223,7 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
       let max = -Infinity;
       for (let gx = 0; gx <= 24; gx++) {
         for (let gy = 0; gy <= 16; gy++) {
-          const v = linePotential(gx / 24 * this.width, gy / 16 * this.height, this.dropData, this.drops.length) / spacing;
+          const v = fieldPotential(gx / 24 * this.width, gy / 16 * this.height, this.dropData, this.drops.length) / spacing;
           min = Math.min(min, v);
           max = Math.max(max, v);
         }
