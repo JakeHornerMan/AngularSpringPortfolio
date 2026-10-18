@@ -51,8 +51,16 @@ Frontend (run from `PersonalPortfolioApp/`):
 
 **Frontend design (black & white suminagashi):**
 - Colour/font tokens live on `:root` in `src/styles.css`, along with the shared `.pocket`, `.pockets` (staggered grid), `.label` and button classes.
-- `components/ink-field` draws the animated ink-ring background on a canvas using `src/app/ink/ink-noise.ts`. The app shell renders one fixed instance behind everything.
-- `components/intro-loader` is the black ink-edge sweep shown on every full page load. It waits for the first `NavigationEnd` and zero pending HTTP requests, tracked by `LoadingInterceptor`/`LoadingService` (min 1.4s, max 4s).
+- Fonts: Rubik Glitch for all headings (`--display`) and Asap Sharp for everything else (`--body`), loaded in `src/index.html`.
+- `components/ink-field` is the slowly moving ink background (not interactive); the app shell renders one fixed instance behind everything.
+  - It renders at 30fps with a WebGL fragment shader (`src/app/ink/ink-shader.ts`).
+  - Lines are contours of a "drop potential" (one term per ink drop, in stretched-ellipse distance), folded into flowing waves by slow fbm domain warping plus a sideways current.
+  - Each line gets a hashed weight (hairline/medium/bold) and swells along its length, capped so neighbours never merge.
+  - `src/app/ink/ink-renderer-2d.ts` is a Canvas 2D fallback for when WebGL isn't available.
+- `components/intro-loader` is the ink curtain: an inverted `ink-field` (white ink on black, same seed/density as the page background) in `revealMode`, whose rings dissolve from the centre outward via `setRevealProgress()` (shader uniforms `uReveal`/`uRevealFade`).
+  - On first load it dissolves once the page is ready.
+  - On every later navigation it plays in reverse to cover the page, then dissolves again once the new page's data is in. It's hidden with `display:none` when idle.
+- All routes in `app-routing.module.ts` sit under one componentless parent with `canActivateChild: [PageTransitionGuard]`, which holds each navigation until `PageTransitionService` reports the curtain has covered the page. New routes must go in the `pages` array to get the transition. It waits for the first `NavigationEnd` and zero pending HTTP requests, tracked by `LoadingInterceptor`/`LoadingService` (min 1.4s, max 4s).
 - `project-content` and `work-experience-content` render as pockets. `open` (an input plus a host class `wide`) expands one to full width to show its content blocks.
 
 ## Gotchas

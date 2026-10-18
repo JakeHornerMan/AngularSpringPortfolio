@@ -7,8 +7,8 @@
   --line: rgba(11, 11, 11, 0.16);
   --pocket: rgba(250, 250, 247, 0.84);
 
-  --serif: 'Instrument Serif', 'Times New Roman', serif;
-  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --display: 'Rubik Glitch', 'Rubik', system-ui, sans-serif;
+  --body: 'Asap Sharp', 'Asap', system-ui, sans-serif;
 
   --gutter: clamp(16px, 3.5vw, 48px);
 }
@@ -25,8 +25,8 @@ html, body {
 }
 
 body {
-  font-family: var(--mono);
-  font-size: 14px;
+  font-family: var(--body);
+  font-size: 15px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -47,7 +47,7 @@ img, iframe, video {
 /* ---------- Type ---------- */
 
 .display, h1 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 0.95;
@@ -59,9 +59,9 @@ h1 {
 }
 
 h2, h3 {
-  font-family: var(--mono);
-  font-size: 14px;
-  font-weight: 600;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 400;
   margin: 0 0 0.5rem;
 }
 
@@ -93,7 +93,7 @@ a:hover {
 /* Small lowercase mono label with a hairline under it. */
 .label {
   display: block;
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 13px;
   color: var(--grey);
   text-transform: lowercase;

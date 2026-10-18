@@ -1,14 +1,28 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
-import { createInkNoise, InkNoise, prefersReducedMotion, seededRandom } from 'src/app/ink/ink-noise';
+import { prefersReducedMotion, seededRandom } from 'src/app/ink/ink-noise';
+import { InkRenderer2D } from 'src/app/ink/ink-renderer-2d';
+import { INK_FRAGMENT_SHADER, INK_VERTEX_SHADER, linePotential, MAX_DROPS } from 'src/app/ink/ink-shader';
 
-interface Drop {
+interface DropSpec {
   x: number;      // centre, as a fraction of width
   y: number;      // centre, as a fraction of height
-  rings: number;
-  spacing: number; // as a fraction of the larger canvas side
+  weight: number; // how strongly this drop's rings dominate
+  phase: number;  // offsets its slow drift
 }
 
-// Suminagashi: concentric ink rings floating on water, drifting slowly.
+const UNIFORM_NAMES = ['uRes', 'uDpr', 'uTime', 'uInk', 'uPaper', 'uDrops', 'uSpacing', 'uSeed', 'uReveal', 'uRevealFade'] as const;
+
+// How many rings fade at once during a reveal, and the margin (in rings) for the warp moving lines
+// beyond the unwarped range we sample.
+const REVEAL_FADE = 4;
+const REVEAL_MARGIN = 10;
+type Uniforms = Record<typeof UNIFORM_NAMES[number], WebGLUniformLocation | null>;
+
+// The water moves slowly, so 30fps looks the same as 60 and halves the GPU work.
+const FRAME_INTERVAL = 1000 / 30;
+
+// Suminagashi: ink lines floating on slowly moving water. Drawn by a WebGL shader (see ink-shader.ts),
+// with the Canvas 2D renderer as a fallback where WebGL isn't available.
 @Component({
   selector: 'app-ink-field',
   template: '<canvas #canvas aria-hidden="true"></canvas>',
@@ -19,30 +33,57 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
   @Input() seed = 7;
   @Input() animate = true;
   @Input() inverted = false;
+  // Higher = more lines on screen.
   @Input() density = 1;
-  // Rings per second that each drop sends outward.
+  // Rings per second that each drop sends outward (2D fallback only).
   @Input() waveSpeed = 0.08;
+  // Used by the intro: the sheet can be dissolved ring by ring with setRevealProgress().
+  @Input() revealMode = false;
 
   @ViewChild('canvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  private ctx!: CanvasRenderingContext2D;
-  private noise!: InkNoise;
-  private drops: Drop[] = [];
+  private gl?: WebGLRenderingContext;
+  private uniforms = {} as Uniforms;
+  private fallback?: InkRenderer2D;
+  private drops: DropSpec[] = [];
+  private dropData = new Float32Array(MAX_DROPS * 4);
   private width = 0;
   private height = 0;
+  private dpr = 1;
   private frame = 0;
+  private lastFrame = 0;
   private visible = true;
   private startTime = 0;
+  private still = false;
   private resizeObserver?: ResizeObserver;
   private intersectionObserver?: IntersectionObserver;
+  private onVisibilityChange = () => { if (!document.hidden) this.loop(); };
+  private revealFrom = 0;
+  private revealTo = 0;
+  private revealProgress = 0;
+
+  // Ring-by-ring reveal needs the shader; the 2D fallback can't do it.
+  get canReveal(): boolean {
+    return !!this.gl;
+  }
+
+  // 0 = every ring showing, 1 = every ring gone (fully transparent).
+  setRevealProgress(progress: number): void {
+    this.revealProgress = progress;
+    this.applyReveal();
+  }
 
   constructor(private host: ElementRef<HTMLElement>, private zone: NgZone) { }
 
   ngAfterViewInit(): void {
-    this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
-    this.noise = createInkNoise(this.seed);
-    this.drops = this.createDrops();
     this.startTime = performance.now();
+    this.still = !this.animate || prefersReducedMotion();
+    this.drops = this.createDrops();
+
+    const canvas = this.canvasRef.nativeElement;
+    if (!this.initWebGL(canvas)) {
+      this.fallback = new InkRenderer2D(canvas, { seed: this.seed, density: this.density, waveSpeed: this.waveSpeed });
+    }
 
     this.zone.runOutsideAngular(() => {
       this.resizeObserver = new ResizeObserver(() => this.resize());
@@ -52,6 +93,7 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
         if (this.visible) this.loop();
       });
       this.intersectionObserver.observe(this.host.nativeElement);
+      document.addEventListener('visibilitychange', this.onVisibilityChange);
       this.resize();
       this.loop();
     });
@@ -61,112 +103,177 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
     cancelAnimationFrame(this.frame);
     this.resizeObserver?.disconnect();
     this.intersectionObserver?.disconnect();
+    document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    this.gl?.getExtension('WEBGL_lose_context')?.loseContext();
   }
 
-  private createDrops(): Drop[] {
+  private now(): number {
+    return (performance.now() - this.startTime) / 1000;
+  }
+
+  private createDrops(): DropSpec[] {
     const rand = seededRandom(this.seed * 31 + 1);
-    const count = 2 + Math.floor(rand() * 2);
-    const drops: Drop[] = [];
-    for (let i = 0; i < count; i++) {
+    const count = 3 + Math.floor(rand() * 2);
+    const drops: DropSpec[] = [];
+    for (let i = 0; i < count && i < MAX_DROPS; i++) {
       drops.push({
-        x: 0.2 + rand() * 0.6,
-        y: 0.2 + rand() * 0.6,
-        rings: Math.round((i === 0 ? 34 : 14 + rand() * 10) * this.density),
-        spacing: (i === 0 ? 0.022 : 0.016) / this.density,
+        x: 0.1 + rand() * 0.8,
+        y: 0.1 + rand() * 0.8,
+        weight: i === 0 ? 1 : 0.35 + rand() * 0.5,
+        phase: rand() * Math.PI * 2,
       });
     }
     return drops;
   }
 
+  private initWebGL(canvas: HTMLCanvasElement): boolean {
+    const gl = canvas.getContext('webgl', { antialias: false, alpha: this.revealMode, premultipliedAlpha: true });
+    if (!gl || !gl.getExtension('OES_standard_derivatives')) return false;
+
+    const compile = (type: number, source: string) => {
+      const shader = gl.createShader(type)!;
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.warn('Ink shader failed to compile, using 2D fallback:', gl.getShaderInfoLog(shader));
+        return null;
+      }
+      return shader;
+    };
+    const vertex = compile(gl.VERTEX_SHADER, INK_VERTEX_SHADER);
+    const fragment = compile(gl.FRAGMENT_SHADER, INK_FRAGMENT_SHADER);
+    if (!vertex || !fragment) return false;
+
+    const program = gl.createProgram()!;
+    gl.attachShader(program, vertex);
+    gl.attachShader(program, fragment);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.warn('Ink shader failed to link, using 2D fallback:', gl.getProgramInfoLog(program));
+      return false;
+    }
+    gl.useProgram(program);
+
+    // One triangle that covers the whole screen.
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const position = gl.getAttribLocation(program, 'aPosition');
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+
+    UNIFORM_NAMES.forEach(name => this.uniforms[name] = gl.getUniformLocation(program, name));
+    gl.uniform1f(this.uniforms.uSeed, (this.seed % 97) / 97);
+    gl.uniform1f(this.uniforms.uReveal, -1e9);
+    gl.uniform1f(this.uniforms.uRevealFade, REVEAL_FADE);
+
+    this.gl = gl;
+    return true;
+  }
+
   private resize(): void {
-    const canvas = this.canvasRef.nativeElement;
     const rect = this.host.nativeElement.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.width = rect.width;
     this.height = rect.height;
-    canvas.width = Math.max(1, Math.round(rect.width * dpr));
-    canvas.height = Math.max(1, Math.round(rect.height * dpr));
-    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    this.draw((performance.now() - this.startTime) / 1000);
+    // The GPU path shades every pixel, so cap its resolution a little lower than the 2D path.
+    this.dpr = Math.min(window.devicePixelRatio || 1, this.gl ? 1.5 : 2);
+
+    const styles = getComputedStyle(this.host.nativeElement);
+    const ink = styles.getPropertyValue(this.inverted ? '--paper' : '--ink').trim() || (this.inverted ? '#fafaf7' : '#0b0b0b');
+    const paper = styles.getPropertyValue(this.inverted ? '--ink' : '--paper').trim() || (this.inverted ? '#0b0b0b' : '#fafaf7');
+
+    if (this.fallback) {
+      this.fallback.setColors(ink, paper);
+      this.fallback.resize(this.width, this.height, this.dpr);
+    } else if (this.gl) {
+      const canvas = this.canvasRef.nativeElement;
+      canvas.width = Math.max(1, Math.round(this.width * this.dpr));
+      canvas.height = Math.max(1, Math.round(this.height * this.dpr));
+      this.gl.viewport(0, 0, canvas.width, canvas.height);
+      this.gl.uniform3fv(this.uniforms.uInk, hexToRgb(ink));
+      this.gl.uniform3fv(this.uniforms.uPaper, hexToRgb(paper));
+      this.layoutDrops();
+    }
+    this.draw(this.still ? 0 : this.now());
+  }
+
+  // Drop positions and line spacing are relative to the screen, so recompute them on resize.
+  private layoutDrops(): void {
+    this.dropData.fill(0);
+    let totalWeight = 0;
+    this.drops.forEach((drop, i) => {
+      this.dropData.set([drop.x * this.width, drop.y * this.height, drop.weight, drop.phase], i * 4);
+      totalWeight += drop.weight;
+    });
+    // Aim for roughly 64 lines across the screen's diagonal.
+    const diagonal = Math.hypot(this.width, this.height);
+    const spacing = totalWeight * Math.pow(diagonal, 0.8) / (64 * this.density);
+    this.gl?.uniform1f(this.uniforms.uSpacing, spacing);
+
+    if (this.revealMode) {
+      // Sample the unwarped field across the screen to find which ring numbers are visible.
+      let min = Infinity;
+      let max = -Infinity;
+      for (let gx = 0; gx <= 24; gx++) {
+        for (let gy = 0; gy <= 16; gy++) {
+          const v = linePotential(gx / 24 * this.width, gy / 16 * this.height, this.dropData, this.drops.length) / spacing;
+          min = Math.min(min, v);
+          max = Math.max(max, v);
+        }
+      }
+      this.revealFrom = min - REVEAL_MARGIN;
+      this.revealTo = max + REVEAL_MARGIN + REVEAL_FADE;
+      this.applyReveal();
+    }
+  }
+
+  private applyReveal(): void {
+    if (!this.gl || !this.revealMode) return;
+    const reveal = this.revealFrom + (this.revealTo - this.revealFrom) * this.revealProgress;
+    this.gl.uniform1f(this.uniforms.uReveal, reveal);
   }
 
   private loop(): void {
     cancelAnimationFrame(this.frame);
-    if (!this.animate || prefersReducedMotion()) {
+    if (this.still) {
       this.draw(0);
       return;
     }
-    const tick = () => {
-      if (!this.visible) return;
-      this.draw((performance.now() - this.startTime) / 1000);
+    const tick = (now: number) => {
+      if (!this.visible || document.hidden) return;
+      // A few ms of slack so a 60Hz display lands on exactly every second frame instead of
+      // sometimes skipping three, which would make the motion stutter.
+      // The intro reveal moves quickly, so it draws every frame.
+      if (this.revealMode || now - this.lastFrame >= FRAME_INTERVAL - 4) {
+        this.lastFrame = now;
+        this.draw(this.now());
+      }
       this.frame = requestAnimationFrame(tick);
     };
     this.frame = requestAnimationFrame(tick);
   }
 
   private draw(time: number): void {
-    const { ctx, width: w, height: h } = this;
-    if (!w || !h) return;
-    const styles = getComputedStyle(this.host.nativeElement);
-    const ink = styles.getPropertyValue(this.inverted ? '--paper' : '--ink').trim() || (this.inverted ? '#fafaf7' : '#0b0b0b');
-    const paper = styles.getPropertyValue(this.inverted ? '--ink' : '--paper').trim() || (this.inverted ? '#0b0b0b' : '#fafaf7');
-
-    ctx.fillStyle = paper;
-    ctx.fillRect(0, 0, w, h);
-
-    const side = Math.max(w, h);
-    const t = time * 0.12;
-
-    this.drops.forEach((drop, d) => {
-      const cx = drop.x * w;
-      const cy = drop.y * h;
-      // Rings keep spreading outward from the drop, a new one forming at the centre as each moves out.
-      const travelled = time * this.waveSpeed * (d % 2 ? 0.8 : 1);
-      const phase = travelled % 1;
-      const cycle = Math.floor(travelled);
-      const outer = drop.rings + phase;
-      // Later drops land on top of earlier rings and push them aside: clear underneath first.
-      if (d > 0) {
-        this.ringPath(cx, cy, outer * drop.spacing * side, outer, t, d);
-        ctx.fillStyle = paper;
-        ctx.fill();
-      }
-      for (let k = drop.rings - 1; k >= 0; k--) {
-        const r = k + phase;
-        if (r <= 0.05) continue;
-        // Identity that stays with a ring as it travels outward, so its weight doesn't flicker.
-        const ring = ((k - cycle) % 6 + 6) % 6;
-        this.ringPath(cx, cy, r * drop.spacing * side, r, t, d);
-        ctx.strokeStyle = ink;
-        ctx.lineWidth = ring % 3 === 0 ? 2.4 : 1;
-        // Newest ring fades in at the centre; outermost fades out at the edge of the drop.
-        const fadeIn = Math.min(1, r);
-        const fadeOut = Math.min(1, drop.rings - r);
-        ctx.globalAlpha = (0.45 + 0.4 * (ring % 2)) * fadeIn * fadeOut;
-        ctx.stroke();
-      }
-      ctx.globalAlpha = 1;
-    });
-  }
-
-  private ringPath(cx: number, cy: number, radius: number, k: number, t: number, d: number): void {
-    const { ctx, noise } = this;
-    const steps = 120;
-    ctx.beginPath();
-    for (let i = 0; i <= steps; i++) {
-      const a = (i / steps) * Math.PI * 2;
-      const ca = Math.cos(a);
-      const sa = Math.sin(a);
-      // Ring wobble grows with radius, like ink stretched by the water's surface.
-      const wobble = 1 + 0.16 * noise(ca * 1.4 + d * 3, sa * 1.4 + k * 0.035, t);
-      let x = cx + ca * radius * wobble;
-      let y = cy + sa * radius * wobble;
-      // Water flow: a slow swell rolling across the surface plus eddies, so the rings marble.
-      y += 22 * Math.sin(x * 0.0045 + t * 2.2);
-      x += 34 * noise(y * 0.006, x * 0.002 + 5, t * 0.7);
-      y += 22 * noise(x * 0.005 + 11, y * 0.002, t * 0.6);
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    if (!this.width || !this.height) return;
+    if (this.fallback) {
+      this.fallback.draw(time);
+      return;
     }
-    ctx.closePath();
+    const gl = this.gl;
+    if (!gl) return;
+    const u = this.uniforms;
+    gl.uniform2f(u.uRes, this.width, this.height);
+    gl.uniform1f(u.uDpr, this.dpr);
+    gl.uniform1f(u.uTime, time);
+    gl.uniform4fv(u.uDrops, this.dropData);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
+}
+
+function hexToRgb(color: string): [number, number, number] {
+  const hex = color.replace('#', '');
+  const full = hex.length === 3 ? hex.split('').map(c => c + c).join('') : hex;
+  const n = parseInt(full, 16);
+  if (isNaN(n)) return [0, 0, 0];
+  return [(n >> 16 & 255) / 255, (n >> 8 & 255) / 255, (n & 255) / 255];
 }

@@ -1,54 +1,84 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, Router } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, first } from 'rxjs/operators';
-import { createInkNoise, prefersReducedMotion } from 'src/app/ink/ink-noise';
+import { prefersReducedMotion } from 'src/app/ink/ink-noise';
 import { LoadingService } from 'src/app/services/loading.service';
+import { PageCurtain, PageTransitionService } from 'src/app/services/page-transition.service';
+import { InkFieldComponent } from '../ink-field/ink-field.component';
 
-const MIN_SECONDS = 1.4;
-const MAX_SECONDS = 4;
-const OPEN_SECONDS = 0.7;
-const EXIT_SECONDS = 0.95;
-const FADE_MS = 450;
+// First load: hold at least this long, reveal once data is in (or after the cap), then dissolve.
+const INTRO_MIN_SECONDS = 1.2;
+const INTRO_MAX_SECONDS = 4;
+const INTRO_REVEAL_SECONDS = 2.2;
+// Page changes: rings close back in, the new page loads underneath, then they dissolve again.
+const COVER_SECONDS = 1.0;
+const PAGE_MAX_WAIT_SECONDS = 3;
+const PAGE_REVEAL_SECONDS = 1.5;
+// After a navigation ends, give the new page a moment to fire its requests before trusting "zero pending".
+const SETTLE_MS = 150;
 
-const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
 const easeInOutCubic = (x: number) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
-// Full-screen black that is swept off to the right by a marbled-ink edge, revealing the name.
-// Created once per app bootstrap, so it plays on every full page load but never on in-app navigation.
+interface Tween {
+  from: number;
+  to: number;
+  start: number;
+  seconds: number;
+  done: () => void;
+}
+
+// The ink curtain: the page's ink background inverted (white ink on black).
+// On first load it covers the screen until the page and its data are ready, then its rings dissolve
+// one by one from the centre outward. On every later navigation it plays that in reverse to cover the
+// page (PageTransitionGuard waits for it), the new page loads underneath, and it dissolves again.
 @Component({
   selector: 'app-intro-loader',
   templateUrl: './intro-loader.component.html',
   styleUrls: ['./intro-loader.component.css']
 })
-export class IntroLoaderComponent implements AfterViewInit, OnDestroy {
+export class IntroLoaderComponent implements AfterViewInit, OnDestroy, PageCurtain {
 
-  visible = true;
-  fading = false;
+  @ViewChild('curtain') curtainRef!: ElementRef<HTMLElement>;
+  @ViewChild('ink') ink!: InkFieldComponent;
 
-  // Stroke offsets either side of the edge: positive = inside the black, negative = trailing on the paper.
-  readonly inkRipples = [-34, -64, -100, -142];
-  readonly paperRipples = [12, 26, 44, 66, 92, 124, 162];
-
-  @ViewChild('black') blackRef!: ElementRef<SVGPathElement>;
-  @ViewChildren('inkRipple') inkRippleRefs!: QueryList<ElementRef<SVGPathElement>>;
-  @ViewChildren('paperRipple') paperRippleRefs!: QueryList<ElementRef<SVGPathElement>>;
-
-  private noise = createInkNoise(19);
+  // 0 = page fully covered, 1 = curtain fully gone.
+  private progress = 0;
+  private tween?: Tween;
+  private covering?: Promise<void>;
   private frame = 0;
+  private navigating = false;
   private navigatedAt = -1;
+  private loadedAt = 0;
+  private waitingSince = -1;
+  private firstLoad = true;
+  private dissolve = true;
   private routerSub?: Subscription;
 
-  constructor(private router: Router, private loading: LoadingService, private zone: NgZone) { }
+  constructor(private router: Router,
+    private loading: LoadingService,
+    private transition: PageTransitionService,
+    private zone: NgZone) { }
 
   ngAfterViewInit(): void {
-    document.documentElement.classList.add('intro-lock');
-    this.routerSub = this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd || e instanceof NavigationCancel || e instanceof NavigationError),
-      first()
-    ).subscribe(() => this.navigatedAt = performance.now());
+    this.loadedAt = performance.now();
+    // Without the shader (or with reduced motion) there are no rings to dissolve: fade the curtain instead.
+    this.dissolve = this.ink.canReveal && !prefersReducedMotion();
+    this.transition.register(this);
+    this.show();
 
-    this.zone.runOutsideAngular(() => this.run());
+    this.routerSub = this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart) {
+        this.navigating = true;
+      } else if (e instanceof NavigationEnd || e instanceof NavigationCancel || e instanceof NavigationError) {
+        this.navigating = false;
+        this.navigatedAt = performance.now();
+        this.transition.markFirstNavigationDone();
+        // The curtain is (or is becoming) closed: lift it once the new page is ready.
+        if (this.progress < 1 || this.covering) this.waitThenReveal();
+      }
+    });
+
+    this.waitThenReveal();
   }
 
   ngOnDestroy(): void {
@@ -57,89 +87,84 @@ export class IntroLoaderComponent implements AfterViewInit, OnDestroy {
     document.documentElement.classList.remove('intro-lock');
   }
 
-  // The first page has rendered and its data has arrived (or we've waited long enough).
-  private isReady(now: number, elapsed: number): boolean {
-    if (elapsed >= MAX_SECONDS) return true;
-    if (elapsed < MIN_SECONDS || this.navigatedAt < 0) return false;
-    // Give the routed component a moment to fire its requests before trusting "zero pending".
-    return now - this.navigatedAt > 150 && this.loading.pending === 0;
+  // Close the curtain over the current page; resolves once it's fully covered.
+  cover(): Promise<void> {
+    if (!this.covering) {
+      this.waitingSince = -1;
+      this.show();
+      // If the curtain is already partly closed, close the rest in proportionally less time.
+      this.covering = this.animateTo(0, COVER_SECONDS * this.progress)
+        .then(() => {
+          this.covering = undefined;
+          window.scrollTo(0, 0);
+        });
+    }
+    return this.covering;
   }
 
-  private run(): void {
-    const start = performance.now();
-    const reduced = prefersReducedMotion();
-    let progress = 0;
-    let exitFrom = -1;
-    let exitStart = 0;
+  private waitThenReveal(): void {
+    this.waitingSince = performance.now();
+    this.zone.runOutsideAngular(() => this.loop());
+  }
 
-    if (reduced) this.blackRef.nativeElement.setAttribute('d', '');
+  private isReady(now: number): boolean {
+    const waited = (now - this.waitingSince) / 1000;
+    const sinceLoad = (now - this.loadedAt) / 1000;
+    if (this.navigating || this.covering || this.navigatedAt < 0) return false;
+    if (waited >= (this.firstLoad ? INTRO_MAX_SECONDS : PAGE_MAX_WAIT_SECONDS)) return true;
+    if (this.firstLoad && sinceLoad < INTRO_MIN_SECONDS) return false;
+    return now - this.navigatedAt > SETTLE_MS && this.loading.pending === 0;
+  }
 
+  private animateTo(target: number, seconds: number): Promise<void> {
+    this.tween?.done();
+    return new Promise(resolve => {
+      this.tween = { from: this.progress, to: target, start: performance.now(), seconds: Math.max(seconds, 0.01), done: resolve };
+      this.zone.runOutsideAngular(() => this.loop());
+    });
+  }
+
+  // One animation loop drives both the tween and the wait-until-ready check, and stops when idle.
+  private loop(): void {
+    cancelAnimationFrame(this.frame);
     const tick = (now: number) => {
-      const elapsed = (now - start) / 1000;
-
-      if (exitFrom < 0) {
-        if (elapsed < OPEN_SECONDS) {
-          progress = 0.35 * easeOutCubic(elapsed / OPEN_SECONDS);
-        } else {
-          // Creep forward while waiting, like pushing against something heavy.
-          progress += (0.62 - progress) * 0.012;
-        }
-        if (this.isReady(now, elapsed)) {
-          exitFrom = progress;
-          exitStart = now;
-        }
-      } else {
-        const x = Math.min(1, (now - exitStart) / 1000 / EXIT_SECONDS);
-        progress = exitFrom + (1 - exitFrom) * easeInOutCubic(x);
+      if (this.tween) {
+        const t = this.tween;
+        const x = Math.min(1, (now - t.start) / 1000 / t.seconds);
+        this.setProgress(t.from + (t.to - t.from) * easeInOutCubic(x));
         if (x >= 1) {
-          this.finish();
-          return;
+          this.tween = undefined;
+          t.done();
+          if (this.progress >= 1) this.hide();
         }
+      } else if (this.waitingSince >= 0 && this.isReady(now)) {
+        this.waitingSince = -1;
+        const seconds = this.firstLoad ? INTRO_REVEAL_SECONDS : PAGE_REVEAL_SECONDS;
+        this.firstLoad = false;
+        this.animateTo(1, seconds);
       }
-
-      if (!reduced) this.render(progress, elapsed);
-      this.frame = requestAnimationFrame(tick);
+      if (this.tween || this.waitingSince >= 0) this.frame = requestAnimationFrame(tick);
     };
     this.frame = requestAnimationFrame(tick);
   }
 
-  private render(progress: number, time: number): void {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    const amp = Math.min(70, w * 0.06);
-    const trail = Math.abs(this.inkRipples[this.inkRipples.length - 1]) + amp;
-    // From fully covered (edge left of the screen) to fully gone (trailing ripples right of the screen).
-    const edgeX = -amp + progress * (w + amp + trail);
-    const t = time * 1.6;
-    const step = 24;
-
-    const edgeAt = (y: number) =>
-      edgeX
-      + amp * 0.6 * this.noise(y * 0.006, 1.7, t)
-      + amp * 0.4 * this.noise(y * 0.019, 4.1, t * 1.3);
-
-    const linePoints = (offset: number, i: number) => {
-      const pts: string[] = [];
-      for (let y = -step; y <= h + step; y += step) {
-        // Spacing between rings breathes along the edge so they read as marbled, not parallel.
-        const spread = 1 + 0.35 * this.noise(y * 0.011 + i * 2.3, i * 0.9, t * 0.8);
-        pts.push(`${(edgeAt(y) + offset * spread).toFixed(1)},${y}`);
-      }
-      return pts;
-    };
-
-    const edge = linePoints(0, 0);
-    this.blackRef.nativeElement.setAttribute('d', `M${w + trail * 2},-${step} L${edge.join(' L')} L${w + trail * 2},${h + step} Z`);
-
-    this.paperRippleRefs.forEach((ref, i) =>
-      ref.nativeElement.setAttribute('d', 'M' + linePoints(this.paperRipples[i], i + 1).join(' L')));
-    this.inkRippleRefs.forEach((ref, i) =>
-      ref.nativeElement.setAttribute('d', 'M' + linePoints(this.inkRipples[i], i + 9).join(' L')));
+  private setProgress(progress: number): void {
+    this.progress = progress;
+    if (this.dissolve) {
+      this.ink.setRevealProgress(progress);
+    } else {
+      this.curtainRef.nativeElement.style.opacity = String(1 - progress);
+    }
   }
 
-  private finish(): void {
-    this.zone.run(() => this.fading = true);
+  // Hidden with display:none when idle, which also pauses the ink field's animation.
+  private show(): void {
+    this.curtainRef.nativeElement.style.display = 'block';
+    document.documentElement.classList.add('intro-lock');
+  }
+
+  private hide(): void {
+    this.curtainRef.nativeElement.style.display = 'none';
     document.documentElement.classList.remove('intro-lock');
-    setTimeout(() => this.zone.run(() => this.visible = false), FADE_MS);
   }
 }
