@@ -1,4 +1,5 @@
 import { HttpStatusCode } from '@angular/common/http';
+import { SectionTitleService } from 'src/app/services/section-title.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -20,9 +21,11 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
   
-  constructor(private service: SecureService, private router: Router, private userService: UserService) { }
+  constructor(private service: SecureService, private router: Router, private userService: UserService,
+    private sectionTitle: SectionTitleService) { }
 
   ngOnInit(): void {
+    this.sectionTitle.set('Log in');
   }
 
   login(): void {

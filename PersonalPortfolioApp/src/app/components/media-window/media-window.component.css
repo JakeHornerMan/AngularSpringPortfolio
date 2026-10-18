@@ -1,5 +1,5 @@
 /* Sits in the page's layer: above any opened window (z-index 1000), below the page titles. */
-.video-window {
+.media-window {
   position: fixed;
   z-index: 5000;
   top: 16vh;
@@ -10,10 +10,21 @@
   transform-origin: 0 0;
 }
 
-.video-frame video {
+/* Videos and images share the same 16:9 frame, so the window is always the same size. */
+.video-frame video, .video-frame img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   background: var(--ink);
+}
+
+.video-frame img {
+  object-fit: contain;
+}
+
+.frame-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }

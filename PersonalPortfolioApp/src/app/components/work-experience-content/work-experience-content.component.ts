@@ -1,17 +1,18 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Content, Project, WorkExperience } from 'src/app/models/models';
 import { UserService } from 'src/app/services/user.service';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 import { SecureService } from 'src/app/services/secure.service';
+import { OpenableWindow, OpenWindowService } from 'src/app/services/open-window.service';
 
 @Component({
   selector: 'app-work-experience-content',
   templateUrl: './work-experience-content.component.html',
   styleUrls: ['./work-experience-content.component.css']
 })
-export class WorkExperienceContentComponent implements OnInit {
+export class WorkExperienceContentComponent implements OnInit, OnDestroy, OpenableWindow {
 
   @Input() workExperience!: WorkExperience;
   contentList = new Array<Content>();
@@ -21,7 +22,8 @@ export class WorkExperienceContentComponent implements OnInit {
   constructor(private userService: UserService, 
     private router: Router,
     private service: SecureService,
-    private dialog: MatDialog,) { }
+    private dialog: MatDialog,
+    private openWindows: OpenWindowService,) { }
 
   ngOnInit(): void {
     this.contentList = this.workExperience.contentList;
@@ -36,8 +38,22 @@ export class WorkExperienceContentComponent implements OnInit {
   }
 
   // An opened pocket spans the whole row of the pockets grid.
+  // Only one window opens at a time: trying to open this one while another is open just closes that one.
   toggle(){
-    this.open = !this.open;
+    if (this.open) {
+      this.close();
+    } else if (this.openWindows.requestOpen(this)) {
+      this.open = true;
+    }
+  }
+
+  close(){
+    this.open = false;
+    this.openWindows.closed(this);
+  }
+
+  ngOnDestroy(): void {
+    this.openWindows.closed(this);
   }
 
   isUserLoggedIn(): boolean{

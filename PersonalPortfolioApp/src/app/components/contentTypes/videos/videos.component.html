@@ -3,17 +3,22 @@
         <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
         <p *ngFor="let paragraph of paragraphList">{{paragraph}}</p>
     </div>
-    <ng-container *ngTemplateOutlet="tile"></ng-container>
+    <ng-container *ngTemplateOutlet="media"></ng-container>
 </div>
 <div class="block" *ngIf="isEmpty(content.contentParagraph)">
     <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
-    <ng-container *ngTemplateOutlet="tile"></ng-container>
+    <ng-container *ngTemplateOutlet="media"></ng-container>
 </div>
 
-<!-- A small tile; the video itself plays in a window of its own (VideoWindowComponent). -->
-<ng-template #tile>
-    <button type="button" class="video-tile" #tileButton (click)="play(tileButton)" [attr.aria-label]="'Play ' + (content.contentTitle || 'video')">
+<ng-template #media>
+    <!-- Desktop: a small tile; the video plays in a window of its own (MediaWindowComponent). -->
+    <button *ngIf="!inline" type="button" class="media-tile" #tileButton (click)="play(tileButton)" [attr.aria-label]="'Play ' + (content.contentTitle || 'video')">
         <img *ngIf="thumbnail" [src]="thumbnail" alt="" loading="lazy">
-        <span class="video-tile-play" aria-hidden="true">▶ play</span>
+        <span class="media-tile-badge" aria-hidden="true">▶ play</span>
     </button>
+    <!-- Phones and tablets: the player sits inline. -->
+    <div *ngIf="inline" class="video-frame inline-media">
+        <iframe *ngIf="embedUrl" [src]="embedUrl" [title]="content.contentTitle || 'Video'" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
+        <video *ngIf="!embedUrl" [src]="content.contentUrl" controls playsinline preload="metadata"></video>
+    </div>
 </ng-template>

@@ -32,7 +32,7 @@ import { PreviewWorkExperienceComponent } from './components/preview-work-experi
 import { WorkExperienceContentComponent } from './components/work-experience-content/work-experience-content.component';
 import { DeletePopupComponent } from './components/delete-popup/delete-popup.component';
 import { BounceFieldDirective } from './directives/bounce-field.directive';
-import { VideoWindowComponent } from './components/video-window/video-window.component';
+import { MediaWindowComponent } from './components/media-window/media-window.component';
 
 // const appRoute: Routes =[
 //   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -55,7 +55,7 @@ import { VideoWindowComponent } from './components/video-window/video-window.com
     InkFieldComponent,
     IntroLoaderComponent,
     BounceFieldDirective,
-    VideoWindowComponent,
+    MediaWindowComponent,
     ProjectContentComponent,
     ParagraphsComponent,
     VideosComponent,

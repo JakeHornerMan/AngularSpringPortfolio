@@ -3,9 +3,19 @@
         <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
         <p *ngFor="let paragraph of paragraphList">{{paragraph}}</p>
     </div>
-    <img [src]="content.contentUrl" [alt]="content.contentTitle || ''" class="block-media" loading="lazy">
+    <ng-container *ngTemplateOutlet="media"></ng-container>
 </div>
 <div class="block" *ngIf="paragraphList.length <= 0">
     <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
-    <img [src]="content.contentUrl" [alt]="content.contentTitle || ''" class="block-media" loading="lazy">
+    <ng-container *ngTemplateOutlet="media"></ng-container>
 </div>
+
+<ng-template #media>
+    <!-- Desktop: images are never shown big inline; a video-sized tile opens them in a window (MediaWindowComponent). -->
+    <button *ngIf="!inline" type="button" class="media-tile" #tileButton (click)="view(tileButton)" [attr.aria-label]="'View ' + (content.contentTitle || 'image')">
+        <img [src]="content.contentUrl" [alt]="content.contentTitle || ''" loading="lazy">
+        <span class="media-tile-badge" aria-hidden="true">⤢ view</span>
+    </button>
+    <!-- Phones and tablets: the image sits inline. -->
+    <img *ngIf="inline" class="inline-media inline-image" [src]="content.contentUrl" [alt]="content.contentTitle || ''" loading="lazy">
+</ng-template>

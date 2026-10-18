@@ -1,0 +1,669 @@
+{
+ "interests": [
+  {
+   "id": 1,
+   "title": "Game Development",
+   "description": "View Game Development Projects",
+   "imageUrl": ""
+  },
+  {
+   "id": 2,
+   "title": "Art Works",
+   "description": "View 3D & 2D Art projects",
+   "imageUrl": ""
+  },
+  {
+   "id": 3,
+   "title": "Software Development",
+   "description": "View Software Development Projects",
+   "imageUrl": ""
+  },
+  {
+   "id": 4,
+   "title": "Work Experience",
+   "description": "View details of all Work Experience",
+   "imageUrl": ""
+  },
+  {
+   "id": 5,
+   "title": "All Projects",
+   "description": "A Place to see all Projects",
+   "imageUrl": ""
+  }
+ ],
+ "projects": [
+  {
+   "projectName": "Scrambled Eggs",
+   "startDate": "2023-07-01",
+   "endDate": "2023-07-31",
+   "staredProject": true,
+   "linkedInterests": "1",
+   "mainPoints": "Unity & C# & Aesprite & Unity Web GL & Steamworks API",
+   "projectDescription": "Released on Steam: over 15,000 library claims and 2,500 leaderboard entries.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "About the game",
+     "contentParagraph": "This project was made in Unity with C# and Steamworks API, by myself acting as project manager and lead developer, and two other developers, and released on Steam in July of 2024. we received over 15,000 library claims and over 2,500 leaderboard entries. The game is free to Play with no Micro-transactions, so please give it a try",
+     "contentUrl": "",
+     "id": 1,
+     "position": 1
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Play The Game Here!",
+     "contentParagraph": "",
+     "contentUrl": "https://store.steampowered.com/app/2906540/Scrambled_Eggs/",
+     "id": 2,
+     "position": 2
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Trailer",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/tEQdHrRhsv0",
+     "id": 3,
+     "position": 3
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Gameplay video",
+     "contentParagraph": "Check out this video with over 45k views, going through our game and its mechanics.",
+     "contentUrl": "",
+     "id": 4,
+     "position": 4
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Gameplay walkthrough (45k views)",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/bfF7HR8LakM",
+     "id": 5,
+     "position": 5
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "GitHub repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/GMTKGameJam2023",
+     "id": 6,
+     "position": 6
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Game Jam Development",
+     "contentParagraph": "This was a team submission to GMTK Game Jam 2024, which placed 263rd out of nearly 7000 submitted games. The theme of the Game Jam was “roles reversed”, so we decided to do a reverse on the game ‘Crossy Road’. In ‘Crossy Road’, the player's aim is to control a chicken to get across a road, in our demo ‘Scrambled Eggs’ the player will place cars to stop waves of chicken from crossing the Road. We expanded on this idea with different car types and different chicken types.<?>The development team I led on this project worked really well together, so we have since decided to continue developing this idea into a full release.We are creating iteration with interesting Chicken roles, Car variations, and Road types. We plan to release it on PC and Mobile.",
+     "contentUrl": "",
+     "id": 7,
+     "position": 7
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Play the Game Jam Demo here",
+     "contentParagraph": "",
+     "contentUrl": "https://thejackxbl.itch.io/scrambled-eggs",
+     "id": 8,
+     "position": 8
+    }
+   ],
+   "id": 1,
+   "active": true,
+   "linkedTechnologys": "",
+   "cateorys": ""
+  },
+  {
+   "projectName": "Stock Trading Web Application",
+   "startDate": "2021-10-01",
+   "endDate": "2021-10-31",
+   "staredProject": false,
+   "linkedInterests": "3",
+   "mainPoints": "Java & Spring Boot & Spring Web & Spring Security & Thymeleaf & mySQL",
+   "projectDescription": "A team-of-four stock trading simulator, led by me during the Albany Beck Pioneer Program.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "About the project",
+     "contentParagraph": "This stock trading platform web application was created using Java, SQL, and Spring Framework. The application was created with a team of four, which was led by me, during my time in the Albany Beck’s Pioneer Program. The application was created to simulate online stock traders/clients, where users can place orders (BUY & SELL) for trading, view their order status, view the trade order history, and access their asset purchases in the wallet.",
+     "contentUrl": "",
+     "id": 9,
+     "position": 1
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Demo",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/NSPweu8zZxk",
+     "id": 10,
+     "position": 2
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "GitHub repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/TradingApp",
+     "id": 11,
+     "position": 3
+    }
+   ],
+   "id": 2,
+   "active": true,
+   "linkedTechnologys": "",
+   "cateorys": ""
+  },
+  {
+   "projectName": "Roadster Run",
+   "startDate": "2020-08-01",
+   "endDate": "2021-05-31",
+   "staredProject": true,
+   "linkedInterests": "1",
+   "mainPoints": "C# & Unity & Blender & Google AR Core",
+   "projectDescription": "My final year project: a mobile game with motion controls and augmented reality.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "About the game",
+     "contentParagraph": "Roadster Run was my final year project during my time at the National College of Ireland. It is a mobile phone game with motion controls and augmented reality (“AR”) functionality.",
+     "contentUrl": "",
+     "id": 12,
+     "position": 1
+    },
+    {
+     "contentType": "image",
+     "contentTitle": "Roadster Run",
+     "contentParagraph": "",
+     "contentUrl": "/assets/content/RadsterRun.png",
+     "id": 13,
+     "position": 2
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Gameplay",
+     "contentParagraph": "The gameplay involves a car that moves on a procedurally generated road, where the enemy will come to attack the player. The player’s car is controlled by rotating the phone left or right to change lanes. The player can also shoot at any oncoming enemy car to gain points and dispatch them.",
+     "contentUrl": "",
+     "id": 14,
+     "position": 3
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Gameplay",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/vYrNn3dqbnI",
+     "id": 15,
+     "position": 4
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Customization",
+     "contentParagraph": "The player can also customize their player car, which is reflected in the main game and AR functionality.",
+     "contentUrl": "",
+     "id": 16,
+     "position": 5
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Customization",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/oRja2b9bjwM",
+     "id": 17,
+     "position": 6
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Augmented Reality",
+     "contentParagraph": "The AR functionality allows players to take images with their customized vehicles.",
+     "contentUrl": "",
+     "id": 18,
+     "position": 7
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Augmented Reality",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/d_DhPFWfdK4",
+     "id": 19,
+     "position": 8
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Art",
+     "contentParagraph": "I have also created all art assets for the game in Blender.",
+     "contentUrl": "",
+     "id": 20,
+     "position": 9
+    },
+    {
+     "contentType": "image",
+     "contentTitle": "Art assets in Blender",
+     "contentParagraph": "",
+     "contentUrl": "/assets/content/RoadsterRunBlender.png",
+     "id": 21,
+     "position": 10
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "GitHub repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Roadster-Run",
+     "id": 22,
+     "position": 11
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Google Play",
+     "contentParagraph": "",
+     "contentUrl": "https://play.google.com/store/apps/details?id=com.Hornerific.RoadsterRun&hl=en&gl=US",
+     "id": 23,
+     "position": 12
+    }
+   ],
+   "id": 3,
+   "active": true,
+   "linkedTechnologys": "",
+   "cateorys": ""
+  },
+  {
+   "projectName": "3rd Person Character Controller",
+   "startDate": "2022-04-01",
+   "endDate": "2022-06-30",
+   "staredProject": false,
+   "linkedInterests": "1",
+   "mainPoints": "C# & Unity",
+   "projectDescription": "A ‘Dark Souls’ inspired third-person character controller, built to practise Unity 3D programming.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "About the project",
+     "contentParagraph": "I created a ‘Dark Souls’ inspired third-person character controller to practice my unity 3D programming.<?>This project included a function camera with Collision. All the inputs have also been mapped to the controller.",
+     "contentUrl": "",
+     "id": 24,
+     "position": 1
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Demo",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/RvzV5sXNClA",
+     "id": 25,
+     "position": 2
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "GitHub repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/RougeSoulsLike",
+     "id": 26,
+     "position": 3
+    }
+   ],
+   "id": 4,
+   "active": true,
+   "linkedTechnologys": "",
+   "cateorys": ""
+  },
+  {
+   "projectName": "Blobber",
+   "startDate": "2020-04-01",
+   "endDate": "2020-08-31",
+   "staredProject": false,
+   "linkedInterests": "1",
+   "mainPoints": "C# & Unity & Adobe Photoshop",
+   "projectDescription": "A competitive platformer: play as an escaped alien jumping on scientists for points.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "About the game",
+     "contentParagraph": "Blobber is a competitive platformer where players play as an escaped alien jumping on scientists for points. The player will need to dodge fireballs, which are being shot by a hazmat enemy flying in the sky, in order to conserve health.<?>‘Classic’ mode is a time trial mode where the player completes for points. The ‘Floor is Lava’ mode will damage the player when he touches the floor. There is a leaderboard integrated with ‘Google Play Games’, which allows players to compete in each mode. There is also an opt-in advertisement that allows the player to gain one extra health point.",
+     "contentUrl": "",
+     "id": 27,
+     "position": 1
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Gameplay",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/SaxCwbT1oE0",
+     "id": 28,
+     "position": 2
+    }
+   ],
+   "id": 5,
+   "active": true,
+   "linkedTechnologys": "",
+   "cateorys": ""
+  },
+  {
+   "projectName": "ATM Banking",
+   "startDate": "2022-02-01",
+   "endDate": "2022-03-31",
+   "staredProject": false,
+   "linkedInterests": "3",
+   "mainPoints": "Java & Spring Boot & Spring Web",
+   "projectDescription": "Microservices that let a user create an account, sign in and withdraw money in notes.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "About the project",
+     "contentParagraph": "This is a project I made to showcase my knowledge of Microservices, Spring Boot, OOP, and MVC framework. I created a set of services that allows a user to create an account, sign in, and withdraw money in the form of notes (50s, 20s, 10s, and 5s).",
+     "contentUrl": "",
+     "id": 29,
+     "position": 1
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "GitHub repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/BankingATM",
+     "id": 30,
+     "position": 2
+    }
+   ],
+   "id": 6,
+   "active": true,
+   "linkedTechnologys": "",
+   "cateorys": ""
+  },
+  {
+   "projectName": "Shy Chomper",
+   "startDate": "2021-06-01",
+   "endDate": "2021-06-30",
+   "staredProject": false,
+   "linkedInterests": "1",
+   "mainPoints": "C# & Unity & Adobe Photoshop & Unity WebGL",
+   "projectDescription": "An action stealth puzzle game made in seven days for Weekly Game Jam 203 (‘Eat The Enemy’).",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "About the game",
+     "contentParagraph": "This is a game that was created in seven days for the 'Weekly Game Jam' 203. The theme for this game jam was 'Eat The Enemy'. My self and another game designer collaborated on this project.<?>Shy Chomper is an action stealth puzzle game, where the player avoids the gaze of the enemy ‘Blobbers’, and ‘Floating Eyes’. The player can only cross tiles marked by a specific color, by consuming a ‘Blobbler’ of the corresponding color.",
+     "contentUrl": "",
+     "id": 31,
+     "position": 1
+    },
+    {
+     "contentType": "video",
+     "contentTitle": "Gameplay",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/LQHkxgCWXVg",
+     "id": 32,
+     "position": 2
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Levels",
+     "contentParagraph": "We created 5 levels to showcase the toll we built for this game inspired by mazes, board games, and top-down stealth games. Please feel free to follow the link below to give the levels a try!",
+     "contentUrl": "",
+     "id": 33,
+     "position": 3
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Play the Game here",
+     "contentParagraph": "",
+     "contentUrl": "https://jakehornerman.itch.io/shy-chompers-trip",
+     "id": 34,
+     "position": 4
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "GitHub repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Game-Jam-J-J",
+     "id": 35,
+     "position": 5
+    }
+   ],
+   "id": 7,
+   "active": true,
+   "linkedTechnologys": "",
+   "cateorys": ""
+  }
+ ],
+ "workExperiences": [
+  {
+   "workPlace": "SuperNimbus",
+   "workTitle": "Software Development Engineer",
+   "startDate": "2024-06-01",
+   "endDate": null,
+   "workIconUrl": "/assets/content/SuperNimbus.svg",
+   "technologys": "JavaScript, C#, C++, TypeScript, SQL, PostgreSql, Unity, Unreal",
+   "workDescription": "SuperNimbus provided back end services for gaming projectsby creat custom project to suit the customers need. The application were hosted and created using AWS framework",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "Projects",
+     "contentParagraph": "I have worked on is USM's 'Catan Universe', by provideing custom RPCs, front end updates, and server stress testing automation. I have also worked on a up and coming multiplayer shooter Cathedral's 'The Bornless', providing authentication, user statistics, and in-app purchases.",
+     "contentUrl": "",
+     "id": 36,
+     "position": 1
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Twitch Service Integration (The Bornless)",
+     "contentParagraph": "One of the requirements for ‘The Bornless’ was to have full Twitch integration to allow users to claim in-game items from watching streams of the game. This system was fully integrated using the Playfab system for authentication and user management with the CloudScript functionality in JavaScript.<?>The system will gather all ‘Claimed’ status items from the attached Twitch account. Grant them to the player Inventory, and set them to ‘Fulfilled’ status. Of course, contacting multiple endpoints we need fallback mechanisms when there is a failure along the progress of the system, All failed Items are stored against the player's title data in a small JSON object. This object will be retried once the system is called, and be cleared when all items have been successfully granted to the player.",
+     "contentUrl": "",
+     "id": 37,
+     "position": 2
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Economy Updates for granting Items (The Bornless)",
+     "contentParagraph": "The Item grants system for ‘The Bornless’ backend project was previously implemented using the legacy Economy V1 with no fallback for any item failures, this could cause a major problem with the user not receiving items when they should if an endpoint failed. I was tasked with the implementation of a system that would store any failures and retry them at a later date. While I was developing this system I updated all instances of granting items to the new Economy V2 endpoints.<?>This system would store any failed item information in a new Dynamo DB table while it was attempting to grant items to each user. I managed to flesh out the common reasons why these items would fail and when recognized would attach it to the table, for example, if an item was attempted to be granted that was not created in the Econmy system on Playfab. A second socket endpoint was created on this back project to be called that would once again retry these failed items.",
+     "contentUrl": "",
+     "id": 38,
+     "position": 3
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Privacy Popup Updates (Catan | IOS)",
+     "contentParagraph": "A policy change came through for the IOS store that directly affected the ‘Catan Universe’ application and its release of the next update. The solution for this was to add an info popup at the start of each new install of the application. Also, it was required that this popup would be translated into 6 other popular languages.",
+     "contentUrl": "",
+     "id": 39,
+     "position": 4
+    }
+   ],
+   "id": 1,
+   "active": true
+  },
+  {
+   "workPlace": "MasterCard",
+   "workTitle": "Software Development Engineer II",
+   "startDate": "2023-02-01",
+   "endDate": "2024-06-30",
+   "workIconUrl": "/assets/content/mastercard-logo.png",
+   "technologys": "Java, Shell Scripting, Linux Administration, Spring Boot, mySQL",
+   "workDescription": "In MasterCard, I hold the position of Software Engineer II, where I work towards the development and maintenance of the In-Control Commercial Payments (ICCP) Platform, an active platform built with Java, Spring Framework, and Angular frontend. I have been actively involved in the Smart Data Project, a ‘Business-to-Business’ software solution for controlling payments for generated virtual cards.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "Health check web services",
+     "contentParagraph": "I have made considerable contributions to developing web services for a health check system active in this platform with Java EE and Spring Framework, creating endpoints that will be consumed by both customers and internal teams.",
+     "contentUrl": "",
+     "id": 40,
+     "position": 1
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Health Check Separation",
+     "contentParagraph": "The health check system was an endpoint that allowed internal and external customers to check the status of the ICCP application. This functionality was split into endpoints, shallow health returning a simple “status: UP” or “status: DOWN”, and deep health returning an in-depth analysis of all components relating to the ICCP application. These 2 endpoints would gather this information from cached values stored and logged by a background service every 30 seconds.<?>I was tasked with separating these two endpoints functionality, and making them have independent run times for caching and logging, 5 seconds for shallow, and 5 minutes for deep. Also, I was tasked with having the shallow endpoint return the cached value, while the deep endpoint would run the health check service independently and return the current status values.<?>I focused on the separation of the Heath check service into two by creating a DeepHealthService class and a ShallowHealthService class, also creating independent flags and variables to support this separation.<?>I used multithreading to create another scheduling task, that will be running DeepHealthService. I also created another cache store and logging functionality, for this value to be stored every 5 minutes. The previous thread handling the old implementation of health check service, was then repurposed to run the ShallowHealthService.<?>Finally, I pointed the deep endpoint that accessed the cached value, to now do an independent call to my DeepHealthService, and return this value to the end user.",
+     "contentUrl": "",
+     "id": 41,
+     "position": 2
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Hashi Migration",
+     "contentParagraph": "There are many different applications that come together to make up the ICCP Platform. When each application contacts the other they have a passphrase type validation to verify that another application is from the MasterCard suite of applications. My Team, Team Vision was in charge of migrating this system to a new solution HashiCorp Vault. We were in charge of migrating CommercialAPI, PurchaseControlUI, CommercialApi Batch, and CommercialApi Report.<?>Mastercard has many different environments where applications are deployed and tested, Stage 1, Stage 2, Performance testing, MTF, MTF2. On top of these servers, we also need to migrate the servers based in the United States and India. We were provided with a ‘Cookbook solution’ by an alternative team on basic settings and procedures we should be doing to migrate servers.<?>As a Team, we had to develop a set of Instructions and Validations that needed to be carried out by members of Mastercard (BizOps) who have in-depth access to all server and Jenkins configurations. We created Pull Requests for each environment, that merged the new Hashi configurations on each of these specific servers. When these instructions were finalised, we needed to create a CRQ session with BizOps to carry out our steps and validations.<?>A major part I played in the Hashi Migration CRQ sessions with BizOps, was for the 8 servers in India. Mastercard cycles between an Active server set each weekend, 2 sets for 4 application. Due to our ICCP platform being a business solution, the best time to do this migration was on the weekend. We did the inactive set of 4 servers on Saturday, steps for migration, and validated the application functionality. That evening an alternative team performed with a cutover of making the migrated Hashi servers active, while also making the remaining 4 servers inactive. We then proceeded with the Hashi migration of the inactive servers on Sunday.",
+     "contentUrl": "",
+     "id": 42,
+     "position": 3
+    }
+   ],
+   "id": 2,
+   "active": true
+  },
+  {
+   "workPlace": "Ergo (Contract: SBCI Customer Hub)",
+   "workTitle": "Junior Full Stack Software Developer",
+   "startDate": "2022-05-01",
+   "endDate": "2023-02-28",
+   "workIconUrl": "/assets/content/ergo-logo.png",
+   "technologys": "Java, JavaScript, AngularJS, Spring Boot, PSQL, HTML, CSS",
+   "workDescription": "I was employed by Ergo, as a contractor for the Strategic Banking Corporation of Ireland (SBCI) to work on an emerging web application for the Irish Financial market, the SBCI customer hub. This application is a way for small businesses to access support for reduced-rate loans, allow for on-lenders to view and access these loan applications, and a system for the internal SBCI team to accept or deny these funding opportunities.",
+   "contentList": [
+    {
+     "contentType": "image",
+     "contentTitle": "SBCI",
+     "contentParagraph": "",
+     "contentUrl": "/assets/content/sbci-logo.png",
+     "id": 43,
+     "position": 1
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Application Flow Rework",
+     "contentParagraph": "There were several different loan schemes available for customers using the SBCI customer hub, where a user could select and fill out various pages to see if they were eligible for a reduced-rate loan. When a user selects a scheme it has a hard-coded set of eight pages that would need to be completed in order to apply for that loan. The introduction of the ‘Ukraine Credit Guarantee Scheme’ aimed at providing financial aid to businesses affected by the Ukraine crisis, the business needs required a new page progression to calculate if a customer was eligible for a subsidized loan.<?>I created a new component that allows the loan application to take in the scheme name and populate the application with the necessary components, decouple the stepper functionality from the to allow it to be populated with the passed-on information, and also allow for reused pages from other schemes to be populated with necessary legal text for it to be used in multiple scheme types.<?>This system has been continued, and used to support many different loan application schemes.",
+     "contentUrl": "",
+     "id": 44,
+     "position": 2
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "Responsive CSS framework",
+     "contentParagraph": "Before the release of the Customer Hub application, a major target for us was to restructure the design to fit all devices and be responsive to all screen sizes. When I joined the team I led the process with our UX designer to form a system using Flexbox CSS. Our goal was to keep the original design flow and philosophy while allowing smaller devices to be visible and intuitive.<?>I created a clear class-based system that allowed us to cut down on rewriting CSS code for each Angular component. We could then call clearly defined CSS classes and modifiers to allow each box of content to scale and restructure to allow the end user to access the app on any device.<?>Before release, we managed to restructure all of the customer-facing pages which include the login, loan application process pages, and the main menu with sub-menus. After release, we continued to bring the Flexbox CSS system to all other users including on lender and approvers.",
+     "contentUrl": "",
+     "id": 45,
+     "position": 3
+    }
+   ],
+   "id": 3,
+   "active": true
+  },
+  {
+   "workPlace": "usheru",
+   "workTitle": "Full Stack Software Developer Intern",
+   "startDate": "2020-02-01",
+   "endDate": "2020-08-31",
+   "workIconUrl": "/assets/content/usheru-logo.png",
+   "technologys": "Java, JavaScript, HTML, CSS, PSQL, Linux Scripting",
+   "workDescription": "Usheru is a film industry marketing and web services company, they provide many web solutions for film festivals, cinema ticketing services, and film online marketing. I was taken on as a Software Development Intern for six months. Here, I mainly worked on an application that was used to generate web pages and services that would provide ticket booking and show times. This application was created using Java, and we did some work on the generated pages using custom HTML and CSS.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "TaskLogs",
+     "contentParagraph": "In Usheru a lot of information was scraped from the web to keep their internal ticketing system functional, this would be done through a shell script that would give output in the console if each process was successful. The information taken varied from showtimes, ticket numbers, seat information, streaming services, and review ratings. The issue with the current implementation was that it was only visible to the developers on the Usheru team if these processes had been run successfully or not.<?>I was tasked with creating a page for an internal admin user at usheru called ‘TaskLogs’, this contained various information for each task run by the information gathering shell script such as start time, end time, total time, did it completed successfully, how many records did it gather, and a JSON file output to see the record gathered.",
+     "contentUrl": "",
+     "id": 46,
+     "position": 1
+    }
+   ],
+   "id": 4,
+   "active": true
+  },
+  {
+   "workPlace": "Albany Beck Pioneer’s Program",
+   "workTitle": "Full-Stack Java Training Certificate",
+   "startDate": "2021-08-01",
+   "endDate": "2022-02-28",
+   "workIconUrl": "/assets/content/albany-logo.png",
+   "technologys": "Java, Spring Framework, SQL",
+   "workDescription": "The Albany Beck Pioneers Program was a six-month intensive training program, which I attended directly after finishing my degree at The National College of Ireland. The aim of the program was to teach Java EE, SQL, and Spring Framework to graduates looking for employment in the technology industry.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "Training",
+     "contentParagraph": "Albany Beck had a main focus on the financial industry and would provide us with interview opportunities with various UK financial services.<?>During training, we focused on the beginning of Java development, object-oriented programming, databases, database management, Spring Boot, Microservices with Spring Web, Authentication with Spring Security, Spring JDBC, and Spring MVC. Throughout the training we created many applications, with a final project created in the last week, which was a trading application. This application is documented on the ‘Software Projects Tab’ under the name ‘Stock Trading Web Application’.",
+     "contentUrl": "",
+     "id": 47,
+     "position": 1
+    }
+   ],
+   "id": 5,
+   "active": true
+  },
+  {
+   "workPlace": "National College of Ireland",
+   "workTitle": "BSc (Honours) in Computer Science",
+   "startDate": "2016-08-01",
+   "endDate": "2021-05-31",
+   "workIconUrl": "/assets/content/nci-logo.png",
+   "technologys": "",
+   "workDescription": "I achieved a Grade: of 2:1 in my Bachelor's Degree in Computer Science in National College of Ireland. I specialized in Software Development. Here are some of the modules and projects I completed in my final 2 years.",
+   "contentList": [
+    {
+     "contentType": "text",
+     "contentTitle": "4th Year Modules",
+     "contentParagraph": "Software Project - Roadster Run project (included in the 'Software Projects' tab)<?>Distributed Systems - Heart Attack Risk factor (Java & Grpc application)<?>Artificial Intelligence - Chess game (Java)<?>Data Application Development - Entertainment Industry Stock market analysis (R & Python)<?>Multimedia and Mobile Application Development - Uptime productivity app (Kotlin)",
+     "contentUrl": "",
+     "id": 48,
+     "position": 1
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "GitHub repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Roadster-Run",
+     "id": 49,
+     "position": 2
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Distributed Systems repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Distributed-Systems-Project",
+     "id": 50,
+     "position": 3
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Chess game repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Chess-Project",
+     "id": 51,
+     "position": 4
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Stock market analysis repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Map-Reduce-Stock-Market-Averages",
+     "id": 52,
+     "position": 5
+    },
+    {
+     "contentType": "text",
+     "contentTitle": "3rd Year Modules",
+     "contentParagraph": "Work Placement - usheru<?>Web Services and API Development - (Movies service API C# .NET)<?>Cloud Application Development - VoteGems web app (Ruby on Rails)<?>Team Project - SnapTravelPop web app (PHP & HTML & CSS)<?>Advanced Internet Technologies<?>Usability Design<?>Strategic Management<?>Advanced Programming<?>Advanced Databases<?>Wireless Networking",
+     "contentUrl": "",
+     "id": 53,
+     "position": 6
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "Movies service API repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Api-Movies-On-Demand",
+     "id": 54,
+     "position": 7
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "VoteGems repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/VoteGems",
+     "id": 55,
+     "position": 8
+    },
+    {
+     "contentType": "link",
+     "contentTitle": "SnapTravelPop repo",
+     "contentParagraph": "",
+     "contentUrl": "https://github.com/JakeHornerMan/Snap-Travel-Pop",
+     "id": 56,
+     "position": 9
+    }
+   ],
+   "id": 6,
+   "active": true
+  }
+ ]
+}

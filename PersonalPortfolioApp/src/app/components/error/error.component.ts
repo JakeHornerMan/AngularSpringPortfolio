@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SectionTitleService } from 'src/app/services/section-title.service';
 
 @Component({
   selector: 'app-error',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sectionTitle: SectionTitleService) { }
 
   ngOnInit(): void {
+    this.sectionTitle.set('Not found');
   }
 
 }

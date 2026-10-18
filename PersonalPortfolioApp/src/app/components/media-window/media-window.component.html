@@ -1,0 +1,15 @@
+<div #win class="pocket media-window" *ngIf="media" role="dialog" [attr.aria-label]="media.title">
+    <span class="label has-dots">
+        <button type="button" class="window-open" aria-expanded="true" (click)="close()">
+            <span class="window-dots" aria-hidden="true"></span>close ↖
+        </button>
+        <span class="bar-title">{{media.title}}</span>
+    </span>
+    <div class="video-frame">
+        <iframe *ngIf="embedUrl" [src]="embedUrl" [title]="media.title" (load)="frameLoaded()" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+        <!-- The player sets its own cursor inside its frame; this cover keeps ours (the hourglass) until it has loaded. -->
+        <div *ngIf="embedUrl && frameLoading" class="frame-cover" aria-hidden="true"></div>
+        <video *ngIf="fileUrl" [src]="fileUrl" autoplay controls playsinline></video>
+        <img *ngIf="imageUrl" [src]="imageUrl" [alt]="media.title">
+    </div>
+</div>

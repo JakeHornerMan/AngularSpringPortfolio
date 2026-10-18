@@ -1,18 +1,21 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { startBusyCursor } from 'src/app/cursors';
 import { prefersReducedMotion } from 'src/app/ink/ink-noise';
 import { LoadingService } from 'src/app/services/loading.service';
 import { PageCurtain, PageTransitionService } from 'src/app/services/page-transition.service';
 import { InkFieldComponent } from '../ink-field/ink-field.component';
 
-// First load: hold at least this long, reveal once data is in (or after the cap), then dissolve.
+// The curtain (the inverted ink) stays up until every API request has finished. The caps are only a safety
+// net, so a hung request can't trap the page behind it.
+// First load: hold at least this long, reveal once data is in, then dissolve.
 const INTRO_MIN_SECONDS = 1.2;
-const INTRO_MAX_SECONDS = 4;
+const INTRO_MAX_SECONDS = 15;
 const INTRO_REVEAL_SECONDS = 2.2;
 // Page changes: rings close back in, the new page loads underneath, then they dissolve again.
 const COVER_SECONDS = 1.0;
-const PAGE_MAX_WAIT_SECONDS = 3;
+const PAGE_MAX_WAIT_SECONDS = 15;
 const PAGE_REVEAL_SECONDS = 1.5;
 // After a navigation ends, give the new page a moment to fire its requests before trusting "zero pending".
 const SETTLE_MS = 150;
@@ -53,6 +56,7 @@ export class IntroLoaderComponent implements AfterViewInit, OnDestroy, PageCurta
   private firstLoad = true;
   private dissolve = true;
   private routerSub?: Subscription;
+  private stopBusyCursor?: () => void;
 
   constructor(private router: Router,
     private loading: LoadingService,
@@ -84,6 +88,7 @@ export class IntroLoaderComponent implements AfterViewInit, OnDestroy, PageCurta
   ngOnDestroy(): void {
     cancelAnimationFrame(this.frame);
     this.routerSub?.unsubscribe();
+    this.stopBusyCursor?.();
     document.documentElement.classList.remove('intro-lock');
   }
 
@@ -158,13 +163,17 @@ export class IntroLoaderComponent implements AfterViewInit, OnDestroy, PageCurta
   }
 
   // Hidden with display:none when idle, which also pauses the ink field's animation.
+  // The hourglass cursor turns for as long as the curtain is up.
   private show(): void {
     this.curtainRef.nativeElement.style.display = 'block';
     document.documentElement.classList.add('intro-lock');
+    if (!this.stopBusyCursor) this.stopBusyCursor = startBusyCursor();
   }
 
   private hide(): void {
     this.curtainRef.nativeElement.style.display = 'none';
     document.documentElement.classList.remove('intro-lock');
+    this.stopBusyCursor?.();
+    this.stopBusyCursor = undefined;
   }
 }

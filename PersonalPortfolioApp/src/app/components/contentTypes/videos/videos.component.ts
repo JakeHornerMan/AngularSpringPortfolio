@@ -1,32 +1,46 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { watchDesktop } from 'src/app/layout-mode';
 import { Content } from 'src/app/models/models';
-import { VideoWindowService, youTubeIdOf } from 'src/app/services/video-window.service';
+import { MediaWindowService, toEmbedUrl, youTubeIdOf } from 'src/app/services/media-window.service';
 
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.css']
 })
-export class VideosComponent implements OnInit {
+export class VideosComponent implements OnInit, OnDestroy {
 
   @Input() content!: Content;
 
   thumbnail: string | null = null;
+  // Phones and tablets play the video inline instead of in a window.
+  inline = false;
+  embedUrl: SafeResourceUrl | null = null;
 
   paragraphList = new Array<String>();
+  private stopWatching = () => {};
 
-  constructor(private videoWindow: VideoWindowService) {
+  constructor(private mediaWindow: MediaWindowService, private sanitizer: DomSanitizer) {
 
   }
 
   ngOnInit(): void {
-    const youTubeId = youTubeIdOf(this.content.contentUrl || '');
+    const url = this.content.contentUrl || '';
+    const youTubeId = youTubeIdOf(url);
     this.thumbnail = youTubeId ? `https://i.ytimg.com/vi/${youTubeId}/hqdefault.jpg` : null;
+    const embed = toEmbedUrl(url, false);
+    this.embedUrl = embed ? this.sanitizer.bypassSecurityTrustResourceUrl(embed) : null;
     if(!this.isEmpty(this.content.contentParagraph)) this.paragraphList = this.content.contentParagraph.split('<?>');
+    this.stopWatching = watchDesktop(isDesktop => this.inline = !isDesktop);
+  }
+
+  ngOnDestroy(): void {
+    this.stopWatching();
   }
 
   play(tile: HTMLElement): void {
-    this.videoWindow.open({ title: this.content.contentTitle || 'Video', url: this.content.contentUrl, source: tile });
+    this.mediaWindow.open({ kind: 'video', title: this.content.contentTitle || 'Video', url: this.content.contentUrl, source: tile });
   }
 
   isEmpty(string: string): boolean {

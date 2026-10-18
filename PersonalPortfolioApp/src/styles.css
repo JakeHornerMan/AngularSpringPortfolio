@@ -12,13 +12,13 @@
 
   --gutter: clamp(16px, 3.5vw, 48px);
 
-  /* Smooth Classic cursors by Vlasta (CC BY, credited in the footer), exported to PNG at 2x (64px) with their hotspots. */
-  --cursor-arrow: url('/assets/cursors/SmoothArrow.png') 4 4, default;
-  --cursor-hand: url('/assets/cursors/SmoothHand.png') 18 4, pointer;
-  --cursor-move: url('/assets/cursors/SmoothMove.png') 30 30, move;
-  --cursor-text: url('/assets/cursors/TextSelect.png') 12 18, text;
-  --cursor-no: url('/assets/cursors/SmoothNo.png') 24 24, not-allowed;
-  --cursor-help: url('/assets/cursors/SmoothQuestion.png') 4 4, help;
+  /* Smooth Classic cursors by Vlasta (CC BY, credited in the footer), exported to PNG at 1.5x (48px) with their hotspots. */
+  --cursor-arrow: url('/assets/cursors/SmoothArrow.png') 3 3, default;
+  --cursor-hand: url('/assets/cursors/SmoothHand.png') 14 3, pointer;
+  --cursor-move: url('/assets/cursors/SmoothMove.png') 23 23, move;
+  --cursor-text: url('/assets/cursors/TextSelect.png') 9 14, text;
+  --cursor-no: url('/assets/cursors/SmoothNo.png') 18 18, not-allowed;
+  --cursor-help: url('/assets/cursors/SmoothQuestion.png') 3 3, help;
 }
 
 *, *::before, *::after {
@@ -112,7 +112,8 @@ html.grabbing, html.grabbing * {
   cursor: var(--cursor-move) !important;
 }
 
-/* Hourglass: plays (frame by frame, from app/cursors.ts) while a window grows open or shrinks shut. */
+/* Hourglass: plays (frame by frame, from app/cursors.ts) while a window grows open or shrinks shut,
+   and loops while the page-transition curtain is showing. */
 html.cursor-busy, html.cursor-busy * {
   cursor: var(--cursor-busy, wait) !important;
 }
@@ -353,13 +354,15 @@ a:hover {
   z-index: 2;
 }
 
-/* Bouncing windows (BounceFieldDirective): each child drifts over the whole browser window. */
+/* Bouncing windows (BounceFieldDirective): the field is a stack of screen-sized "spaces" (its height
+   is set by the directive) and each child drifts inside its space. */
 .pockets.bouncing {
   display: block;
+  position: relative;
 }
 
 .pockets.bouncing > * {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: clamp(260px, 24vw, 360px);
@@ -373,9 +376,32 @@ a:hover {
   animation: none;
 }
 
+/* The gap between two spaces: a calm band of water with three ink lines rippling slowly through it,
+   each at its own wavelength, speed and direction. */
+.space-divider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='40'%3E%3Cpath d='M0 20 C40 4 120 4 160 20 S280 36 320 20' fill='none' stroke='%230b0b0b' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") 0 50% / 320px 40px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='30'%3E%3Cpath d='M0 15 C27.5 4 82.5 4 110 15 S192.5 26 220 15' fill='none' stroke='%230b0b0b' stroke-width='1.4'/%3E%3C/svg%3E") 0 calc(50% - 18px) / 220px 30px repeat-x,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='30'%3E%3Cpath d='M0 15 C50 6 150 6 200 15 S350 24 400 15' fill='none' stroke='%230b0b0b' stroke-width='0.9'/%3E%3C/svg%3E") 0 calc(50% + 20px) / 400px 30px repeat-x,
+    linear-gradient(to bottom, transparent, rgba(250, 250, 247, 0.9) 30%, rgba(250, 250, 247, 0.9) 70%, transparent);
+  animation: space-ripple 18s linear infinite;
+}
+
+@keyframes space-ripple {
+  to {
+    background-position: 320px 50%, -220px calc(50% - 18px), 400px calc(50% + 20px), 0 0;
+  }
+}
+
 /* An opened window stops bouncing and sits in the middle of the screen, scrolling on its own. */
 .pockets.bouncing > .wide {
-  /* Below the masthead name (which stays in front) and clear of the nav dock. */
+  /* Pinned to the screen, below the masthead name (which stays in front) and clear of the nav dock. */
+  position: fixed;
   top: 18vh;
   left: calc(50% - min(450px, 46vw));
   width: min(900px, 92vw);
@@ -397,13 +423,6 @@ body.pockets-bouncing .page {
   z-index: 2;
 }
 
-/* The windows don't take up room on the page, so pin the footer to the bottom of the screen. */
-body.pockets-bouncing .footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
 
 @media (max-width: 900px) {
   .pockets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -415,6 +434,90 @@ body.pockets-bouncing .footer {
 @media (max-width: 600px) {
   .pockets { grid-template-columns: 1fr; }
   .pockets > :nth-child(n) { margin-top: 0; }
+}
+
+/* ---------- Media tiles ---------- */
+
+/* Videos and images inside a window are never shown big: they're video-sized tiles that open
+   in a window of their own (MediaWindowComponent). */
+.media-tile {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.media-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 250ms ease, transform 400ms ease;
+}
+
+/* Colour comes in on hover. */
+.media-tile:hover img, .media-tile:focus-visible img {
+  filter: none;
+  transform: scale(1.03);
+}
+
+.media-tile-badge {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.media-tile:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Phones and tablets: videos and images sit inline instead of opening in a window. They take the full
+   width in portrait, and in landscape they're scaled down to fit the screen. */
+.inline-media {
+  display: block;
+  width: 100%;
+}
+
+.inline-image {
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.video-frame.inline-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+}
+
+@media (orientation: landscape) {
+  .video-frame.inline-media {
+    width: min(100%, calc((100vh - 96px) * 16 / 9));
+    margin-inline: auto;
+  }
+
+  .inline-image {
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100vh - 96px);
+    margin-inline: auto;
+  }
 }
 
 /* ---------- Text buttons ---------- */

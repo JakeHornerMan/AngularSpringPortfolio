@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/models';
 import { ProjectService } from 'src/app/services/project.service';
+import { SectionTitleService } from 'src/app/services/section-title.service';
 
 // Matches the interests seeded in V1__static-conetnet-for-interests.sql and the nav dock.
 const INTEREST_TITLES: { [id: string]: string } = {
@@ -23,13 +24,15 @@ export class ProjectByInterestComponent implements OnInit {
   projectList = new Array<Project>();
 
   constructor(private activatedroute: ActivatedRoute,
-    private projectService: ProjectService) { }
+    private projectService: ProjectService,
+    private sectionTitle: SectionTitleService) { }
 
   ngOnInit(): void {
     // The component is reused when moving between interests, so reload on every id change.
     this.activatedroute.paramMap.subscribe(paramMap => {
       this.id = paramMap.get('id') ?? '';
       this.title = INTEREST_TITLES[this.id] ?? 'Projects';
+      this.sectionTitle.set(this.title);
       this.loaded = false;
       this.projectList = [];
       window.scroll(0,0);
