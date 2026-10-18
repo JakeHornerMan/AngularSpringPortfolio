@@ -1,5 +1,6 @@
-<!-- The home page is a fixed set of windows, all bouncing in the one space. Only the current job comes from the API. -->
-<section class="pockets" appBounceField [perSpace]="0">
+<!-- The home page is a fixed set of windows bouncing in the first space, plus the current job from the API.
+     Everything starred bounces in the spaces below it, under a "starred" title. -->
+<section class="pockets" appBounceField [perSpace]="0" [spaceTitles]="spaceTitles">
     <div class="pocket">
         <span class="label">i make</span>
         <ul class="link-list">
@@ -31,7 +32,7 @@
             plan that lives on your eSIM.
         </p>
         <p>
-            Off the clock I make games (Scrambled Eggs is on Steam, downloaded 15,000+ times) and make
+            Off the clock I make games (Scrambled Eggs is on Steam, downloaded 15,000+ times, and was runner-up for Game Design at the IMIRT Irish Game Awards) and make
             art. This site is a bit of all of it.        </p>
         <p class="muted">TypeScript · Java · NestJS · Spring · React Native · Angular · AWS</p>
     </div>
@@ -54,4 +55,10 @@
     </div>
 
     <app-work-experience-content *ngIf="currentWork" [workExperience]="currentWork" barTitle="where i work"></app-work-experience-content>
+
+    <!-- Below the main space: everything starred (but not the current job, which is already above). -->
+    <ng-container *ngFor="let item of starred; let i = index">
+        <app-project-content *ngIf="item.project" [project]="item.project" [attr.data-space]="starredSpace(i)"></app-project-content>
+        <app-work-experience-content *ngIf="item.work" [workExperience]="item.work" [attr.data-space]="starredSpace(i)"></app-work-experience-content>
+    </ng-container>
 </section>

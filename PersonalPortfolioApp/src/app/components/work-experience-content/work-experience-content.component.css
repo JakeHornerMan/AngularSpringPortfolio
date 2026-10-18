@@ -9,12 +9,22 @@
 }
 
 .work-head p {
-  margin: 0.2rem 0 0;
+  margin: 0 0 0.15rem;
 }
 
+/* Logos sit beside the role and dates at a fixed 32px height, at most 72px wide, scaled whole. */
 .work-icon {
-  width: 44px;
-  height: 44px;
-  object-fit: cover;
+  flex: none;
+  width: auto;
+  height: 32px;
+  max-width: 72px;
+  object-fit: contain;
   filter: grayscale(1);
+}
+
+/* A closed window opens with a click anywhere, so the whole of it gets the hand (the title bar keeps the move cursor). */
+:host(.openable) .pocket,
+:host(.openable) .pocket > :not(.label),
+:host(.openable) .pocket > :not(.label) * {
+  cursor: var(--cursor-hand);
 }

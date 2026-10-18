@@ -37,6 +37,10 @@ export interface WorkExperience {
     tldr: string;
     workIconUrl: string;
     technologys: string;
+    // Courses and apprenticeships rather than jobs; never picked as the current job.
+    education: boolean;
+    // Starred entries pulse with a glow on the site.
+    starred: boolean;
     active: true;
 }
 

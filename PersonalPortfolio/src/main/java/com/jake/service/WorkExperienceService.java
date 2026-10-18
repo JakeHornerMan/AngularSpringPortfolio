@@ -1,5 +1,6 @@
 package com.jake.service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,12 @@ import com.jake.repo.WorkExperienceRepo;
 @Service
 public class WorkExperienceService {
 
+	// Newest first: anything still going (no end date) on top, then by end date, then by start date.
+	private static final Comparator<WorkExperience> NEWEST_FIRST = Comparator
+			.comparing(WorkExperience::getEndDate, Comparator.nullsFirst(Comparator.<java.util.Date>reverseOrder()))
+			.thenComparing(WorkExperience::getStartDate, Comparator.nullsLast(Comparator.<java.util.Date>reverseOrder()));
+
+
 	@Autowired
 	private WorkExperienceRepo workExperienceRepository;
 	
@@ -22,7 +29,9 @@ public class WorkExperienceService {
 	
 	public List<WorkExperience> getAllWorkExperience(){
 //		return workExperienceRepository.findAll(); 
-		return workExperienceRepository.findWorkExperiencesByActive(true);
+		List<WorkExperience> workExperiences = workExperienceRepository.findWorkExperiencesByActive(true);
+		workExperiences.sort(NEWEST_FIRST);
+		return workExperiences;
 	}
 	
 	public WorkExperience addWorkExperience(WorkExperience workExperience) {

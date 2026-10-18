@@ -1,11 +1,12 @@
-<div class="block block-split" *ngIf="paragraphList.length >= 1">
+<ng-container *ngIf="bare"><ng-container *ngTemplateOutlet="media"></ng-container></ng-container>
+<div class="block block-split" *ngIf="!bare && paragraphList.length >= 1">
     <div>
         <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
         <p *ngFor="let paragraph of paragraphList">{{paragraph}}</p>
     </div>
     <ng-container *ngTemplateOutlet="media"></ng-container>
 </div>
-<div class="block" *ngIf="paragraphList.length <= 0">
+<div class="block" *ngIf="!bare && paragraphList.length <= 0">
     <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
     <ng-container *ngTemplateOutlet="media"></ng-container>
 </div>

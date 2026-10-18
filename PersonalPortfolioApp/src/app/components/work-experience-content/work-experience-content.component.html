@@ -7,10 +7,11 @@
         <span class="bar-title">{{barTitle || workExperience.workPlace}}</span>
     </span>
 
+    <!-- The name gets the full width, so long names wrap between words; the logo sits beside the role and dates. -->
+    <h1 class="pocket-title">{{headline()}}</h1>
     <div class="work-head">
         <img *ngIf="workExperience.workIconUrl" [src]="workExperience.workIconUrl" alt="" class="work-icon">
         <div>
-            <h1 class="pocket-title">{{workExperience.workPlace}}</h1>
             <p class="muted">{{workExperience.workTitle}}</p>
             <p class="pocket-meta">{{workExperience.startDate | date:'MMM yyyy'}} – {{workExperience.endDate ? (workExperience.endDate | date:'MMM yyyy') : 'now'}}</p>
         </div>
@@ -25,22 +26,34 @@
     </div>
 
     <div class="pocket-body" *ngIf="open">
-        <ng-container *ngFor="let content of contentList">
+        <ng-container *ngFor="let block of blocks">
 
-            <ng-container *ngIf="content.contentType == 'text'">
-                <app-paragraphs [content]="content"></app-paragraphs>
-            </ng-container>
+            <!-- A screenshot dump, three to a row. -->
+            <div class="block" *ngIf="block.gallery">
+                <h2 *ngIf="block.content.contentTitle">{{block.content.contentTitle}}</h2>
+                <div class="media-grid">
+                    <app-images *ngFor="let image of block.gallery" [content]="image" [bare]="true"></app-images>
+                </div>
+            </div>
 
-            <ng-container *ngIf="content.contentType == 'video'">
-                <app-videos [content]="content"></app-videos>
-            </ng-container>
+            <ng-container *ngIf="!block.gallery">
 
-            <ng-container *ngIf="content.contentType == 'image'">
-                <app-images [content]="content"></app-images>
-            </ng-container>
+                <ng-container *ngIf="block.content.contentType == 'text'">
+                    <app-paragraphs [content]="block.content"></app-paragraphs>
+                </ng-container>
 
-            <ng-container *ngIf="content.contentType == 'link'">
-                <app-links [content]="content"></app-links>
+                <ng-container *ngIf="block.content.contentType == 'video'">
+                    <app-videos [content]="block.content"></app-videos>
+                </ng-container>
+
+                <ng-container *ngIf="block.content.contentType == 'image'">
+                    <app-images [content]="block.content"></app-images>
+                </ng-container>
+
+                <ng-container *ngIf="block.content.contentType == 'link'">
+                    <app-links [content]="block.content"></app-links>
+                </ng-container>
+
             </ng-container>
 
         </ng-container>

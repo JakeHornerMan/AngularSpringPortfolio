@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/models';
 import { ProjectService } from 'src/app/services/project.service';
 import { SectionTitleService } from 'src/app/services/section-title.service';
+import { newestFirst } from 'src/app/newest-first';
 
 // Matches the interests seeded in V1__static-conetnet-for-interests.sql and the nav dock.
 const INTEREST_TITLES: { [id: string]: string } = {
@@ -37,7 +38,7 @@ export class ProjectByInterestComponent implements OnInit {
       this.projectList = [];
       window.scroll(0,0);
       this.projectService.getProjectsByInterest(this.id).subscribe((res: Project[])=>{
-        this.projectList = res ?? [];
+        this.projectList = newestFirst(res ?? []);
         this.loaded = true;
       });
     });

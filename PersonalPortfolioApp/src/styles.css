@@ -257,6 +257,30 @@ a:hover {
   animation: none;
 }
 
+/* A starred project or job (host class `starred`) pulses with a soft black glow. It's a layer on the window itself so it drifts
+   with it, and only its opacity animates. Off while the window is open. */
+.starred:not(.wide) > .pocket::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 22px 6px rgba(11, 11, 11, 0.9), 0 0 60px 18px rgba(11, 11, 11, 0.45);
+  pointer-events: none;
+  animation: starred-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes starred-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starred:not(.wide) > .pocket::after {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
 /* ---------- Pockets as little browser windows ---------- */
 
 .pocket {
@@ -367,7 +391,7 @@ a:hover {
   position: absolute;
   top: 0;
   left: 0;
-  width: clamp(260px, 24vw, 360px);
+  width: clamp(230px, 20vw, 310px);
   margin: 0 !important;
   will-change: transform;
   /* Open/close animations scale windows from their top-left corner. */
@@ -376,6 +400,11 @@ a:hover {
 
 .pockets.bouncing .pocket {
   animation: none;
+}
+
+/* Titles shrink with the bouncing windows, so long names like "Connections" fit on one line. */
+.pockets.bouncing > :not(.wide) .pocket-title {
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
 }
 
 /* The gap between two spaces: a calm band of water with three ink lines rippling slowly through it,
@@ -392,6 +421,22 @@ a:hover {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='30'%3E%3Cpath d='M0 15 C50 6 150 6 200 15 S350 24 400 15' fill='none' stroke='%230b0b0b' stroke-width='0.9'/%3E%3C/svg%3E") 0 calc(50% + 20px) / 400px 30px repeat-x,
     linear-gradient(to bottom, transparent, rgba(250, 250, 247, 0.9) 30%, rgba(250, 250, 247, 0.9) 70%, transparent);
   animation: space-ripple 18s linear infinite;
+}
+
+/* A space's title, sitting on the divider above it. */
+.space-divider-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.25rem 1.2rem;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px var(--ink);
+  font-family: var(--display);
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
 }
 
 @keyframes space-ripple {
@@ -584,6 +629,21 @@ body.pockets-bouncing .page {
 
 @media (max-width: 700px) {
   .block-split { grid-template-columns: 1fr; }
+}
+
+/* A screenshot dump: three tiles to a row, filling the width. */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.media-grid .media-tile {
+  max-width: none;
+}
+
+@media (max-width: 700px) {
+  .media-grid { grid-template-columns: 1fr; }
 }
 
 .video-frame {

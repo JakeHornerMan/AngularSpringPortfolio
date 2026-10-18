@@ -43,6 +43,14 @@ export class VideosComponent implements OnInit, OnDestroy {
     this.mediaWindow.open({ kind: 'video', title: this.content.contentTitle || 'Video', url: this.content.contentUrl, source: tile });
   }
 
+  // Plays a video file's tile preview while the tile is hovered.
+  previewClip(event: Event, playing: boolean): void {
+    const clip = (event.currentTarget as HTMLElement).querySelector('video');
+    if (!clip) return;
+    if (playing) clip.play().catch(() => {});
+    else clip.pause();
+  }
+
   isEmpty(string: string): boolean {
     if(string === "" || string === '' || string === undefined || string === null){
       return true;

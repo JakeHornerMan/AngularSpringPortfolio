@@ -4,6 +4,7 @@ import { WorkExperience } from 'src/app/models/models';
 import { UserService } from 'src/app/services/user.service';
 import { WorkExperienceService } from 'src/app/services/work-experience.service';
 import { SectionTitleService } from 'src/app/services/section-title.service';
+import { newestFirst } from 'src/app/newest-first';
 
 @Component({
   selector: 'app-view-work-experience',
@@ -24,7 +25,7 @@ export class ViewWorkExperienceComponent implements OnInit {
     window.scroll(0,0);
     this.workExperienceService.getAllWorkExperiences().subscribe((res: any)=>{
       // console.log(res);
-      this.workExperienceList = res;
+      this.workExperienceList = newestFirst(res ?? []);
     });
   }
 

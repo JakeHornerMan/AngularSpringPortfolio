@@ -15,8 +15,8 @@
     <button *ngIf="!inline" type="button" class="media-tile" #tileButton (click)="play(tileButton)" [attr.aria-label]="'Play ' + (content.contentTitle || 'video')"
         (mouseenter)="previewClip($event, true)" (mouseleave)="previewClip($event, false)">
         <img *ngIf="thumbnail" [src]="thumbnail" alt="" loading="lazy">
-        <!-- A video file has no thumbnail, so the tile shows the clip itself, playing like a GIF while hovered. -->
-        <video *ngIf="!thumbnail && !embedUrl" [src]="content.contentUrl" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <!-- A video file has no thumbnail, so the tile shows the clip itself (from 3s in, past any black intro), playing like a GIF while hovered. -->
+        <video *ngIf="!thumbnail && !embedUrl" [src]="content.contentUrl + '#t=3'" muted loop playsinline preload="metadata" aria-hidden="true"></video>
         <span class="media-tile-badge" aria-hidden="true">▶ play</span>
     </button>
     <!-- Phones and tablets: the player sits inline. -->

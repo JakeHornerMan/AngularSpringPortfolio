@@ -44,6 +44,14 @@ public class WorkExperience {
 	private String workIconUrl;
 	private String technologys;
 	
+	// Courses and apprenticeships rather than jobs; never picked as the current job.
+	@Column(columnDefinition = "boolean default false")
+	private boolean education;
+
+	// Starred entries pulse with a glow on the site.
+	@Column(columnDefinition = "boolean default false")
+	private boolean starred;
+
 	@Column(columnDefinition = "boolean default true")
 	private boolean active;
 	

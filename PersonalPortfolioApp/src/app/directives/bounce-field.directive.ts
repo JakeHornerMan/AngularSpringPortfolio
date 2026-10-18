@@ -10,12 +10,13 @@ import { Box, CLOSE_MS, OPEN_MS, flip, layoutBox } from '../window-motion';
 // first `.label`) to move it yourself; let go with a flick to throw it.
 // The windows are shared out into "spaces" of at most PER_SPACE windows (or `perSpace`; 0 puts them all in one). Each space is one browser
 // window tall, with a SPACER gap before the next, and its windows bounce inside it; the page scrolls
-// from space to space. Space 0 starts at the very top of the page. Each gap holds a slowly rippling
+// from space to space. Space 0 starts at the very top of the page, but its windows stay below the page title (the
+// masthead). Each gap holds a slowly rippling
 // wavy ink line (`.space-divider`).
 // On phones and tablets (touch, or narrow screens) and with reduced motion the pockets stay static, in
 // order, in the normal stacked grid.
 
-const PER_SPACE = 4;     // windows per space
+const PER_SPACE = 5;     // windows per space
 const SPACER = 160;      // px between one space and the next
 const CRUISE = 26;       // px/s: the slow screensaver drift
 const MAX_FLING = 1400;  // px/s: fastest a thrown window can leave the hand
@@ -59,6 +60,9 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
 
   // Windows per space; 0 means no limit, so every window bounces in the one space.
   @Input() perSpace = PER_SPACE;
+  // Optional titles for the spaces after the first, by space number (index 0 is unused): each is shown
+  // in the wavy divider above its space.
+  @Input() spaceTitles: string[] = [];
 
   private bodies = new Map<HTMLElement, Body>();
   private active = false;
@@ -68,6 +72,8 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
   private hostX = 0;
   private hostY = 0;
   private hostHeight = -1;
+  // The bottom of the page title (the masthead), in page coordinates: space 0's windows stay below it.
+  private titleBottom = 0;
   private dividers: HTMLElement[] = [];
   // Other spaces below / above the one in view: html.more-below / html.more-above, which pick the arrows
   // shown beside the nav dock.
@@ -226,8 +232,9 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
           }
         }
       }
-      // Windows fill the spaces in page order, perSpace at a time.
-      if (!body.movedSpace) body.space = Math.floor(index / per);
+      // Windows fill the spaces in page order, perSpace at a time, unless one names its own (`data-space`).
+      const fixed = el.dataset['space'];
+      if (!body.movedSpace) body.space = fixed !== undefined ? Number(fixed) : Math.floor(index / per);
     });
     this.spaceCount = Math.max(1, Math.ceil(children.length / per),
       ...Array.from(this.bodies.values(), b => b.space + 1));
@@ -437,18 +444,21 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
     const width = document.documentElement.clientWidth;
     const bottom = this.spaceTop(this.spaceCount - 1) + window.innerHeight;
     body.x = Math.min(Math.max(body.x, EDGE), Math.max(EDGE, width - body.w - EDGE));
-    body.y = Math.min(Math.max(body.y, EDGE), Math.max(EDGE, bottom - body.h - EDGE));
+    const top = this.titleBottom + EDGE;
+    body.y = Math.min(Math.max(body.y, top), Math.max(top, bottom - body.h - EDGE));
   }
 
-  // The area a window bounces in: its space, the full width of the browser window.
+  // The area a window bounces in: its space, the full width of the browser window. The first space starts
+  // below the page title, so windows never pass behind it.
   private bounds(body: Body) {
     const width = document.documentElement.clientWidth;
     const top = this.spaceTop(body.space);
+    const minY = Math.max(top, body.space === 0 ? this.titleBottom : 0) + EDGE;
     return {
       minX: EDGE,
       maxX: Math.max(EDGE, width - body.w - EDGE),
-      minY: top + EDGE,
-      maxY: Math.max(top + EDGE, top + window.innerHeight - body.h - EDGE),
+      minY,
+      maxY: Math.max(minY, top + window.innerHeight - body.h - EDGE),
     };
   }
 
@@ -473,6 +483,8 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
     const rect = this.host.nativeElement.getBoundingClientRect();
     this.hostX = rect.left + window.scrollX;
     this.hostY = rect.top + window.scrollY;
+    const title = document.querySelector('.masthead');
+    this.titleBottom = title ? title.getBoundingClientRect().bottom + window.scrollY : 0;
     const height = Math.max(0, Math.round(this.spaceTop(this.spaceCount - 1) + window.innerHeight - this.hostY));
     if (height !== this.hostHeight) {
       this.hostHeight = height;
@@ -484,7 +496,7 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
   // One wavy divider in each gap between spaces, spanning the full browser width.
   private layoutDividers(): void {
     const width = document.documentElement.clientWidth;
-    const layout = [this.spaceCount, width, window.innerHeight, this.hostX, this.hostY].join();
+    const layout = [this.spaceCount, width, window.innerHeight, this.hostX, this.hostY, ...this.spaceTitles].join();
     if (layout === this.dividerLayout) return;
     this.dividerLayout = layout;
     while (this.dividers.length < this.spaceCount - 1) {
@@ -497,6 +509,16 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
     while (this.dividers.length > this.spaceCount - 1) this.dividers.pop()!.remove();
     this.dividers.forEach((divider, i) => {
       const top = this.spaceTop(i) + window.innerHeight;
+      const title = this.spaceTitles[i + 1];
+      if ((divider.textContent || '') !== (title || '')) {
+        divider.textContent = '';
+        if (title) {
+          const label = document.createElement('span');
+          label.className = 'space-divider-title';
+          label.textContent = title;
+          divider.appendChild(label);
+        }
+      }
       divider.style.width = `${width}px`;
       divider.style.height = `${SPACER}px`;
       divider.style.transform = `translate3d(${-this.hostX}px, ${top - this.hostY}px, 0)`;

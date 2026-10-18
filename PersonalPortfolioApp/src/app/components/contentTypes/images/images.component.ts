@@ -11,6 +11,8 @@ import { MediaWindowService } from 'src/app/services/media-window.service';
 export class ImagesComponent implements OnInit, OnDestroy {
 
   @Input() content!: Content;
+  // Just the tile, no heading or text: for a gallery of screenshots.
+  @Input() bare = false;
   paragraphList = new Array<String>();
   // Phones and tablets show the image inline instead of in a window.
   inline = false;

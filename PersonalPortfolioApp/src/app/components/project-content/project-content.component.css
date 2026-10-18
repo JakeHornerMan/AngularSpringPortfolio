@@ -1,3 +1,10 @@
 :host {
   display: block;
 }
+
+/* A closed window opens with a click anywhere, so the whole of it gets the hand (the title bar keeps the move cursor). */
+:host(.openable) .pocket,
+:host(.openable) .pocket > :not(.label),
+:host(.openable) .pocket > :not(.label) * {
+  cursor: var(--cursor-hand);
+}

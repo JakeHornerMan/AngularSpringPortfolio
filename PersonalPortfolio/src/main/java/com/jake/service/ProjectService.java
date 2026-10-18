@@ -1,5 +1,6 @@
 package com.jake.service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,12 @@ import com.jake.repo.ProjectRepo;
 @Service
 public class ProjectService {
 
+	// Newest first: anything still going (no end date) on top, then by end date, then by start date.
+	private static final Comparator<Project> NEWEST_FIRST = Comparator
+			.comparing(Project::getEndDate, Comparator.nullsFirst(Comparator.<java.util.Date>reverseOrder()))
+			.thenComparing(Project::getStartDate, Comparator.nullsLast(Comparator.<java.util.Date>reverseOrder()));
+
+
 	@Autowired
 	private ProjectRepo projectRepository;
 	
@@ -22,7 +29,9 @@ public class ProjectService {
 	
 	public List<Project> getAllProjects(){
 //		return projectRepository.findAll(); 
-		return projectRepository.findProjectsByActive(true);
+		List<Project> projects = projectRepository.findProjectsByActive(true);
+		projects.sort(NEWEST_FIRST);
+		return projects;
 	}
 	
 	public Project addProject(Project project) {
@@ -43,7 +52,9 @@ public class ProjectService {
 	}
 
 	public List<Project> findProjectByLinkedInterest(String id) {
-		return projectRepository.findProjectsByLinkedInterests(id);
+		List<Project> projects = projectRepository.findProjectsByLinkedInterests(id);
+		projects.sort(NEWEST_FIRST);
+		return projects;
 //				.orElseThrow(() -> new ProjectNotFoundException ("This Interest ID "+id+" was not found"));
 	}
 
