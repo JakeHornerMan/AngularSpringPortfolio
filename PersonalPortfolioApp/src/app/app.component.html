@@ -1,54 +1,33 @@
-<!-- <div *ngIf="isNotMobile()">
-    <div class="navbar">
-        <div class="left-box">
-            <a href="/home">Home</a>
-            <a href="/contact">Contact</a>
-        </div>
-        <div class="right-box" *ngIf="isUserLoggedIn()">
-            <a href="/createProject">Create Project</a>
-            <a href="/createWorkExperience">Create Work Experience</a>
-            <a href="/logout">Log out</a>
-        </div>
-    </div>
-    <div style="margin-top:5rem;"></div>
-    <app-nav-slider></app-nav-slider>
-</div> -->
+<app-ink-field class="water" [seed]="7" [density]="1.15"></app-ink-field>
 
-<!-- <div class="component-container">
+<header class="masthead">
+    <a routerLink="/home" class="name display">Jake Horner</a>
+</header>
+
+<main class="page">
     <router-outlet></router-outlet>
-</div> -->
+</main>
 
-<mat-sidenav-container>
-    <mat-sidenav [(opened)]="isOpened">
-        
-        <a href="/home"><img src="/assets/close.png" class="hvr-pulse close" (click)="isOpened = !isOpened"></a>
-        <div class="top-box">
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/home" routerLinkActive="active">Home</a>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/interest/1" routerLinkActive="active">Game Development</a>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/interest/2" routerLinkActive="active">Art Work</a>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/interest/3" routerLinkActive="active">Software Development</a>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/workExperiences" routerLinkActive="active">Work Experience</a>
-            <!-- <a class="hvr-pulse" href="/contact">Contact</a> -->
-        </div>
-        <div class="bottom-box" *ngIf="!isUserLoggedIn()">
-            <hr/>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/login" routerLinkActive="active">Log In</a>
-        </div>
-        <div class="bottom-box" *ngIf="isUserLoggedIn()">
-            <hr/>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/createProject" routerLinkActive="active">Create Project</a>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/createWorkExperience" routerLinkActive="active">Create Work Experience</a>
-            <a class="hvr-pulse menuItem" (click)="close()" href="#" routerLink="/logout" routerLinkActive="active">Log out</a>
-        </div>
-    </mat-sidenav>
+<footer class="footer">
+    <span>© {{year}} Jake Horner</span>
+    <span class="footer-links" *ngIf="!isUserLoggedIn()">
+        <a routerLink="/login">log in</a>
+    </span>
+    <span class="footer-links" *ngIf="isUserLoggedIn()">
+        <a routerLink="/createProject">new project</a>
+        <span aria-hidden="true">·</span>
+        <a routerLink="/createWorkExperience">new work</a>
+        <span aria-hidden="true">·</span>
+        <a routerLink="/logout">log out</a>
+    </span>
+</footer>
 
-    <mat-sidenav-content>
-        <img src="/assets/menu.png" class="hvr-pulse menuIcon" style="max-width: 70px;margin: 1rem;" *ngIf="isOpened == false" (click)="isOpened = !isOpened">
-        <div class="top-space" *ngIf="isNotMobile()">
-            <app-nav-slider></app-nav-slider>
-        </div>
-        <div class="component-container">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<nav class="dock" aria-label="Main">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">home</a>
+    <a routerLink="/interest/1" routerLinkActive="active">games</a>
+    <a routerLink="/interest/2" routerLinkActive="active">art</a>
+    <a routerLink="/interest/3" routerLinkActive="active">software</a>
+    <a routerLink="/workExperiences" routerLinkActive="active">work</a>
+</nav>
+
+<app-intro-loader></app-intro-loader>

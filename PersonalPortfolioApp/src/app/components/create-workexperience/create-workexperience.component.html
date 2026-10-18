@@ -1,4 +1,4 @@
-<form [formGroup]="workExperienceForm" class="input-container paragraphSpacing" style="padding: 3rem">
+<form [formGroup]="workExperienceForm" class="pocket input-container paragraphSpacing editor">
     <h1>{{title}}</h1>
 
     <label for="workPlace">Work Place</label>
@@ -64,13 +64,13 @@
 
 </form>
 
-<div class="buttonContainerCol">
-    <button class="cybr-btn" style="width:50%; align-self: center; margin-bottom: 2rem;" (click)="viewWorkExperience()">
+<div class="buttonContainerCol pocket editor">
+    <button class="cybr-btn" style="min-width: 12rem;" (click)="viewWorkExperience()">
         Preview<span aria-hidden>_</span>
         <span aria-hidden class="cybr-btn__glitch">OPEN</span>
         <span aria-hidden class="cybr-btn__tag">R25</span>
     </button>
-    <button class="cybr-btn" style="width:50%; align-self: center;  margin-bottom: 2rem;" (click)="createAndSave()">
+    <button class="cybr-btn" style="min-width: 12rem;" (click)="createAndSave()">
         Submit<span aria-hidden>_</span>
         <span aria-hidden class="cybr-btn__glitch">SAVE</span>
         <span aria-hidden class="cybr-btn__tag">R25</span>

@@ -1,15 +1,15 @@
-<div class="flex-row space-top" *ngIf="paragraphList.length >= 2 || !isEmpty(content.contentParagraph)">
-    <div class="right-box images">
-        <iframe width="560" height="315" [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div class="block block-split" *ngIf="!isEmpty(content.contentParagraph)">
+    <div>
+        <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
+        <p *ngFor="let paragraph of paragraphList">{{paragraph}}</p>
     </div>
-    <div class="left-box" style="margin-right:0.5rem">
-        <h2>{{content.contentTitle}}</h2>
-        <ng-container *ngFor="let content of paragraphList">
-            <p>{{content}}</p>
-        </ng-container>
+    <div class="video-frame">
+        <iframe [src]="contentUrl" [title]="content.contentTitle || 'Video'" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 </div>
-<div *ngIf="isEmpty(content.contentParagraph)" class="space-top flex-center-column">
+<div class="block" *ngIf="isEmpty(content.contentParagraph)">
     <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
-    <iframe [src]="contentUrl" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" style="min-height:25rem" allowfullscreen></iframe>
+    <div class="video-frame">
+        <iframe [src]="contentUrl" [title]="content.contentTitle || 'Video'" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
 </div>

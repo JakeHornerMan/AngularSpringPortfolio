@@ -1,0 +1,13 @@
+<div class="intro" *ngIf="visible" [class.fading]="fading" aria-hidden="true">
+    <div class="name display">
+        <span>Jake</span>
+        <span>Horner</span>
+    </div>
+    <svg class="sweep" xmlns="http://www.w3.org/2000/svg">
+        <path #inkRipple *ngFor="let r of inkRipples; let i = index" class="ink-ripple"
+            [style.opacity]="0.5 - i * 0.1"></path>
+        <path #black class="black" d="M-9999,-9999 H9999 V9999 H-9999 Z"></path>
+        <path #paperRipple *ngFor="let r of paperRipples; let i = index" class="paper-ripple"
+            [style.opacity]="0.9 - i * 0.11"></path>
+    </svg>
+</div>

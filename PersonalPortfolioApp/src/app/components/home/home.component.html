@@ -1,61 +1,51 @@
-<div class="flex-center-column">
-    <div class="box boxColor">
-        <hr class="top" style="width:100%" >
-        <div class="flex-col space-bottom">
-            <h1>Jake Horner</h1>
-            <label>Contact me: jakehorner19@gmail.com</label>
-            <ul class="gradient-list">
-                <li>Programmer</li>
-                <li>Game Designer</li>
-                <li>Software Engineer</li>
-                <li>Web Developer</li>
-                <li>Artist</li>
-            </ul>
-        </div>
-        <h2>I am Jake Horner a software developer in the financial sector.</h2>
-        <h2>I have a degreee in Computer Science from the National College of Ireland, where I specialized in Software development.</h2>
-        <h2>I have been working mostly with Java and Spring framework, Typescript and Angular in the financial sector.</h2>
-        <h2> I have a great passion for creating software, websites, games, and artwork.</h2>
-        <div class="socialIcons space-bottom">
-            <a href="https://www.linkedin.com/in/jake-horner-a9203212b/" target="_blank" class="hvr-float-shadow">
-                <img src="/assets/linkedin.png" id="social" target="_blank" class="hvr-pulse icons">
-            </a>
-            <a href="https://www.instagram.com/jakedafartist/" target="_blank" class="hvr-float-shadow">
-                <img src="/assets/instagram.png"id="social" class="hvr-pulse icons">
-            </a>
-            <a href="https://github.com/JakeHornerMan" target="_blank" class="hvr-float-shadow">
-                <img src="https://icones.pro/wp-content/uploads/2021/06/icone-github-verte.png" id="social" class="hvr-pulse icons">
-            </a>
-            <a href="https://play.google.com/store/apps/developer?id=Jake+Horner" target="_blank" class="hvr-float-shadow">
-                <img src="/assets/gplay.png" id="social" class="hvr-pulse icons">
-            </a>
-            <a href="https://www.artstation.com/jakehornerman" target="_blank" class="hvr-float-shadow">
-                <img src="/assets/artstation.png" id="social" class="hvr-pulse icons">
-            </a>
-            <a href="https://jakehornerman.itch.io/" target="_blank" class="hvr-float-shadow">
-                <img src="/assets/itch.svg" id="social" class="hvr-pulse icons">
-            </a>
-        </div>
-
-        <!-- <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <h2>Bio</h2>
-              </mat-panel-title>
-            </mat-expansion-panel-header> -->
-            <!-- <h2>I am Jake Horner a software developer in the financial sector.</h2>
-            <h2>I have a degreee in Computer Science from the National College of Ireland, where I specialized in Software development.</h2>
-            <h2>I have been working mostly with Java and Spring framewor, Typescript and Angular in the financial sector.</h2>
-            <h2> I have a great passion for creating software, websites, games, and artwork.</h2> -->
-        <!-- </mat-expansion-panel> -->
-        <hr class="bottom" style="width:100%;">
+<section class="pockets">
+    <div class="pocket">
+        <span class="label">tldr</span>
+        <p>
+            I'm a software developer in the financial sector, working mostly with Java and Spring,
+            TypeScript and Angular. I have a degree in Computer Science from the National College
+            of Ireland, where I specialised in software development.
+        </p>
     </div>
-</div>
-<div class="flex-center-column">
-    <ng-container *ngFor="let project of staredProjectList">
-        <app-project-content [project]="project"></app-project-content>
-    </ng-container>
-    <ng-container *ngFor="let project of projectList">
-        <app-project-content [project]="project"></app-project-content>
-    </ng-container>
-</div>
+
+    <div class="pocket">
+        <span class="label">i make</span>
+        <p>Software, websites, games and artwork.</p>
+        <p class="muted">Programmer · Game Designer · Software Engineer · Web Developer · Artist</p>
+    </div>
+
+    <div class="pocket" *ngIf="interestList.length">
+        <span class="label">explore</span>
+        <ul class="link-list">
+            <li *ngFor="let interest of interestList">
+                <a [routerLink]="interestLink(interest)">{{interest.title}}</a>
+                <span class="muted">{{interest.description}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="pocket">
+        <span class="label">elsewhere</span>
+        <ul class="link-list inline">
+            <li><a href="https://www.linkedin.com/in/jake-horner-a9203212b/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+            <li><a href="https://github.com/JakeHornerMan" target="_blank" rel="noopener">GitHub ↗</a></li>
+            <li><a href="https://jakehornerman.itch.io/" target="_blank" rel="noopener">itch.io ↗</a></li>
+            <li><a href="https://play.google.com/store/apps/developer?id=Jake+Horner" target="_blank" rel="noopener">Google Play ↗</a></li>
+            <li><a href="https://www.artstation.com/jakehornerman" target="_blank" rel="noopener">ArtStation ↗</a></li>
+            <li><a href="https://www.instagram.com/jakedafartist/" target="_blank" rel="noopener">Instagram ↗</a></li>
+        </ul>
+    </div>
+
+    <div class="pocket">
+        <span class="label">contact</span>
+        <a href="mailto:jakehorner19@gmail.com">jakehorner19@gmail.com</a>
+    </div>
+</section>
+
+<ng-container *ngIf="staredProjectList.length || projectList.length">
+    <h2 class="page-title display">Selected work</h2>
+    <section class="pockets">
+        <app-project-content *ngFor="let project of staredProjectList" [project]="project"></app-project-content>
+        <app-project-content *ngFor="let project of projectList" [project]="project"></app-project-content>
+    </section>
+</ng-container>

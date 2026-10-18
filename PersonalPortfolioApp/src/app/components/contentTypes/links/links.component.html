@@ -1,4 +1,3 @@
-<div class="flex-row space-top">
-    <a class="fillLink" href="{{content.contentUrl}}"  target="_blank">{{content.contentTitle}}</a>
-    
+<div class="block">
+    <a [href]="content.contentUrl" target="_blank" rel="noopener">{{content.contentTitle || content.contentUrl}} ↗</a>
 </div>

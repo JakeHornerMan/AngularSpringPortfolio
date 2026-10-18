@@ -1,59 +1,27 @@
-@const CREAM_COLOR: #E4DFDA;
-@const BLUE_COLOR: #4357AD;
-@const RED_COLOR: #C33C54;
-@const GREEN_COLOR: #48A9A6;
-@const TAN_COLOR: #D4B483;
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-   
-  li {
-    font: 200 20px/1.5 Helvetica;
-  }
-   
-  li:last-child {
-    border: none;
-  }
-   
-  li {
-    text-decoration: none;
-    color: black;
-    display: block;
-   
-    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
-    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
-    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
-    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
-    transition: font-size 0.3s ease, background-color 0.3s ease;
-  }
-   
-  li:hover {
-    font-size: 2rem;
-    color: #e0472e;
-  }
-
-.socialIcons{
-    display:flex; 
-    flex-direction:row; 
-    justify-content:space-around; 
-    /* background-color:#4f36c2; */
-    padding-top: 1rem;
-    border-radius:1rem;
+.page-title {
+  margin-top: 7rem;
 }
 
-mat-expansion-panel-header:hover {
-    background-color: #4f36c2;
+.link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
-@media screen and (max-width: 640px){
-    .icons{
-        max-height: 10vw;
-    }
+.link-list li {
+  display: flex;
+  flex-direction: column;
 }
 
-h2{
-  color: black;
+.link-list .muted {
+  font-size: 12px;
+}
+
+.link-list.inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
 }

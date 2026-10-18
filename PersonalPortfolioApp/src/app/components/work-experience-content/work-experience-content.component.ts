@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Content, Project, WorkExperience } from 'src/app/models/models';
@@ -16,6 +16,7 @@ export class WorkExperienceContentComponent implements OnInit {
   @Input() workExperience!: WorkExperience;
   contentList = new Array<Content>();
   liList = new Array<String>();
+  @Input() @HostBinding('class.wide') open = false;
 
   constructor(private userService: UserService, 
     private router: Router,
@@ -32,6 +33,11 @@ export class WorkExperienceContentComponent implements OnInit {
       return a.position - b.position;
     });
     this.contentList = this.workExperience.contentList;
+  }
+
+  // An opened pocket spans the whole row of the pockets grid.
+  toggle(){
+    this.open = !this.open;
   }
 
   isUserLoggedIn(): boolean{

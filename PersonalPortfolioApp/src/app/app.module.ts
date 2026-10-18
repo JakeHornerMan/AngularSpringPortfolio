@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -6,14 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
-import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { InterestService } from './services/interest.service';
-import { NavSliderComponent } from './components/nav-slider/nav-slider.component';
-import { NavSliderDirective } from './directives/nav-slider.directive';
+import { LoadingInterceptor } from './services/loading.interceptor';
+import { InkFieldComponent } from './components/ink-field/ink-field.component';
+import { IntroLoaderComponent } from './components/intro-loader/intro-loader.component';
 import { ProjectContentComponent } from './components/project-content/project-content.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ParagraphsComponent } from './components/contentTypes/paragraphs/paragraphs.component';
@@ -50,8 +50,8 @@ import { DeletePopupComponent } from './components/delete-popup/delete-popup.com
   declarations: [
     AppComponent,
     HomeComponent,
-    NavSliderComponent,
-    NavSliderDirective,
+    InkFieldComponent,
+    IntroLoaderComponent,
     ProjectContentComponent,
     ParagraphsComponent,
     VideosComponent,
@@ -78,9 +78,12 @@ import { DeletePopupComponent } from './components/delete-popup/delete-popup.com
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
-    MatSidenavModule,
   ],
-  providers: [InterestService, CookieService],
+  providers: [
+    InterestService,
+    CookieService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,58 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--paper);
+  transition: opacity 450ms ease;
+}
+
+.intro.fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.name {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(4.5rem, 17vw, 15rem);
+  line-height: 0.86;
+  color: var(--ink);
+}
+
+.sweep {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.black {
+  fill: var(--ink);
+}
+
+.paper-ripple,
+.ink-ripple {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.paper-ripple {
+  stroke: var(--paper);
+  stroke-width: 1.6;
+}
+
+.ink-ripple {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    transition-duration: 300ms;
+  }
+}

@@ -1,12 +1,10 @@
-<div class="flex-center-row">
-    <div>
-    <h1>Login</h1>
-        <form [formGroup]="loginForm">
-            <label for="username">Email:</label>
-            <input type="text" id="username" name="username" formControlName="email">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" formControlName="password">
-            <input type="submit" value="Login" (click)="login()">
-        </form>
-    </div>
+<div class="pocket narrow">
+    <span class="label">log in</span>
+    <form [formGroup]="loginForm" class="input-container" (ngSubmit)="login()">
+        <label for="username">email</label>
+        <input type="text" id="username" name="username" formControlName="email" autocomplete="username">
+        <label for="password">password</label>
+        <input type="password" id="password" name="password" formControlName="password" autocomplete="current-password">
+        <input type="submit" value="Log in">
+    </form>
 </div>

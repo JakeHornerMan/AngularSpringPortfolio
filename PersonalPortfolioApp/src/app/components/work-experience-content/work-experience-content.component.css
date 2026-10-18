@@ -1,17 +1,20 @@
-img {
-    max-width: 10rem;
-    max-height: 5rem;
+:host {
+  display: block;
 }
 
-@media screen and (max-width: 990px){
-    .right-box{
-      width: 100%;
-      order: 1;
-    }
-    .left-box{
-      width: 100%;
-    }
-    .flex-row{
-      flex-direction: column !important;
-    }
+.work-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.work-head p {
+  margin: 0.2rem 0 0;
+}
+
+.work-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  filter: grayscale(1);
 }

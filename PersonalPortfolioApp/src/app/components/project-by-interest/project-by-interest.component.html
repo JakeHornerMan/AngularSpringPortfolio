@@ -1,5 +1,8 @@
-<div class="flex-center-column">
-    <ng-container *ngFor="let project of projectList">
-        <app-project-content [project]="project"></app-project-content>
-    </ng-container>
+<h2 class="page-title display">{{title}}</h2>
+<section class="pockets" *ngIf="projectList.length">
+    <app-project-content *ngFor="let project of projectList" [project]="project"></app-project-content>
+</section>
+<div class="pocket empty" *ngIf="loaded && !projectList.length">
+    <span class="label">nothing here yet</span>
+    <p>No projects in this section yet.</p>
 </div>

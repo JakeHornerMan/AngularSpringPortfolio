@@ -1,6 +1,4 @@
-<div class="paragraphSpacing space-top">
-    <h2>{{content.contentTitle}}</h2>
-    <ng-container *ngFor="let content of paragraphList">
-        <p>{{content}}</p>
-    </ng-container>
+<div class="block">
+    <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
+    <p *ngFor="let paragraph of paragraphList">{{paragraph}}</p>
 </div>

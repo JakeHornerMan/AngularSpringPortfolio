@@ -1,16 +1,11 @@
-<div class="flex-row space-top" *ngIf="paragraphList.length >= 1">
-    <div class="right-box images">
-        <img src="{{content.contentUrl}}" class="img-with-text">
-    </div>
-    <div class="left-box" style="margin-right:0.5rem">
+<div class="block block-split" *ngIf="paragraphList.length >= 1">
+    <div>
         <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
-        <ng-container *ngFor="let content of paragraphList">
-            <p>{{content}}</p>
-        </ng-container>
+        <p *ngFor="let paragraph of paragraphList">{{paragraph}}</p>
     </div>
+    <img [src]="content.contentUrl" [alt]="content.contentTitle || ''" class="block-media" loading="lazy">
 </div>
-<div *ngIf="paragraphList.length <= 0" class="solo-img-div flex-center-column space-top">
-    <h2 *ngIf="content.contentTitle" style="align-self: center;">{{content.contentTitle}}</h2>
-    <img src="{{content.contentUrl}}" style="align-self: center;">
+<div class="block" *ngIf="paragraphList.length <= 0">
+    <h2 *ngIf="content.contentTitle">{{content.contentTitle}}</h2>
+    <img [src]="content.contentUrl" [alt]="content.contentTitle || ''" class="block-media" loading="lazy">
 </div>
-

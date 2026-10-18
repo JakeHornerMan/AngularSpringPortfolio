@@ -1,3 +1,4 @@
-<ng-container *ngFor="let workExperience of workExperienceList">
-    <app-work-experience-content [workExperience]="workExperience"></app-work-experience-content>
-</ng-container>
+<h2 class="page-title display">Work experience</h2>
+<section class="pockets">
+    <app-work-experience-content *ngFor="let workExperience of workExperienceList" [workExperience]="workExperience"></app-work-experience-content>
+</section>

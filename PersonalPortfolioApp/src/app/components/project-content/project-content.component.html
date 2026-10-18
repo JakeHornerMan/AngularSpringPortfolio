@@ -1,63 +1,44 @@
-<div class="box boxColor">
-    <hr class="top" style="width:100%">
-    <div class="flex-row" *ngIf="isUserLoggedIn()">
-        <img src="/assets/edit.png" class="hvr-pulse" style="max-width: 50px;margin: 1rem;" (click)="editProject(project.id)">
-        <img src="/assets/delete.png" class="hvr-pulse" style="max-width: 50px;margin: 1rem;" (click)="removeProject(project.id)">
-    </div>
-    <div class="flex-row space-bottom titleBox">
-        <i *ngIf="project.staredProject" class="star"></i>
-        <h1>{{project.projectName}}</h1>
-        <div class="flex-center-column">
-            <label>{{project.startDate}}</label>
-            <label style="margin: 0 auto;">-</label>
-            <label>{{project.endDate}}</label>
-        </div>
-    </div>
-    <div class="space-bottom">
-        <ul class="gradient-list" *ngIf="liList.length > 0">
-            <ng-container *ngFor="let li of liList">
-                <li>{{li}}</li>
-            </ng-container>
-        </ul>
-        <ng-container *ngIf="project.projectDescription && !project.projectImageUrl">
-            <p>{{project.projectDescription}}</p>
+<article class="pocket">
+    <span class="label">
+        <span *ngIf="project.staredProject">featured · </span>{{project.startDate | date:'yyyy'}}<ng-container *ngIf="project.endDate && (project.endDate | date:'yyyy') != (project.startDate | date:'yyyy')">–{{project.endDate | date:'yyyy'}}</ng-container>
+    </span>
+
+    <h1 class="pocket-title">{{project.projectName}}</h1>
+
+    <ul class="dash-list" *ngIf="liList.length > 0">
+        <li *ngFor="let li of liList">{{li}}</li>
+    </ul>
+    <p *ngIf="project.projectDescription">{{project.projectDescription}}</p>
+
+    <div class="pocket-actions">
+        <button class="text-btn" *ngIf="contentList?.length" (click)="toggle()" [attr.aria-expanded]="open">
+            {{open ? 'close ↖' : 'open ↘'}}
+        </button>
+        <ng-container *ngIf="isUserLoggedIn()">
+            <button class="text-btn" (click)="editProject(project.id)">edit</button>
+            <button class="text-btn" (click)="removeProject(project.id)">delete</button>
         </ng-container>
-        <!-- <div class="flex-row space-top" *ngIf="project.projectDescription && project.projectImageUrl">
-            <div class="right-box images">
-                <img src="{{project.projectImageUrl}}" class="img-with-text">
-            </div>
-            <div class="left-box" style="margin-right:0.5rem">
-                <p>{{project.projectDescription}}</p>
-            </div>
-        </div> -->
     </div>
 
-    
-    <!-- <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h2>Read More</h2>
-          </mat-panel-title>
-        </mat-expansion-panel-header> -->
-            <ng-container *ngFor="let content of contentList">
+    <div class="pocket-body" *ngIf="open">
+        <ng-container *ngFor="let content of contentList">
 
-                <ng-container *ngIf="content.contentType == 'text'">
-                    <app-paragraphs [content]="content"></app-paragraphs>
-                </ng-container>
-
-                <ng-container *ngIf="content.contentType == 'video'">
-                    <app-videos [content]="content"></app-videos>
-                </ng-container>
-
-                <ng-container *ngIf="content.contentType == 'image'">
-                    <app-images [content]="content"></app-images>
-                </ng-container>
-
-                <ng-container *ngIf="content.contentType == 'link'">
-                    <app-links [content]="content"></app-links>
-                </ng-container>
-
+            <ng-container *ngIf="content.contentType == 'text'">
+                <app-paragraphs [content]="content"></app-paragraphs>
             </ng-container>
-    <!-- </mat-expansion-panel> -->
-    <hr class="bottom space-top" style="width:100%;">
-<div>
+
+            <ng-container *ngIf="content.contentType == 'video'">
+                <app-videos [content]="content"></app-videos>
+            </ng-container>
+
+            <ng-container *ngIf="content.contentType == 'image'">
+                <app-images [content]="content"></app-images>
+            </ng-container>
+
+            <ng-container *ngIf="content.contentType == 'link'">
+                <app-links [content]="content"></app-links>
+            </ng-container>
+
+        </ng-container>
+    </div>
+</article>

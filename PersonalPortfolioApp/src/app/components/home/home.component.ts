@@ -44,6 +44,13 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  // Interest 4 is work experience and 5 is "all projects" (this page); the rest list projects by interest.
+  interestLink(interest: Interest): string {
+    if(interest.id == 4) return '/workExperiences';
+    if(interest.id == 5) return '/home';
+    return '/interest/' + interest.id;
+  }
+
   sortLists(arr: Project[]) {
     arr.forEach((item) => {
       if(item.staredProject){

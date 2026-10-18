@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Content, Project } from 'src/app/models/models';
 import { SecureService } from 'src/app/services/secure.service';
@@ -16,6 +16,7 @@ export class ProjectContentComponent implements OnInit {
   @Input() project!: Project;
   contentList = new Array<Content>();
   liList = new Array<String>();
+  @Input() @HostBinding('class.wide') open = false;
 
   constructor(private userService: UserService, 
     private router: Router,
@@ -25,12 +26,16 @@ export class ProjectContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scroll(0,0);
     this.contentList = this.project.contentList;
     this.sortContent();
-    if(this.project.mainPoints && this.project.mainPoints.includes('&')){
-      this.liList = this.project.mainPoints.split('&');
+    if(this.project.mainPoints){
+      this.liList = this.project.mainPoints.split('&').map(point => point.trim()).filter(point => point);
     }
+  }
+
+  // An opened pocket spans the whole row of the pockets grid.
+  toggle(){
+    this.open = !this.open;
   }
 
   sortContent(){
