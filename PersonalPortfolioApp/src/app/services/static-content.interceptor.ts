@@ -8,6 +8,7 @@ interface Content {
   interests: any[];
   projects: any[];
   workExperiences: any[];
+  artworks?: any[];
 }
 
 const has = (csv: string | undefined, id: string) => (csv || '').split(',').includes(id);
@@ -22,6 +23,8 @@ const ROUTES: [RegExp, (d: Content, m: RegExpMatchArray) => unknown][] = [
   [/^\/workExperience\/?$/, d => d.workExperiences],
   [/^\/workExperience\/interest\/(\d+)$/, (d, m) => d.workExperiences.filter(w => has(w.linkedInterests, m[1]))],
   [/^\/workExperience\/(\d+)$/, (d, m) => d.workExperiences.find(w => w.id == +m[1])],
+  // Only in the content file: the ArtStation posts (see ArtworkService).
+  [/^\/artworks\/?$/, d => d.artworks ?? []],
 ];
 
 // When `environment.contentUrl` is set (the static Firebase build), GETs to the API are served from that

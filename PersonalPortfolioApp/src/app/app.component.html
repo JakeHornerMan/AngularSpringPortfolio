@@ -1,9 +1,7 @@
 <app-ink-field class="water" [density]="1.15"></app-ink-field>
 
 <header class="masthead">
-    <a routerLink="/home" class="name display">{{sectionTitle.title$ | async}}</a>
-    <p class="subtitle" *ngIf="sectionTitle.subtitle$ | async as subtitle">{{subtitle}}</p>
-</header>
+    <a routerLink="/home" class="name display">{{sectionTitle.title$ | async}}</a></header>
 
 <main class="page">
     <router-outlet></router-outlet>

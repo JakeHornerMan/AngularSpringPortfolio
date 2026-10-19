@@ -20,6 +20,8 @@ export class ProjectContentComponent implements OnInit, OnDestroy, OpenableWindo
   blocks: ContentBlock[] = [];
   liList = new Array<String>();
   @Input() @HostBinding('class.wide') open = false;
+  // A small window: just the thumbnail (`projectImageUrl`) and title until opened. Used for ArtStation posts.
+  @Input() @HostBinding('class.small') small = false;
 
   @HostBinding('class.starred') get starred(): boolean {
     return !!this.project?.staredProject;
@@ -84,6 +86,10 @@ export class ProjectContentComponent implements OnInit, OnDestroy, OpenableWindo
 
   hasMore(): boolean {
     return this.contentList?.length > 0 || (!!this.project.tldr && !!this.project.projectDescription);
+  }
+
+  links(): Content[] {
+    return this.contentList.filter(content => content.contentType === 'link');
   }
 
   close(){

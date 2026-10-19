@@ -24,7 +24,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              { "glob": "jakedev-content.json", "input": "../PersonalPortfolio/src/main/resources/static", "output": "/" }
             ],
             "styles": [
               "src/custom-theme.scss",

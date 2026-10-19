@@ -16,7 +16,7 @@ import { Box, CLOSE_MS, OPEN_MS, flip, layoutBox } from '../window-motion';
 // On phones and tablets (touch, or narrow screens) and with reduced motion the pockets stay static, in
 // order, in the normal stacked grid.
 
-const PER_SPACE = 5;     // windows per space
+export const PER_SPACE = 5;     // windows per space
 const SPACER = 160;      // px between one space and the next
 const CRUISE = 26;       // px/s: the slow screensaver drift
 const MAX_FLING = 1400;  // px/s: fastest a thrown window can leave the hand

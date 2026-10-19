@@ -36,11 +36,12 @@ export class OpenWindowService {
   }
 
   // A click outside the open window closes it, unless the pointer moved (the end of a drag or a text
-  // selection) or the click landed on something above the window.
+  // selection) or the click landed on something above the window. The click's path is checked rather than
+  // where its target is now, because opening a window can remove what was clicked (a small window's thumbnail).
   private clickedAnywhere(event: MouseEvent): void {
     if (!this.current) return;
     const target = event.target as HTMLElement;
-    if (this.current.element.contains(target) || target.closest?.(ABOVE_WINDOWS)) return;
+    if (event.composedPath().includes(this.current.element) || target.closest?.(ABOVE_WINDOWS)) return;
     if (this.downAt && Math.hypot(event.clientX - this.downAt[0], event.clientY - this.downAt[1]) > 5) return;
     this.current.close();
   }

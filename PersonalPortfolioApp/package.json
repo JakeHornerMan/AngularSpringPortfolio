@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "sync:art": "node scripts/sync-artstation.js"
   },
   "private": true,
   "dependencies": {

@@ -5,8 +5,9 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:8080',
-  // Set this to serve reads from a content JSON file instead of the API (see StaticContentInterceptor).
-  contentUrl: ''
+  // Reads are served from the content JSON file instead of the API (see StaticContentInterceptor).
+  // The file is copied in from the backend's static folder as a build asset. Set to '' to use the local API.
+  contentUrl: '/jakedev-content.json'
 };
 
 /*

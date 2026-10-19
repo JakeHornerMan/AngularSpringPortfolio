@@ -28,6 +28,13 @@ Frontend (run from `PersonalPortfolioApp/`):
 - Build: `npm run build` (production by default; swaps in `environment.prod.ts`)
 - Tests: `npm test` (Karma, Chrome). For a single spec, change `describe`/`it` to `fdescribe`/`fit` temporarily.
 - No lint target is configured in `angular.json`.
+- Sync ArtStation posts into the content JSON: `npm run sync:art`
+
+Deploy the frontend (Firebase Hosting, site `staticportfolio-9027d`, run from `PersonalPortfolioApp/`):
+- `NODE_OPTIONS=--openssl-legacy-provider npm run build && firebase deploy --only hosting --project staticportfolio-9027d`
+- Keep `--project`: this folder has been mapped to another Firebase project (`personalportfolio-ca1ea`) before.
+- Check the login with `firebase projects:list --non-interactive`. If it has expired (401), the owner runs `firebase login --reauth` in a separate terminal (it needs a browser, so it fails through the `!` prefix), then deploy again.
+- There's no database in production: the live site reads `jakedev-content.json` from GitHub `main`, so content changes (including `sync:art`) go live once pushed, with no redeploy. The owner pushes.
 
 ## Architecture
 

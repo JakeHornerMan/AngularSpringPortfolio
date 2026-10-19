@@ -1,7 +1,8 @@
-<section class="pockets" appBounceField *ngIf="projectList.length">
+<section class="pockets" appBounceField [perSpace]="artworks.length ? ART_PER_SPACE : PER_SPACE" *ngIf="projectList.length || artworks.length">
     <app-project-content *ngFor="let project of projectList" [project]="project"></app-project-content>
+    <app-project-content *ngFor="let art of artworks" [project]="art" [small]="true"></app-project-content>
 </section>
-<div class="pocket empty" *ngIf="loaded && !projectList.length">
+<div class="pocket empty" *ngIf="loaded && !projectList.length && !artworks.length">
     <span class="label">nothing here yet</span>
     <p>No projects in this section yet.</p>
 </div>

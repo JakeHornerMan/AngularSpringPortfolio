@@ -407,6 +407,43 @@ a:hover {
   animation: none;
 }
 
+/* Small windows (ArtStation posts) are about half the size, so a space can hold 20. */
+.pockets.bouncing > .small:not(.wide) {
+  width: clamp(120px, 9vw, 160px);
+}
+
+.small:not(.wide) > .pocket {
+  padding: 0.5rem 0.55rem 0.4rem;
+}
+
+/* The title bar's margins cancel the window's padding, so they shrink with it. */
+.small:not(.wide) > .pocket > .label:first-child {
+  gap: 0.4rem;
+  margin: -0.5rem -0.55rem 0.5rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 11px;
+}
+
+.small:not(.wide) .pocket-meta {
+  margin: 0.35rem 0 0;
+  font-size: 11px;
+}
+
+/* The thumbnail shows the art in full colour, unlike the greyscale media tiles. */
+.pocket-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.art-link {
+  margin: 0.9rem 0 0;
+  text-align: center;
+}
+
 /* Titles shrink with the bouncing windows, so long names like "Connections" fit on one line. */
 .pockets.bouncing > :not(.wide) .pocket-title {
   font-size: clamp(1.4rem, 2.2vw, 2rem);

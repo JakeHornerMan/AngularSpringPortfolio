@@ -49,6 +49,7 @@ import { MediaWindowComponent } from './components/media-window/media-window.com
 //   {path:'**', component: ErrorComponent} //must be last
 // ];
 import { TerminalSwarmComponent } from './components/terminal-swarm/terminal-swarm.component';
+import { ArtSliderComponent } from './components/art-slider/art-slider.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { TerminalSwarmComponent } from './components/terminal-swarm/terminal-swa
     WorkExperienceContentComponent,
     DeletePopupComponent,
     TerminalSwarmComponent,
+    ArtSliderComponent,
   ],
   imports: [
     BrowserModule,

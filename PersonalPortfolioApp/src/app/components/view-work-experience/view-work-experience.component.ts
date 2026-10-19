@@ -21,8 +21,7 @@ export class ViewWorkExperienceComponent implements OnInit {
     private sectionTitle: SectionTitleService,) { }
 
   ngOnInit(): void {
-    this.sectionTitle.set('Work and education',
-      "Work is the jobs I've been employed in. Education is the degrees, courses and apprenticeships I've studied. Each window is labelled one or the other.");
+    this.sectionTitle.set('Work and education');
     window.scroll(0,0);
     this.workExperienceService.getAllWorkExperiences().subscribe((res: any)=>{
       // console.log(res);

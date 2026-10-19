@@ -1,13 +1,15 @@
 <article class="pocket">
     <span class="label has-dots">
         <button type="button" class="window-open" *ngIf="hasMore(); else plainDots" (click)="toggle()" [attr.aria-expanded]="open">
-            <span class="window-dots" aria-hidden="true"></span>{{open ? 'close ↖' : 'open ↘'}}
+            <span class="window-dots" aria-hidden="true"></span>{{open ? 'close ↖' : small ? '' : 'open ↘'}}
         </button>
         <ng-template #plainDots><span class="window-dots" aria-hidden="true"></span></ng-template>
         <span class="bar-title">{{project.projectName}}</span>
     </span>
 
-    <h1 class="pocket-title">{{project.projectName}}</h1>
+    <!-- A small window (an ArtStation post) is just its thumbnail until it's opened. -->
+    <img class="pocket-thumb" *ngIf="small && !open && project.projectImageUrl" [src]="project.projectImageUrl" [alt]="project.projectName" loading="lazy">
+    <h1 class="pocket-title" *ngIf="!small || open">{{project.projectName}}</h1>
     <p class="pocket-meta"><span *ngIf="project.staredProject">featured · </span>{{project.startDate | date:'yyyy'}}<ng-container *ngIf="project.endDate && (project.endDate | date:'yyyy') != (project.startDate | date:'yyyy')">–{{project.endDate | date:'yyyy'}}</ng-container></p>
 
     <ul class="dash-list" *ngIf="liList.length > 0">
@@ -15,12 +17,21 @@
     </ul>
     <p *ngIf="summary()">{{summary()}}</p>
 
-    <div class="pocket-actions" *ngIf="isUserLoggedIn()">
+    <!-- Small windows aren't database projects, so there's nothing to edit or delete. -->
+    <div class="pocket-actions" *ngIf="isUserLoggedIn() && !small">
         <button class="text-btn" (click)="editProject(project.id)">edit</button>
         <button class="text-btn" (click)="removeProject(project.id)">delete</button>
     </div>
 
-    <div class="pocket-body" *ngIf="open">
+    <!-- An opened art window is a slider of the post's images and embeds, then the link back to ArtStation. -->
+    <ng-container *ngIf="open && small">
+        <app-art-slider [content]="contentList" [title]="project.projectName"></app-art-slider>
+        <p class="art-link" *ngFor="let link of links()">
+            <a [href]="link.contentUrl" target="_blank" rel="noopener">{{link.contentTitle}} ↗</a>
+        </p>
+    </ng-container>
+
+    <div class="pocket-body" *ngIf="open && !small">
         <ng-container *ngFor="let block of blocks">
 
             <!-- A screenshot dump, three to a row. -->

@@ -4,6 +4,9 @@ import { Project } from 'src/app/models/models';
 import { ProjectService } from 'src/app/services/project.service';
 import { SectionTitleService } from 'src/app/services/section-title.service';
 import { newestFirst } from 'src/app/newest-first';
+import { ArtworkService } from 'src/app/services/artwork.service';
+import { PER_SPACE } from 'src/app/directives/bounce-field.directive';
+import { forkJoin, of } from 'rxjs';
 
 // Matches the interests seeded in V1__static-conetnet-for-interests.sql and the nav dock.
 const INTEREST_TITLES: { [id: string]: string } = {
@@ -11,6 +14,9 @@ const INTEREST_TITLES: { [id: string]: string } = {
   '2': 'Art works',
   '3': 'Software development',
 };
+
+// The art page also shows every ArtStation post, as small windows, 20 to a space.
+const ART_INTEREST = '2';
 
 @Component({
   selector: 'app-project-by-interest',
@@ -23,9 +29,13 @@ export class ProjectByInterestComponent implements OnInit {
   title = 'Projects';
   loaded = false;
   projectList = new Array<Project>();
+  artworks = new Array<Project>();
+  readonly PER_SPACE = PER_SPACE;
+  readonly ART_PER_SPACE = 20;
 
   constructor(private activatedroute: ActivatedRoute,
     private projectService: ProjectService,
+    private artworkService: ArtworkService,
     private sectionTitle: SectionTitleService) { }
 
   ngOnInit(): void {
@@ -36,9 +46,14 @@ export class ProjectByInterestComponent implements OnInit {
       this.sectionTitle.set(this.title);
       this.loaded = false;
       this.projectList = [];
+      this.artworks = [];
       window.scroll(0,0);
-      this.projectService.getProjectsByInterest(this.id).subscribe((res: Project[])=>{
-        this.projectList = newestFirst(res ?? []);
+      forkJoin([
+        this.projectService.getProjectsByInterest(this.id),
+        this.id === ART_INTEREST ? this.artworkService.getArtworks() : of([]),
+      ]).subscribe(([projects, artworks])=>{
+        this.projectList = newestFirst(projects ?? []);
+        this.artworks = newestFirst(artworks ?? []);
         this.loaded = true;
       });
     });

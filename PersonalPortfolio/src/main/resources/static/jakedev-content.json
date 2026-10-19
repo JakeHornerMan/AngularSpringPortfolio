@@ -1482,5 +1482,343 @@
    "active": true,
    "education": true
   }
+ ],
+ "artworks": [
+  {
+   "id": -1,
+   "projectName": "Katana Asset",
+   "startDate": "2022-05-11",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://i.ytimg.com/vi/ApmsPtbpzjI/hqdefault.jpg",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/r9dJgG",
+   "contentList": [
+    {
+     "id": -100,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/ApmsPtbpzjI",
+     "position": 1
+    },
+    {
+     "id": -101,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://sketchfab.com/models/26e8608973594eae8d95b831df9eb9c1/embed",
+     "position": 2
+    },
+    {
+     "id": -102,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/r9dJgG",
+     "position": 3
+    }
+   ]
+  },
+  {
+   "id": -2,
+   "projectName": "Anatomy Study",
+   "startDate": "2022-05-11",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://media.sketchfab.com/models/ce42859b75ee42d492489028cbc140cc/thumbnails/591a1fc0264a4daa9d5a131d419c061c/b2e026f853d14c97a32ff1ae90210e12.jpeg",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/LeBRXv",
+   "contentList": [
+    {
+     "id": -200,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://sketchfab.com/models/ce42859b75ee42d492489028cbc140cc/embed",
+     "position": 1
+    },
+    {
+     "id": -201,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/LeBRXv",
+     "position": 2
+    }
+   ]
+  },
+  {
+   "id": -3,
+   "projectName": "Robot Shark",
+   "startDate": "2022-05-11",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://cdnb.artstation.com/p/assets/images/images/049/363/143/smaller_square/jake-horner-blockout.jpg?1652310086",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/nEL0lr",
+   "contentList": [
+    {
+     "id": -300,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://sketchfab.com/models/bd781bb2de1a4ad3b8293ef8263cb7bd/embed",
+     "position": 1
+    },
+    {
+     "id": -301,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdnb.artstation.com/p/assets/images/images/049/363/143/large/jake-horner-blockout.jpg?1652310086",
+     "position": 2
+    },
+    {
+     "id": -302,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdnb.artstation.com/p/assets/images/images/049/363/149/large/jake-horner-export.jpg?1652310092",
+     "position": 3
+    },
+    {
+     "id": -303,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/nEL0lr",
+     "position": 4
+    }
+   ]
+  },
+  {
+   "id": -4,
+   "projectName": "Sugar DodoDodoDodo",
+   "startDate": "2022-05-11",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://cdna.artstation.com/p/assets/images/images/049/362/730/smaller_square/jake-horner-duffbottle-eevee.jpg?1652309468",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/wJ504g",
+   "contentList": [
+    {
+     "id": -400,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/bH1vHNNcPtk",
+     "position": 1
+    },
+    {
+     "id": -401,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdna.artstation.com/p/assets/images/images/049/362/730/large/jake-horner-duffbottle-eevee.jpg?1652309468",
+     "position": 2
+    },
+    {
+     "id": -402,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdnb.artstation.com/p/assets/images/images/049/362/747/large/jake-horner-testhomer.jpg?1652309474",
+     "position": 3
+    },
+    {
+     "id": -403,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/wJ504g",
+     "position": 4
+    }
+   ]
+  },
+  {
+   "id": -5,
+   "projectName": "3D Rayman",
+   "startDate": "2022-05-11",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://cdna.artstation.com/p/assets/images/images/049/362/492/smaller_square/jake-horner-raymanpose.jpg?1652309068",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/ZeXa9R",
+   "contentList": [
+    {
+     "id": -500,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdna.artstation.com/p/assets/images/images/049/362/492/large/jake-horner-raymanpose.jpg?1652309068",
+     "position": 1
+    },
+    {
+     "id": -501,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://sketchfab.com/models/3d3e2e317865417d950a5bdc1984c39a/embed",
+     "position": 2
+    },
+    {
+     "id": -502,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdna.artstation.com/p/assets/images/images/049/362/584/large/jake-horner-untitled-1.jpg?1652309236",
+     "position": 3
+    },
+    {
+     "id": -503,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/ZeXa9R",
+     "position": 4
+    }
+   ]
+  },
+  {
+   "id": -6,
+   "projectName": "Mr. Toast",
+   "startDate": "2022-05-11",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://cdna.artstation.com/p/assets/images/images/049/361/810/smaller_square/jake-horner-mr-toast-pose1.jpg?1652307423",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/WmxBzQ",
+   "contentList": [
+    {
+     "id": -600,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdna.artstation.com/p/assets/images/images/049/361/810/large/jake-horner-mr-toast-pose1.jpg?1652307423",
+     "position": 1
+    },
+    {
+     "id": -601,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://sketchfab.com/models/fef72d883d074a89b25449546fbfe0c3/embed",
+     "position": 2
+    },
+    {
+     "id": -602,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/JnAHfamaeCA",
+     "position": 3
+    },
+    {
+     "id": -603,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/WmxBzQ",
+     "position": 4
+    }
+   ]
+  },
+  {
+   "id": -7,
+   "projectName": "Motion Control - Alice Album art and Spotify Canvas Animation",
+   "startDate": "2021-07-04",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://cdna.artstation.com/p/assets/images/images/039/261/674/smaller_square/jake-horner-final-insta.jpg?1625415228",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/L3zZ4P",
+   "contentList": [
+    {
+     "id": -700,
+     "contentType": "video",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://www.youtube.com/embed/Dd3fj2G5OZs",
+     "position": 1
+    },
+    {
+     "id": -701,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdna.artstation.com/p/assets/images/images/039/261/674/large/jake-horner-final-insta.jpg?1625415228",
+     "position": 2
+    },
+    {
+     "id": -702,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdna.artstation.com/p/assets/images/images/039/261/686/large/jake-horner-cover-final.jpg?1625415246",
+     "position": 3
+    },
+    {
+     "id": -703,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/L3zZ4P",
+     "position": 4
+    }
+   ]
+  },
+  {
+   "id": -8,
+   "projectName": "MF Doom Throne",
+   "startDate": "2021-06-11",
+   "endDate": null,
+   "mainPoints": "",
+   "projectDescription": "",
+   "tldr": "",
+   "projectImageUrl": "https://cdnb.artstation.com/p/assets/images/images/038/573/935/smaller_square/jake-horner-doomthrone.jpg?1623447289",
+   "linkedInterests": "2",
+   "staredProject": false,
+   "artstationUrl": "https://www.artstation.com/artwork/48Kl6l",
+   "contentList": [
+    {
+     "id": -800,
+     "contentType": "image",
+     "contentTitle": "",
+     "contentParagraph": "",
+     "contentUrl": "https://cdnb.artstation.com/p/assets/images/images/038/573/935/large/jake-horner-doomthrone.jpg?1623447289",
+     "position": 1
+    },
+    {
+     "id": -801,
+     "contentType": "link",
+     "contentTitle": "View on ArtStation",
+     "contentParagraph": "",
+     "contentUrl": "https://www.artstation.com/artwork/48Kl6l",
+     "position": 2
+    }
+   ]
+  }
  ]
 }
