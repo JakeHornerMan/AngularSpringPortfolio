@@ -3,6 +3,7 @@
         <ng-container *ngFor="let slide of slides; let i = index">
             <ng-container *ngIf="i === index">
                 <img *ngIf="slide.kind === 'image'" [src]="slide.url" [alt]="slide.title || title" draggable="false">
+                <video *ngIf="slide.kind === 'video'" [src]="slide.url" [title]="slide.title || title" controls playsinline></video>
                 <iframe *ngIf="slide.kind === 'embed'" [src]="slide.url" [title]="slide.title || title"
                     allow="autoplay; fullscreen; encrypted-media; picture-in-picture; xr-spatial-tracking" allowfullscreen></iframe>
             </ng-container>

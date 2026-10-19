@@ -1,0 +1,33 @@
+# Keeps the art page current: every day, copies the latest Instagram posts (and the ArtStation posts) into
+# jakedev-content.json and commits it to main. The live site reads that file from GitHub, so no deploy is needed.
+# Instagram media links expire after a few days, so this has to keep running. Needs the IG_TOKEN repo secret.
+name: Sync art
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Instagram
+        run: node PersonalPortfolioApp/scripts/sync-instagram.js
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+      - name: ArtStation
+        run: node PersonalPortfolioApp/scripts/sync-artstation.js || echo "ArtStation sync failed; keeping the old posts"
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898900+github-actions[bot]@users.noreply.github.com"
+          git add PersonalPortfolio/src/main/resources/static/jakedev-content.json
+          git diff --cached --quiet || (git commit -m "Sync art posts" && git push)

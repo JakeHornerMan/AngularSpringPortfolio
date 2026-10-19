@@ -15,7 +15,7 @@ const INTEREST_TITLES: { [id: string]: string } = {
   '3': 'Software development',
 };
 
-// The art page also shows every ArtStation post, as small windows, 20 to a space.
+// The art page also shows every ArtStation post and the latest Instagram posts, as small windows, 20 to a space.
 const ART_INTEREST = '2';
 
 @Component({
@@ -51,9 +51,10 @@ export class ProjectByInterestComponent implements OnInit {
       forkJoin([
         this.projectService.getProjectsByInterest(this.id),
         this.id === ART_INTEREST ? this.artworkService.getArtworks() : of([]),
-      ]).subscribe(([projects, artworks])=>{
+        this.id === ART_INTEREST ? this.artworkService.getInstagram() : of([]),
+      ]).subscribe(([projects, artworks, instagram])=>{
         this.projectList = newestFirst(projects ?? []);
-        this.artworks = newestFirst(artworks ?? []);
+        this.artworks = newestFirst([...(artworks ?? []), ...(instagram ?? [])]);
         this.loaded = true;
       });
     });

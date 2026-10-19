@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "sync:art": "node scripts/sync-artstation.js"
+    "sync:art": "node scripts/sync-artstation.js",
+    "sync:insta": "node scripts/sync-instagram.js"
   },
   "private": true,
   "dependencies": {

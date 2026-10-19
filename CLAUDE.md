@@ -29,8 +29,9 @@ Frontend (run from `PersonalPortfolioApp/`):
 - Tests: `npm test` (Karma, Chrome). For a single spec, change `describe`/`it` to `fdescribe`/`fit` temporarily.
 - No lint target is configured in `angular.json`.
 - Sync ArtStation posts into the content JSON: `npm run sync:art`
+- Sync the latest 20 Instagram posts: `npm run sync:insta` (needs `IG_TOKEN` as an env var or in the git-ignored `PersonalPortfolioApp/.env.local`). `.github/workflows/sync-art.yml` runs both syncs daily and commits the JSON, using the `IG_TOKEN` repo secret. Each run extends the token's 60 days; if the workflow fails for longer than that, generate a new token in the Meta app dashboard (Instagram API → Generate access tokens) and update the secret.
 
-Deploy the frontend (Firebase Hosting, site `staticportfolio-9027d`, run from `PersonalPortfolioApp/`):
+Deploy the frontend (Firebase Hosting, site `staticportfolio-9027d`, run from `PersonalPortfolioApp/`). **https://jakedev.win is this Firebase site** (custom domain, A record 199.36.158.100), so this deploys jakedev.win. `DEPLOYMENT_PLAN.md` (AWS) describes a setup that was never built.
 - `NODE_OPTIONS=--openssl-legacy-provider npm run build && firebase deploy --only hosting --project staticportfolio-9027d`
 - Keep `--project`: this folder has been mapped to another Firebase project (`personalportfolio-ca1ea`) before.
 - Check the login with `firebase projects:list --non-interactive`. If it has expired (401), the owner runs `firebase login --reauth` in a separate terminal (it needs a browser, so it fails through the `!` prefix), then deploy again.

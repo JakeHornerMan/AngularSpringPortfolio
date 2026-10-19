@@ -4,12 +4,12 @@ import { Content } from 'src/app/models/models';
 import { toEmbedUrl } from 'src/app/services/media-window.service';
 
 interface Slide {
-  kind: 'image' | 'embed';
+  kind: 'image' | 'embed' | 'video';
   url: string | SafeResourceUrl;
   title: string;
 }
 
-// An opened art window (an ArtStation post): its images and embeds (YouTube, Sketchfab) one at a time,
+// An opened art window (an ArtStation or Instagram post): its images, videos and embeds (YouTube, Sketchfab) one at a time,
 // with arrows, dots, the arrow keys and a swipe to move between them. Only the current slide is rendered,
 // so a playing video stops when you move on.
 @Component({
@@ -30,9 +30,14 @@ export class ArtSliderComponent implements OnChanges {
   ngOnChanges(): void {
     this.slides = this.content
       .filter(c => c.contentType === 'image' || c.contentType === 'video')
-      .map(c => c.contentType === 'image'
-        ? { kind: 'image', url: c.contentUrl, title: c.contentTitle }
-        : { kind: 'embed', url: this.sanitizer.bypassSecurityTrustResourceUrl(toEmbedUrl(c.contentUrl, false) ?? c.contentUrl), title: c.contentTitle });
+      .map((c): Slide => {
+        if (c.contentType === 'image') return { kind: 'image', url: c.contentUrl, title: c.contentTitle };
+        const embed = toEmbedUrl(c.contentUrl, false);
+        // A video with no embed (an Instagram mp4) plays in a <video> tag.
+        return embed
+          ? { kind: 'embed', url: this.sanitizer.bypassSecurityTrustResourceUrl(embed), title: c.contentTitle }
+          : { kind: 'video', url: c.contentUrl, title: c.contentTitle };
+      });
     this.index = 0;
   }
 

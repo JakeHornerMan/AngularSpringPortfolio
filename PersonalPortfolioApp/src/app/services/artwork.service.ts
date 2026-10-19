@@ -22,4 +22,9 @@ export class ArtworkService {
   getArtworks(): Observable<Project[]>{
     return this.httpClient.get<Project[]>(this.domain+'/artworks').pipe(catchError(() => of([])));
   }
+
+  // The latest Instagram posts (`instagram`, written by `npm run sync:insta` and a daily GitHub Action).
+  getInstagram(): Observable<Project[]>{
+    return this.httpClient.get<Project[]>(this.domain+'/instagram').pipe(catchError(() => of([])));
+  }
 }
