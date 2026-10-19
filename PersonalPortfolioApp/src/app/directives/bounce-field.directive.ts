@@ -31,6 +31,9 @@ interface Body {
   space: number;
   // The user dragged it into a space of their choosing; don't reassign it.
   movedSpace: boolean;
+  // Its column when first placed: the space's windows start left to right in page order (newest first).
+  slot: number;
+  slots: number;
   x: number;
   y: number;
   vx: number;
@@ -236,6 +239,15 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
       const fixed = el.dataset['space'];
       if (!body.movedSpace) body.space = fixed !== undefined ? Number(fixed) : Math.floor(index / per);
     });
+    const inSpace = new Map<number, Body[]>();
+    children.filter(el => wanted.has(el)).forEach(el => {
+      const body = this.bodies.get(el)!;
+      inSpace.set(body.space, [...(inSpace.get(body.space) ?? []), body]);
+    });
+    inSpace.forEach(list => list.forEach((body, i) => {
+      body.slot = i;
+      body.slots = list.length;
+    }));
     this.spaceCount = Math.max(1, Math.ceil(children.length / per),
       ...Array.from(this.bodies.values(), b => b.space + 1));
     this.updateCrowded();
@@ -244,7 +256,7 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
   private adopt(el: HTMLElement): Body {
     const handle = el.querySelector<HTMLElement>('.pocket > .label:first-child');
     const body: Body = {
-      el, handle, space: 0, movedSpace: false, x: 0, y: 0, vx: 0, vy: 0, w: el.offsetWidth, h: el.offsetHeight,
+      el, handle, space: 0, movedSpace: false, slot: 0, slots: 1, x: 0, y: 0, vx: 0, vy: 0, w: el.offsetWidth, h: el.offsetHeight,
       placed: false, held: false, hovered: false, animating: false, grabX: 0, grabY: 0, lastX: 0, lastY: 0, lastT: 0,
       cleanup: () => {},
     };
@@ -340,12 +352,14 @@ export class BounceFieldDirective implements AfterViewInit, OnDestroy {
     body.el.style.removeProperty('z-index');
   }
 
-  // Drop a new window somewhere free in its space, heading off on a diagonal.
+  // Drop a new window somewhere free in its column of its space, heading off on a diagonal.
   private place(body: Body): void {
     const { minX, maxX, minY, maxY } = this.bounds(body);
+    const column = (maxX - minX) / body.slots;
+    const left = minX + column * body.slot;
     const others = Array.from(this.bodies.values()).filter(b => b !== body && b.placed && b.space === body.space);
     for (let attempt = 0; attempt < 60; attempt++) {
-      body.x = minX + Math.random() * (maxX - minX);
+      body.x = left + Math.random() * column;
       body.y = minY + Math.random() * (maxY - minY);
       if (!others.some(b => this.overlaps(body, b))) break;
     }

@@ -13,7 +13,7 @@
         <img *ngIf="workExperience.workIconUrl" [src]="workExperience.workIconUrl" alt="" class="work-icon">
         <div>
             <p class="muted">{{workExperience.workTitle}}</p>
-            <p class="pocket-meta">{{workExperience.startDate | date:'MMM yyyy'}} – {{workExperience.endDate ? (workExperience.endDate | date:'MMM yyyy') : 'now'}}</p>
+            <p class="pocket-meta">{{workExperience.education ? 'Education' : 'Work'}} · {{workExperience.startDate | date:'MMM yyyy'}} – {{workExperience.endDate ? (workExperience.endDate | date:'MMM yyyy') : 'now'}}</p>
         </div>
     </div>
 

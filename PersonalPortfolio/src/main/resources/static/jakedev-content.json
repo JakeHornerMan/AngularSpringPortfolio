@@ -1451,7 +1451,7 @@
    "technologys": "Python, PyTorch, Kubernetes, Transformers, Retrieval (RAG), AI agents",
    "workDescription": "Founders and Coders is a London training provider, rated Strong by Ofsted. I'm doing their Level 6 Machine Learning Engineer Apprenticeship alongside my full-time job: one afternoon a week at their Old Street campus for about 15 months, learning with other experienced software engineers.",
    "tldr": "A Level 6 Machine Learning Engineer apprenticeship, one afternoon a week alongside my job. Deep learning, agents, and building a transformer from scratch.",
-   "starred": false,
+   "starred": true,
    "contentList": [
     {
      "contentType": "text",

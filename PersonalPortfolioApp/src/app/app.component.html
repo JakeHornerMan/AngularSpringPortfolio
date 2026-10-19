@@ -2,6 +2,7 @@
 
 <header class="masthead">
     <a routerLink="/home" class="name display">{{sectionTitle.title$ | async}}</a>
+    <p class="subtitle" *ngIf="sectionTitle.subtitle$ | async as subtitle">{{subtitle}}</p>
 </header>
 
 <main class="page">
