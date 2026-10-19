@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { InterestService } from './services/interest.service';
 import { LoadingInterceptor } from './services/loading.interceptor';
+import { StaticContentInterceptor } from './services/static-content.interceptor';
 import { InkFieldComponent } from './components/ink-field/ink-field.component';
 import { IntroLoaderComponent } from './components/intro-loader/intro-loader.component';
 import { ProjectContentComponent } from './components/project-content/project-content.component';
@@ -89,6 +90,7 @@ import { TerminalSwarmComponent } from './components/terminal-swarm/terminal-swa
     InterestService,
     CookieService,
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: StaticContentInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

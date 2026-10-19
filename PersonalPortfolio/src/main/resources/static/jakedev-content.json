@@ -622,7 +622,7 @@
    "linkedInterests": "1",
    "linkedTechnologys": "",
    "cateorys": "",
-   "staredProject": false,
+   "staredProject": true,
    "active": true,
    "id": 9,
    "contentList": [
@@ -764,7 +764,7 @@
    "linkedInterests": "3",
    "linkedTechnologys": "",
    "cateorys": "",
-   "staredProject": false,
+   "staredProject": true,
    "active": true,
    "projectName": "Simple Neural Network",
    "startDate": "2026-07-20",

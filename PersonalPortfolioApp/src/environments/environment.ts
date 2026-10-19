@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080'
+  apiBaseUrl: 'http://localhost:8080',
+  // Set this to serve reads from a content JSON file instead of the API (see StaticContentInterceptor).
+  contentUrl: ''
 };
 
 /*

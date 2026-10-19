@@ -1,0 +1,8 @@
+{
+  "hosting": {
+    "site": "staticportfolio-9027d",
+    "public": "dist/PersonalPortfolioApp",
+    "ignore": ["firebase.json", "**/.*"],
+    "rewrites": [{ "source": "**", "destination": "/index.html" }]
+  }
+}

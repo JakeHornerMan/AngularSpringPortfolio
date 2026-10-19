@@ -159,6 +159,11 @@ p {
   max-width: 65ch;
 }
 
+/* An opened window's text runs the full width of the window instead of leaving the right side empty. */
+.pockets > .wide p {
+  max-width: none;
+}
+
 a {
   color: inherit;
   text-decoration: underline;
@@ -499,6 +504,11 @@ body.pockets-bouncing .page {
   overflow: hidden;
   background: var(--ink);
   box-shadow: 0 0 0 1px var(--ink);
+}
+
+/* Image tiles sit on paper, so transparent images (sprites, logos) stay visible; video tiles stay black. */
+.media-tile.image-tile {
+  background: var(--paper);
 }
 
 .media-tile img, .media-tile video {

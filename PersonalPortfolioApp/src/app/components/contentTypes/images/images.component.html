@@ -13,7 +13,7 @@
 
 <ng-template #media>
     <!-- Desktop: images are never shown big inline; a video-sized tile opens them in a window (MediaWindowComponent). -->
-    <button *ngIf="!inline" type="button" class="media-tile" #tileButton (click)="view(tileButton)" [attr.aria-label]="'View ' + (content.contentTitle || 'image')">
+    <button *ngIf="!inline" type="button" class="media-tile image-tile" #tileButton (click)="view(tileButton)" [attr.aria-label]="'View ' + (content.contentTitle || 'image')">
         <img [src]="content.contentUrl" [alt]="content.contentTitle || ''" loading="lazy">
         <span class="media-tile-badge" aria-hidden="true">⤢ view</span>
     </button>

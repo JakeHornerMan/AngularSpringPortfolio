@@ -19,8 +19,10 @@
   background: var(--ink);
 }
 
+/* Images sit on paper, so transparent ones (sprites, logos) stay visible. */
 .video-frame img {
   object-fit: contain;
+  background: var(--paper);
 }
 
 .frame-cover {
