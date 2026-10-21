@@ -72,7 +72,7 @@ export class WorkExperienceContentComponent implements OnInit, OnDestroy, Openab
   }
 
   // An opened pocket spans the whole row of the pockets grid.
-  // Only one window opens at a time: trying to open this one while another is open just closes that one.
+  // On desktop only one window opens at a time: trying to open this one while another is open just closes that one.
   toggle(){
     if (this.open) {
       this.close();
