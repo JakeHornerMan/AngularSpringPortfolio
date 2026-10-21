@@ -39,6 +39,7 @@ How the portfolio fits together: the backend, the frontend's data flow, and the 
   - It renders at 30fps with a WebGL fragment shader (`src/app/ink/ink-shader.ts`).
   - Lines are contours of a "drop potential": a smooth minimum of the stretched-ellipse distance to 2–3 ink drops (count, positions and sizes are random per seed, kept `MIN_SOURCE_GAP` apart). Each drop is its own ring source, and rings drift outward (`DRIFT`) and merge where they meet.
   - The contours are folded into flowing waves by slow fbm domain warping plus a sideways current.
+  - The noise's random values come from a seeded 256×256 texture (`NOISE_SIZE`, built in `createNoiseTexture()`), read texel by texel, not from a hash computed in the shader. Computed hashes (fract-based, then integer-exact) tore the sheet into seams on Android phones (seen on an Adreno 830): neighbouring noise cells got different values for their shared corner. Don't go back to an in-shader hash.
   - The pattern comes from `SESSION_SEED` (`src/app/ink/ink-noise.ts`), picked once per page load. It's new on every reload, the same across in-app navigation, and shared by the background and the curtain so their rings line up.
   - Each line gets its own random (hashed) weight, from a 0.6px hairline up to ~65px, skewed with `pow(tier, 5)` so most stay fine. It swells along its length and is capped at 65% of the gap to the next line, so neighbours never merge.
   - `src/app/ink/ink-renderer-2d.ts` is a Canvas 2D fallback for when WebGL isn't available.

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
 import { prefersReducedMotion, seededRandom, SESSION_SEED } from 'src/app/ink/ink-noise';
 import { InkRenderer2D } from 'src/app/ink/ink-renderer-2d';
-import { fieldPotential, INK_FRAGMENT_SHADER, INK_VERTEX_SHADER, MAX_DROPS } from 'src/app/ink/ink-shader';
+import { fieldPotential, INK_FRAGMENT_SHADER, INK_VERTEX_SHADER, MAX_DROPS, NOISE_SIZE } from 'src/app/ink/ink-shader';
 
 interface DropSpec {
   x: number;      // centre, as a fraction of width
@@ -10,7 +10,7 @@ interface DropSpec {
   phase: number;  // offsets its slow drift
 }
 
-const UNIFORM_NAMES = ['uRes', 'uDpr', 'uTime', 'uInk', 'uPaper', 'uDrops', 'uSpacing', 'uSeed', 'uReveal', 'uRevealFade'] as const;
+const UNIFORM_NAMES = ['uRes', 'uDpr', 'uTime', 'uInk', 'uPaper', 'uDrops', 'uSpacing', 'uNoise', 'uReveal', 'uRevealFade'] as const;
 
 // How many rings fade at once during a reveal, and the margin (in rings) for the warp moving lines
 // beyond the unwarped range we sample.
@@ -172,12 +172,29 @@ export class InkFieldComponent implements AfterViewInit, OnDestroy {
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
     UNIFORM_NAMES.forEach(name => this.uniforms[name] = gl.getUniformLocation(program, name));
-    gl.uniform1f(this.uniforms.uSeed, (this.seed % 997) / 997);
+    this.createNoiseTexture(gl);
+    gl.uniform1i(this.uniforms.uNoise, 0);
     gl.uniform1f(this.uniforms.uReveal, -1e9);
     gl.uniform1f(this.uniforms.uRevealFade, REVEAL_FADE);
 
     this.gl = gl;
     return true;
+  }
+
+  // The random values behind the shader's noise, seeded so the pattern is the same for the whole page
+  // load. Read one texel at a time (NEAREST), wrapping around (REPEAT).
+  private createNoiseTexture(gl: WebGLRenderingContext): void {
+    const rand = seededRandom(this.seed * 17 + 3);
+    const values = new Uint8Array(NOISE_SIZE * NOISE_SIZE);
+    for (let i = 0; i < values.length; i++) values[i] = Math.floor(rand() * 256);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.LUMINANCE, NOISE_SIZE, NOISE_SIZE, 0, gl.LUMINANCE, gl.UNSIGNED_BYTE, values);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
   }
 
   private resize(): void {
